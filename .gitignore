@@ -1,0 +1,23 @@
+# dependencies
+/node_modules
+
+/frontend/node_modules
+/frontend/.pnp
+.pnp.js
+
+# testing
+/frontend/coverage
+
+# production
+/froentend/build
+
+# misc
+/froentend/.DS_Store
+/froentend/.env.local
+/froentend/.env.development.local
+/froentend/.env.test.local
+/froentend/.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

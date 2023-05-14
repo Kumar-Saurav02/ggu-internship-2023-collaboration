@@ -1,0 +1,21 @@
+{
+  "name": "ggu-internship-2023-collaboration",
+  "version": "1.0.0",
+  "description": "All the work of ggu internship (website) are stored here.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kumar-Saurav02/ggu-internship-2023-collaboration.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kumar-Saurav02/ggu-internship-2023-collaboration/issues"
+  },
+  "homepage": "https://github.com/Kumar-Saurav02/ggu-internship-2023-collaboration#readme"
+}
