@@ -24,9 +24,9 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //ROUTE IMPORT
-// const product = require("./routes/productRoute");
+const student = require("./routes/studentRoute");
 
-// app.use("/api", product);
+app.use("/api", student);
 
 // USE ON DEPLOYMENT
 app.use(express.static(path.join(__dirname, "../frontend/build")));
