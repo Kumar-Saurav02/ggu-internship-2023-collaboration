@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const teacherSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Please enter your name"],
-  },
+const adminSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Please enter your email"],
+  },
+  name: {
+    type: String,
+    required: [true, "Please enter your name"],
   },
   password: {
     type: String,
@@ -17,27 +17,13 @@ const teacherSchema = new mongoose.Schema({
     minLength: [6, "Password should have more than 6 characters"],
     select: false,
   },
-  mobileNumber: {
-    type: String,
-  },
-  gender: {
-    type: String,
-  },
-  profilePhoto: {
-    public_id: {
-      type: String,
-    },
-    url: {
-      type: String,
-    },
-  },
   role: {
     type: String,
   },
 });
 
 //PASSWORD HASHING
-teacherSchema.pre("save", async function (next) {
+adminSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
@@ -46,15 +32,15 @@ teacherSchema.pre("save", async function (next) {
 });
 
 //JWT TOKEN
-teacherSchema.methods.getJWTToken = function () {
+adminSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
 };
 
 //COMPARE PASSWORD
-teacherSchema.methods.comparePassword = async function (enteredPassword) {
+adminSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model("Teacher", teacherSchema);
+module.exports = mongoose.model("Admin", adminSchema);

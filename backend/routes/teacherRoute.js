@@ -8,17 +8,23 @@ const {
   getParticularTeacher,
   getTeacher,
 } = require("../controllers/teacherController");
-const { isAuthenticatedUser } = require("../middleware/auth");
+const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const router = express.Router();
 
 router.route("/registerTeacher").post(registerTeacher);
 router.route("/loginTeacher").post(loginTeacher);
 router.route("/logoutTeacher").get(logout);
-router.route("/updateTeacher").put(isAuthenticatedUser, updateDetailsTeacher);
-router.route("/getAllTeachers").get(isAuthenticatedUser, getAllTeachers); //Admin
+router
+  .route("/updateTeacher")
+  .put(isAuthenticatedUser, authorizeRoles("teacher"), updateDetailsTeacher);
+router
+  .route("/getTeacherDetail")
+  .get(isAuthenticatedUser, authorizeRoles("teacher"), getTeacher);
+router
+  .route("/getAllTeachers")
+  .get(isAuthenticatedUser, authorizeRoles("admin"), getAllTeachers);
 router
   .route("/getParticularTeacher")
-  .get(isAuthenticatedUser, getParticularTeacher); // Admin
-router.route("/getTeacherDetail").get(isAuthenticatedUser, getTeacher);
+  .get(isAuthenticatedUser, authorizeRoles("admin"), getParticularTeacher);
 
 module.exports = router;

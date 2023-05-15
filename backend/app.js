@@ -26,9 +26,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //ROUTE IMPORT
 const student = require("./routes/studentRoute");
 const teacher = require("./routes/teacherRoute");
+const admin = require("./routes/adminRoute");
 
 app.use("/api", student);
 app.use("/api", teacher);
+app.use("/api", admin);
 
 // USE ON DEPLOYMENT
 app.use(express.static(path.join(__dirname, "../frontend/build")));
