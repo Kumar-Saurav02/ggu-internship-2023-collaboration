@@ -19,6 +19,6 @@ router.route("/getAllStudents").get(isAuthenticatedUser, getAllStudents); //Admi
 router
   .route("/getParticularStudent")
   .get(isAuthenticatedUser, getParticularStudent); // Admin
-router.route("/getMyDetail").get(isAuthenticatedUser, getStudent);
+router.route("/getStudentDetail").get(isAuthenticatedUser, getStudent);
 
 module.exports = router;

@@ -4,7 +4,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const cloudinary = require("cloudinary").v2;
 
-//REGISTER USER
+//REGISTER STUDENT
 exports.registerStudent = catchAsyncErrors(async (req, res, next) => {
   const { enrollmentNumber, name, password, confirmPassword } = req.body;
 
@@ -29,7 +29,7 @@ exports.registerStudent = catchAsyncErrors(async (req, res, next) => {
   sendToken(student, 201, res);
 });
 
-//LOGIN USER
+//LOGIN STUDENT
 exports.loginStudent = catchAsyncErrors(async (req, res, next) => {
   const { enrollmentNumber, password } = req.body;
 
@@ -54,7 +54,7 @@ exports.loginStudent = catchAsyncErrors(async (req, res, next) => {
   sendToken(student, 200, res);
 });
 
-//LOGOUT STUDENT
+//LOGOUT USER
 exports.logout = catchAsyncErrors(async (req, res, next) => {
   res.cookie("token", null, {
     expires: new Date(Date.now()),
@@ -128,15 +128,15 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     hosteler,
   };
 
-  // console.log(profilePhoto);
-
   if (profilePhoto !== undefined) {
+    if (req.user.photoUpload.public_id !== undefined) {
+      await cloudinary.uploader.destroy(req.user.photoUpload.public_id);
+    }
     const profilePhotoUpload = await cloudinary.uploader.upload(profilePhoto, {
-      folder: "profilePhoto",
+      folder: "Profile Photo Student",
       width: 300,
       crop: "scale",
     });
-    console.log(profilePhotoUpload);
     updatedData.photoUpload = {
       public_id: profilePhotoUpload.public_id,
       url: profilePhotoUpload.secure_url,
