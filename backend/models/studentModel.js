@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const studentSchema = new mongoose.Schema({
   enrollmentNo: {
@@ -139,21 +142,17 @@ const studentSchema = new mongoose.Schema({
   photoUpload: {
     public_id: {
       type: String,
-      required: true,
     },
     url: {
       type: String,
-      required: true,
     },
   },
   signatureUpload: {
     public_id: {
       type: String,
-      required: true,
     },
     url: {
       type: String,
-      required: true,
     },
   },
   attendanceDetails: [
