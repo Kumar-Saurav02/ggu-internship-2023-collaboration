@@ -1,7 +1,12 @@
 import React, { Fragment, useState } from "react";
+import { registerStudents } from "../../actions/studentAction";
+import { registerTeachers } from "../../actions/teacherAction";
+import { useDispatch } from "react-redux";
+import Profile from "../../Images/Profile.png";
 import "./Register.css";
 
 const Register = () => {
+  const dispatch = useDispatch();
   const [registerStudent, setRegisterStudent] = useState(false);
   const [registerTeacher, setRegisterTeacher] = useState(false);
   const [student, setStudent] = useState({
@@ -22,6 +27,8 @@ const Register = () => {
     mobileNumber: "",
     profilePhoto: "",
   });
+  const [avatar, setAvatar] = useState(Profile);
+  const [avatarPreview, setAvatarPreview] = useState(Profile);
   const {
     email,
     nameTeacher,
@@ -38,14 +45,46 @@ const Register = () => {
     setStudent({ ...student, [e.target.name]: e.target.value });
   };
   const registerTeacherDataChange = (e) => {
-    setTeacher({ ...teacher, [e.target.name]: e.target.value });
+    if (e.target.name === "profilePhoto") {
+      const reader = new FileReader();
+      console.log(reader);
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatarPreview(reader.result);
+          setAvatar(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      setTeacher({ ...teacher, [e.target.name]: e.target.value });
+    }
   };
 
   const registerStudentDetails = (e) => {
     e.preventDefault();
+
+    const studentData = new FormData();
+
+    studentData.set("enrollmentNumber", enrollmentNo);
+    studentData.set("name", nameStudent);
+    studentData.set("password", passwordStudent);
+    studentData.set("confirmPassword", confirmPasswordStudent);
+
+    dispatch(registerStudents(studentData));
   };
   const registerTeacherDetails = (e) => {
     e.preventDefault();
+
+    const teacherData = new FormData();
+
+    teacherData.set("enrollmentNumber", enrollmentNo);
+    teacherData.set("name", nameTeacher);
+    teacherData.set("gender", gender);
+    teacherData.set("mobileNumber", mobileNumber);
+    teacherData.set("password", passwordTeacher);
+    teacherData.set("confirmPassword", confirmPasswordTeacher);
+
+    dispatch(registerTeachers(teacherData, avatar));
   };
 
   return (
@@ -162,7 +201,7 @@ const Register = () => {
               />
             </div>
             <div>
-              <img src="" alt="Avatar Preview" />
+              <img src={avatarPreview} alt="Avatar Preview" />
               <input
                 type="file"
                 required
