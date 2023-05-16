@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import "./Register.css";
 
 const Register = () => {
   const [registerStudent, setRegisterStudent] = useState(false);
