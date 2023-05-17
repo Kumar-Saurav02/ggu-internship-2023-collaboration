@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { registerStudents } from "../../actions/studentAction";
 import { registerTeachers } from "../../actions/teacherAction";
 import { useDispatch } from "react-redux";
@@ -7,8 +7,28 @@ import "./Register.css";
 
 const Register = () => {
   const dispatch = useDispatch();
+
+  const categoriesOfUser = ["Student", "Teacher", "HOD"];
+  const [typesOfUser, setTypeOfUser] = useState("");
+
+  useEffect(() => {
+    if (typesOfUser === "Student") {
+      setRegisterStudent(true);
+      setRegisterTeacher(false);
+      setRegisterHOD(false);
+    } else if (typesOfUser === "Teacher") {
+      setRegisterStudent(false);
+      setRegisterTeacher(true);
+      setRegisterHOD(false);
+    } else if (typesOfUser === "HOD") {
+      setRegisterStudent(false);
+      setRegisterTeacher(false);
+      setRegisterHOD(true);
+    }
+  }, [typesOfUser]);
   const [registerStudent, setRegisterStudent] = useState(false);
   const [registerTeacher, setRegisterTeacher] = useState(false);
+  const [registerHOD, setRegisterHOD] = useState(false);
   const [student, setStudent] = useState({
     enrollmentNo: "",
     nameStudent: "",
@@ -63,14 +83,14 @@ const Register = () => {
   const registerStudentDetails = (e) => {
     e.preventDefault();
 
-    const studentData = new FormData();
-
-    studentData.set("enrollmentNumber", enrollmentNo);
-    studentData.set("name", nameStudent);
-    studentData.set("password", passwordStudent);
-    studentData.set("confirmPassword", confirmPasswordStudent);
-
-    dispatch(registerStudents(studentData));
+    dispatch(
+      registerStudents(
+        enrollmentNo,
+        nameStudent,
+        passwordStudent,
+        confirmPasswordStudent
+      )
+    );
   };
   const registerTeacherDetails = (e) => {
     e.preventDefault();
@@ -96,22 +116,14 @@ const Register = () => {
           {!registerStudent && registerTeacher && <h2>Register as Teacher</h2>}
         </div>
         <div className="toggleForRegister">
-          <button
-            className="toggleButtonForRegister"
-            onClick={() => {
-              setRegisterTeacher(false);
-              setRegisterStudent(true);
-            }}>
-            Student
-          </button>
-          <button
-            className="toggleButtonForRegister"
-            onClick={() => {
-              setRegisterTeacher(true);
-              setRegisterStudent(false);
-            }}>
-            Teacher
-          </button>
+          <select onChange={(e) => setTypeOfUser(e.target.value)}>
+            <option value={typesOfUser}>User</option>
+            {categoriesOfUser.map((user) => (
+              <option key={user} value={user}>
+                {user}
+              </option>
+            ))}
+          </select>
         </div>
         {registerStudent && (
           <div>
@@ -158,7 +170,7 @@ const Register = () => {
             <button onClick={registerStudentDetails}>Register</button>
           </div>
         )}
-        {registerTeacher && (
+        {!registerTeacher && (
           <div>
             <div>
               <input
@@ -181,7 +193,7 @@ const Register = () => {
               />
             </div>
             <div>
-              <select onChange={(e) => registerTeacherDataChange}>
+              <select name="gender" onChange={registerTeacherDataChange}>
                 <option value={gender}>Gender</option>
                 {genders.map((gen) => (
                   <option key={gen} value={gen}>

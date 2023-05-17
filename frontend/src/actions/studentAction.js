@@ -9,25 +9,27 @@ import {
 import axios from "axios";
 
 //STUDENT REGISTER
-export const registerStudents = (studentData) => async (dispatch) => {
-  try {
-    dispatch({ type: REGISTER_STUDENT_REQUEST });
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+export const registerStudents =
+  (enrollmentNumber, name, password, confirmPassword) => async (dispatch) => {
+    try {
+      dispatch({ type: REGISTER_STUDENT_REQUEST });
+      const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.post(
-      `/api/registerStudent`,
-      studentData,
-      config
-    );
+      const { data } = await axios.post(
+        `/api/registerStudent`,
+        { enrollmentNumber, name, password, confirmPassword },
+        config
+      );
 
-    dispatch({ type: REGISTER_STUDENT_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: REGISTER_STUDENT_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({ type: REGISTER_STUDENT_SUCCESS, payload: data });
+    } catch (error) {
+      console.log(error.response.data.message);
+      dispatch({
+        type: REGISTER_STUDENT_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 // STUDENT LOGIN
 export const loginStudents =
