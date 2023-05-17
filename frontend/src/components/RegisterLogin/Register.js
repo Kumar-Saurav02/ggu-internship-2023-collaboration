@@ -170,7 +170,7 @@ const Register = () => {
             <button onClick={registerStudentDetails}>Register</button>
           </div>
         )}
-        {!registerTeacher && (
+        {registerTeacher && (
           <div>
             <div>
               <input
