@@ -17,5 +17,18 @@
   "bugs": {
     "url": "https://github.com/Kumar-Saurav02/ggu-internship-2023-collaboration/issues"
   },
-  "homepage": "https://github.com/Kumar-Saurav02/ggu-internship-2023-collaboration#readme"
+  "homepage": "https://github.com/Kumar-Saurav02/ggu-internship-2023-collaboration#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "cloudinary": "^1.37.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.1.1",
+    "nodemailer": "^6.9.2",
+    "validator": "^13.9.0"
+  }
 }
