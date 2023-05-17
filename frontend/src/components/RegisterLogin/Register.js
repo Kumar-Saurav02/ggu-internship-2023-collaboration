@@ -95,16 +95,17 @@ const Register = () => {
   const registerTeacherDetails = (e) => {
     e.preventDefault();
 
-    const teacherData = new FormData();
-
-    teacherData.set("enrollmentNumber", enrollmentNo);
-    teacherData.set("name", nameTeacher);
-    teacherData.set("gender", gender);
-    teacherData.set("mobileNumber", mobileNumber);
-    teacherData.set("password", passwordTeacher);
-    teacherData.set("confirmPassword", confirmPasswordTeacher);
-
-    dispatch(registerTeachers(teacherData, avatar));
+    dispatch(
+      registerTeachers(
+        email,
+        nameTeacher,
+        passwordTeacher,
+        confirmPasswordTeacher,
+        gender,
+        mobileNumber,
+        avatar
+      )
+    );
   };
 
   return (

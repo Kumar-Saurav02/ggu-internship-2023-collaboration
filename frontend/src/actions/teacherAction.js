@@ -10,14 +10,31 @@ import axios from "axios";
 
 //TEACHER REGISTER
 export const registerTeachers =
-  (teacherData, profilePhoto) => async (dispatch) => {
+  (
+    email,
+    name,
+    password,
+    confirmPassword,
+    gender,
+    mobileNumber,
+    profilePhoto
+  ) =>
+  async (dispatch) => {
     try {
       dispatch({ type: REGISTER_TEACHER_REQUEST });
-      const config = { headers: { "Content-Type": "multipart/form-data" } };
+      const config = { headers: { "Content-Type": "application/json" } };
 
       const { data } = await axios.post(
         `/api/registerTeacher`,
-        { teacherData, profilePhoto },
+        {
+          email,
+          name,
+          password,
+          confirmPassword,
+          gender,
+          mobileNumber,
+          profilePhoto,
+        },
         config
       );
 
