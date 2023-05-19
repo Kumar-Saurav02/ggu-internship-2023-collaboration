@@ -4,6 +4,11 @@ import { registerTeachers } from "../../actions/teacherAction";
 import { useDispatch } from "react-redux";
 import Profile from "../../Images/Profile.png";
 import { State } from "country-state-city";
+import dayjs, { Dayjs } from "dayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import "./Register.css";
 
 const Register = () => {
@@ -11,6 +16,8 @@ const Register = () => {
 
   const categoriesOfUser = ["Student", "Teacher", "HOD"];
   const [typesOfUser, setTypeOfUser] = useState("");
+  const [registerStudent, setRegisterStudent] = useState(false);
+  const [registerTeacher, setRegisterTeacher] = useState(false);
 
   useEffect(() => {
     if (typesOfUser === "Student") {
@@ -22,8 +29,6 @@ const Register = () => {
     }
   }, [typesOfUser]);
 
-  const [registerStudent, setRegisterStudent] = useState(false);
-  const [registerTeacher, setRegisterTeacher] = useState(false);
   const [student, setStudent] = useState({
     enrollmentNo: "",
     nameStudent: "",
@@ -36,8 +41,8 @@ const Register = () => {
     fatherMobileNumberStudent: "",
     motherMobileNumberStudent: "",
     genderStudent: "",
-    dateOfBirthStudent: "",
-    dateOfJoiningStudent: "",
+    // dateOfBirthStudent: "",
+    // dateOfJoiningStudent: "",
     religionStudent: "",
     bloodGroupStudent: "",
     categoryStudent: "",
@@ -67,8 +72,8 @@ const Register = () => {
     fatherMobileNumberStudent,
     motherMobileNumberStudent,
     genderStudent,
-    dateOfBirthStudent,
-    dateOfJoiningStudent,
+    // dateOfBirthStudent,
+    // dateOfJoiningStudent,
     religionStudent,
     bloodGroupStudent,
     categoryStudent,
@@ -94,7 +99,7 @@ const Register = () => {
     mobileNumberTeacher: "",
     departmentTeacher: "",
     designationTeacher: "",
-    dateOfBirthTeacher: "",
+    // dateOfBirthTeacher: "",
     qualificationTeacher: "",
     assignSubjectTeacher: [],
     resumeTeacher: "",
@@ -110,7 +115,7 @@ const Register = () => {
     mobileNumberTeacher,
     departmentTeacher,
     designationTeacher,
-    dateOfBirthTeacher,
+    // dateOfBirthTeacher,
     qualificationTeacher,
     assignSubjectTeacher,
     resumeTeacher,
@@ -130,6 +135,9 @@ const Register = () => {
   const [signaturePreviewTeacher, setSignaturePreviewTeacher] =
     useState(Profile);
   const [resumeFileTeacher, setResumeFileTeacher] = useState(Profile);
+  const [dateOfBirthStudent, setDateOfBirthStudent] = useState();
+  const [dateOfJoiningStudent, setDateOfJoiningStudent] = useState();
+  const [dateOfBirthTeacher, setDateOfBirthTeacher] = useState();
 
   const genders = ["Male", "Female"];
   const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -266,6 +274,42 @@ const Register = () => {
         confirmPasswordTeacher
       )
     );
+  };
+
+  const inputArr = [
+    {
+      type: "text",
+      id: 1,
+      value: "",
+    },
+  ];
+
+  const [arr, setArr] = useState(inputArr);
+
+  const addInput = () => {
+    setArr((s) => {
+      return [
+        ...s,
+        {
+          type: "text",
+          value: "",
+          placeholder: "Assigned Subject",
+          required: true,
+        },
+      ];
+    });
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+
+    const index = e.target.id;
+    setArr((s) => {
+      const newArr = s.slice();
+      newArr[index].value = e.target.value;
+
+      return newArr;
+    });
   };
 
   return (
@@ -406,25 +450,23 @@ const Register = () => {
             </div>
             <div>
               {/* Calendar */}
-              <input
-                type="text"
-                placeholder="Date Of Birth"
-                required
-                name="dateOfBirthStudent"
-                value={dateOfBirthStudent}
-                onChange={registerStudentDataChange}
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date Of Birth"
+                  value={dateOfBirthStudent}
+                  onChange={(newValue) => setDateOfBirthStudent(newValue)}
+                />
+              </LocalizationProvider>
             </div>
             <div>
               {/* Calendar */}
-              <input
-                type="text"
-                placeholder="Date Of Joining"
-                required
-                name="dateOfJoiningStudent"
-                value={dateOfJoiningStudent}
-                onChange={registerStudentDataChange}
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date Of Joining"
+                  value={dateOfJoiningStudent}
+                  onChange={(newValue) => setDateOfJoiningStudent(newValue)}
+                />
+              </LocalizationProvider>
             </div>
             <div>
               <select
@@ -622,6 +664,8 @@ const Register = () => {
             <button onClick={registerStudentDetails}>Register</button>
           </div>
         )}
+
+        {/* TEACHER */}
         {registerTeacher && (
           <div>
             <div>
@@ -695,14 +739,13 @@ const Register = () => {
             </div>
             <div>
               {/* Calendar */}
-              <input
-                type="text"
-                placeholder="Date Of Birth"
-                required
-                name="dateOfBirthTeacher"
-                value={dateOfBirthTeacher}
-                onChange={registerStudentDataChange}
-              />
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date Of Birth"
+                  value={dateOfBirthTeacher}
+                  onChange={(newValue) => setDateOfBirthTeacher(newValue)}
+                />
+              </LocalizationProvider>
             </div>
             <div>
               <input
@@ -714,16 +757,21 @@ const Register = () => {
                 onChange={registerStudentDataChange}
               />
             </div>
+
             <div>
-              {/* Multiple Select */}
-              <input
-                type="text"
-                placeholder="Assigned Subject"
-                required
-                name="assignSubjectTeacher"
-                value={assignSubjectTeacher}
-                onChange={registerStudentDataChange}
-              />
+              <h3>Assigned Subject</h3>
+              <button onClick={addInput}>Add another field</button>
+              {arr.map((item, i) => {
+                return (
+                  <input
+                    onChange={handleChange}
+                    value={item.value}
+                    id={i}
+                    type={item.type}
+                    size="40"
+                  />
+                );
+              })}
             </div>
             <h3>Photo Upload</h3>
             <div>
