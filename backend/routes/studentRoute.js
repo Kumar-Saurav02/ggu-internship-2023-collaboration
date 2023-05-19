@@ -7,6 +7,7 @@ const {
   getAllStudents,
   getParticularStudent,
   getStudent,
+  getCourseSelectionForSemester,
 } = require("../controllers/studentController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const router = express.Router();
@@ -21,13 +22,17 @@ router
   .route("/getStudentDetail")
   .get(isAuthenticatedUser, authorizeRoles("student"), getStudent);
 router
+  .route("/getCourseForSelection")
+  .get(
+    isAuthenticatedUser,
+    authorizeRoles("student"),
+    getCourseSelectionForSemester
+  );
+router
   .route("/getAllStudents")
   .get(isAuthenticatedUser, authorizeRoles("admin"), getAllStudents);
 router
   .route("/getParticularStudent")
   .get(isAuthenticatedUser, authorizeRoles("admin"), getParticularStudent);
-router
-  .route("/getStudentDetail")
-  .get(isAuthenticatedUser, authorizeRoles("student"), getStudent);
 
 module.exports = router;

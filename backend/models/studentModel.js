@@ -180,6 +180,28 @@ const studentSchema = new mongoose.Schema({
       },
     },
   ],
+  courseSelected: [
+    {
+      semester: {
+        type: Number,
+      },
+      subjectName: {
+        type: String,
+      },
+      subjectCode: {
+        type: String,
+      },
+      subjectCredit: {
+        type: Number,
+      },
+      category: {
+        type: String,
+      },
+      cycle: {
+        type: String,
+      },
+    },
+  ],
   role: {
     type: String,
   },

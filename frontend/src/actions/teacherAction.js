@@ -5,6 +5,9 @@ import {
   LOGIN_TEACHER_REQUEST,
   LOGIN_TEACHER_SUCCESS,
   LOGIN_TEACHER_FAIL,
+  LOAD_TEACHER_REQUEST,
+  LOAD_TEACHER_SUCCESS,
+  LOAD_TEACHER_FAIL,
 } from "../constants/teacherConstant";
 import axios from "axios";
 
@@ -69,5 +72,18 @@ export const loginTeachers = (email, password) => async (dispatch) => {
       type: LOGIN_TEACHER_FAIL,
       payload: error.response.data.message,
     });
+  }
+};
+
+// LOAD TEACHER
+export const loadTeacher = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOAD_TEACHER_REQUEST });
+
+    const { data } = await axios.get(`/api/getTeacherDetail`);
+
+    dispatch({ type: LOAD_TEACHER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: LOAD_TEACHER_FAIL, payload: error.response.data.message });
   }
 };

@@ -3,6 +3,7 @@ import { registerStudents } from "../../actions/studentAction";
 import { registerTeachers } from "../../actions/teacherAction";
 import { useDispatch } from "react-redux";
 import Profile from "../../Images/Profile.png";
+import { State } from "country-state-city";
 import "./Register.css";
 
 const Register = () => {
@@ -15,63 +16,190 @@ const Register = () => {
     if (typesOfUser === "Student") {
       setRegisterStudent(true);
       setRegisterTeacher(false);
-      setRegisterHOD(false);
     } else if (typesOfUser === "Teacher") {
       setRegisterStudent(false);
       setRegisterTeacher(true);
-      setRegisterHOD(false);
-    } else if (typesOfUser === "HOD") {
-      setRegisterStudent(false);
-      setRegisterTeacher(false);
-      setRegisterHOD(true);
     }
   }, [typesOfUser]);
+
   const [registerStudent, setRegisterStudent] = useState(false);
   const [registerTeacher, setRegisterTeacher] = useState(false);
-  const [registerHOD, setRegisterHOD] = useState(false);
   const [student, setStudent] = useState({
     enrollmentNo: "",
     nameStudent: "",
+    rollNoStudent: "",
+    fatherNameStudent: "",
+    motherNameStudent: "",
+    currentSemesterStudent: "",
+    emailStudent: "",
+    mobileNumberStudent: "",
+    fatherMobileNumberStudent: "",
+    motherMobileNumberStudent: "",
+    genderStudent: "",
+    dateOfBirthStudent: "",
+    dateOfJoiningStudent: "",
+    religionStudent: "",
+    bloodGroupStudent: "",
+    categoryStudent: "",
+    physicallyHandicappedStudent: "",
+    aadharNumberStudent: "",
+    hostelerStudent: "",
+    localAddressStudent: "",
+    localStateStudent: "",
+    localPinCodeStudent: "",
+    permanentAddressStudent: "",
+    permanentStateStudent: "",
+    permanentPinCodeStudent: "",
+    photoUploadStudent: "",
+    signatureUploadStudent: "",
     passwordStudent: "",
     confirmPasswordStudent: "",
   });
-  const { enrollmentNo, nameStudent, passwordStudent, confirmPasswordStudent } =
-    student;
+  const {
+    enrollmentNo,
+    nameStudent,
+    rollNoStudent,
+    fatherNameStudent,
+    motherNameStudent,
+    currentSemesterStudent,
+    emailStudent,
+    mobileNumberStudent,
+    fatherMobileNumberStudent,
+    motherMobileNumberStudent,
+    genderStudent,
+    dateOfBirthStudent,
+    dateOfJoiningStudent,
+    religionStudent,
+    bloodGroupStudent,
+    categoryStudent,
+    physicallyHandicappedStudent,
+    aadharNumberStudent,
+    hostelerStudent,
+    localAddressStudent,
+    localStateStudent,
+    localPinCodeStudent,
+    permanentAddressStudent,
+    permanentStateStudent,
+    permanentPinCodeStudent,
+    photoUploadStudent,
+    signatureUploadStudent,
+    passwordStudent,
+    confirmPasswordStudent,
+  } = student;
 
   const [teacher, setTeacher] = useState({
-    email: "",
+    emailTeacher: "",
     nameTeacher: "",
+    genderTeacher: "",
+    mobileNumberTeacher: "",
+    departmentTeacher: "",
+    designationTeacher: "",
+    dateOfBirthTeacher: "",
+    qualificationTeacher: "",
+    assignSubjectTeacher: [],
+    resumeTeacher: "",
+    profilePhotoTeacher: "",
+    signatureTeacher: "",
     passwordTeacher: "",
     confirmPasswordTeacher: "",
-    gender: "",
-    mobileNumber: "",
-    profilePhoto: "",
   });
-  const [avatar, setAvatar] = useState(Profile);
-  const [avatarPreview, setAvatarPreview] = useState(Profile);
   const {
-    email,
+    emailTeacher,
     nameTeacher,
+    genderTeacher,
+    mobileNumberTeacher,
+    departmentTeacher,
+    designationTeacher,
+    dateOfBirthTeacher,
+    qualificationTeacher,
+    assignSubjectTeacher,
+    resumeTeacher,
+    profilePhotoTeacher,
+    signatureTeacher,
     passwordTeacher,
     confirmPasswordTeacher,
-    gender,
-    mobileNumber,
-    profilePhoto,
   } = teacher;
+  const [avatarStudent, setAvatarStudent] = useState(Profile);
+  const [avatarPreviewStudent, setAvatarPreviewStudent] = useState(Profile);
+  const [avatarTeacher, setAvatarTeacher] = useState(Profile);
+  const [avatarPreviewTeacher, setAvatarPreviewTeacher] = useState(Profile);
+  const [signatureAvatarStudent, setSignatureAvatarStudent] = useState(Profile);
+  const [signaturePreviewStudent, setSignaturePreviewStudent] =
+    useState(Profile);
+  const [signatureAvatarTeacher, setSignatureAvatarTeacher] = useState(Profile);
+  const [signaturePreviewTeacher, setSignaturePreviewTeacher] =
+    useState(Profile);
+  const [resumeFileTeacher, setResumeFileTeacher] = useState(Profile);
 
   const genders = ["Male", "Female"];
+  const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
+  const religions = ["Hindu", "Christians", "Sikh", "Muslim", "Jain", "Others"];
+  const bloodGroups = ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"];
+  const categories = ["OPEN", "OBC", "OBC(NCL)", "SC", "ST", "EWS"];
+  const yesNo = ["Yes", "No"];
+  const designations = ["Professor", "Assistant Professor", "HOD"];
+  const departments = [
+    "Department of Computer Science and Engineering",
+    "Department of Information Technology",
+    "Department of Electronics & Communication Engineering",
+    "Department of Chemical Engineering",
+    "Department of Civil Engineering",
+    "Department of Mechanical Engineering",
+    "Department of Industrial & Production Engineering",
+  ];
 
   const registerStudentDataChange = (e) => {
-    setStudent({ ...student, [e.target.name]: e.target.value });
-  };
-  const registerTeacherDataChange = (e) => {
-    if (e.target.name === "profilePhoto") {
+    if (e.target.name === "photoUploadStudent") {
       const reader = new FileReader();
-      console.log(reader);
+
       reader.onload = () => {
         if (reader.readyState === 2) {
-          setAvatarPreview(reader.result);
-          setAvatar(reader.result);
+          setAvatarPreviewStudent(reader.result);
+          setAvatarStudent(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else if (e.target.name === "signatureUploadStudent") {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setSignaturePreviewStudent(reader.result);
+          setSignatureAvatarStudent(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      setStudent({ ...student, [e.target.name]: e.target.value });
+    }
+  };
+  const registerTeacherDataChange = (e) => {
+    if (e.target.name === "profilePhotoTeacher") {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setAvatarPreviewTeacher(reader.result);
+          setAvatarTeacher(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else if (e.target.name === "signatureTeacher") {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setSignatureAvatarTeacher(reader.result);
+          setSignaturePreviewTeacher(reader.result);
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else if (e.target.name === "resumeTeacher") {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          setResumeFileTeacher(reader.result);
         }
       };
       reader.readAsDataURL(e.target.files[0]);
@@ -87,6 +215,31 @@ const Register = () => {
       registerStudents(
         enrollmentNo,
         nameStudent,
+        rollNoStudent,
+        fatherNameStudent,
+        motherNameStudent,
+        currentSemesterStudent,
+        emailStudent,
+        mobileNumberStudent,
+        fatherMobileNumberStudent,
+        motherMobileNumberStudent,
+        genderStudent,
+        dateOfBirthStudent,
+        dateOfJoiningStudent,
+        religionStudent,
+        bloodGroupStudent,
+        categoryStudent,
+        physicallyHandicappedStudent,
+        aadharNumberStudent,
+        hostelerStudent,
+        localAddressStudent,
+        localStateStudent,
+        localPinCodeStudent,
+        permanentAddressStudent,
+        permanentStateStudent,
+        permanentPinCodeStudent,
+        avatarStudent,
+        signatureAvatarStudent,
         passwordStudent,
         confirmPasswordStudent
       )
@@ -97,13 +250,20 @@ const Register = () => {
 
     dispatch(
       registerTeachers(
-        email,
+        emailTeacher,
         nameTeacher,
+        genderTeacher,
+        mobileNumberTeacher,
+        departmentTeacher,
+        designationTeacher,
+        dateOfBirthTeacher,
+        qualificationTeacher,
+        assignSubjectTeacher,
+        resumeFileTeacher,
+        avatarTeacher,
+        signatureAvatarTeacher,
         passwordTeacher,
-        confirmPasswordTeacher,
-        gender,
-        mobileNumber,
-        avatar
+        confirmPasswordTeacher
       )
     );
   };
@@ -150,6 +310,297 @@ const Register = () => {
             </div>
             <div>
               <input
+                type="text"
+                placeholder="Roll Number"
+                required
+                name="rollNoStudent"
+                value={rollNoStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Father's Name"
+                required
+                name="fatherNameStudent"
+                value={fatherNameStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Mother's Name"
+                required
+                name="motherNameStudent"
+                value={motherNameStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <select
+                required
+                name="currentSemesterStudent"
+                onChange={registerStudentDataChange}>
+                <option value={currentSemesterStudent}>Semester</option>
+                {semesters.map((sem) => (
+                  <option key={sem} value={sem}>
+                    {sem}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                required
+                name="emailStudent"
+                value={emailStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <input
+                type="number"
+                placeholder="Mobile Number"
+                required
+                name="mobileNumberStudent"
+                value={mobileNumberStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Father's Mobile Number"
+                required
+                name="fatherMobileNumberStudent"
+                value={fatherMobileNumberStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <input
+                type="number"
+                placeholder="Father's Mobile Number"
+                required
+                name="motherMobileNumberStudent"
+                value={motherMobileNumberStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <select
+                required
+                name="genderStudent"
+                onChange={registerStudentDataChange}>
+                <option value={genderStudent}>Gender</option>
+                {genders.map((gen) => (
+                  <option key={gen} value={gen}>
+                    {gen}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              {/* Calendar */}
+              <input
+                type="text"
+                placeholder="Date Of Birth"
+                required
+                name="dateOfBirthStudent"
+                value={dateOfBirthStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              {/* Calendar */}
+              <input
+                type="text"
+                placeholder="Date Of Joining"
+                required
+                name="dateOfJoiningStudent"
+                value={dateOfJoiningStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <select
+                required
+                name="religionStudent"
+                onChange={registerStudentDataChange}>
+                <option value={religionStudent}>Religion</option>
+                {religions.map((religion) => (
+                  <option key={religion} value={religion}>
+                    {religion}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                required
+                name="bloodGroupStudent"
+                onChange={registerStudentDataChange}>
+                <option value={bloodGroupStudent}>Blood Group</option>
+                {bloodGroups.map((bloodGroup) => (
+                  <option key={bloodGroup} value={bloodGroup}>
+                    {bloodGroup}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                required
+                name="categoryStudent"
+                onChange={registerStudentDataChange}>
+                <option value={categoryStudent}>Category</option>
+                {categories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                required
+                name="physicallyHandicappedStudent"
+                onChange={registerStudentDataChange}>
+                <option value={physicallyHandicappedStudent}>
+                  Physically Handicapped
+                </option>
+                {yesNo.map((yn) => (
+                  <option key={yn} value={yn}>
+                    {yn}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <input
+                type="number"
+                placeholder="Aadhar Number"
+                required
+                name="aadharNumberStudent"
+                value={aadharNumberStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <select
+                required
+                name="hostelerStudent"
+                onChange={registerStudentDataChange}>
+                <option value={hostelerStudent}>Hosteler</option>
+                {yesNo.map((yn) => (
+                  <option key={yn} value={yn}>
+                    {yn}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <h3>Local Address</h3>
+            <div>
+              <input
+                type="text"
+                placeholder="Local Address"
+                required
+                name="localAddressStudent"
+                value={localAddressStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <select
+                required
+                name="localStateStudent"
+                value={localStateStudent}
+                onChange={registerStudentDataChange}>
+                <option value="">State</option>
+                {State &&
+                  State.getStatesOfCountry("IN").map((item) => (
+                    <option key={item.isoCode} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Pin Code"
+                required
+                name="localPinCodeStudent"
+                value={localPinCodeStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <h3>Permanent Address</h3>
+            <div>
+              <input
+                type="number"
+                placeholder="Permanent Address"
+                required
+                name="permanentAddressStudent"
+                value={permanentAddressStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <select
+                required
+                name="permanentStateStudent"
+                value={permanentStateStudent}
+                onChange={registerStudentDataChange}>
+                <option value="">State</option>
+                {State &&
+                  State.getStatesOfCountry("IN").map((item) => (
+                    <option key={item.isoCode} value={item.name}>
+                      {item.name}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div>
+              <input
+                type="number"
+                placeholder="Pin Code"
+                required
+                name="permanentPinCodeStudent"
+                value={permanentPinCodeStudent}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <h3>Photo Upload</h3>
+            <div>
+              <img src={avatarPreviewStudent} alt="Avatar Preview" />
+              <input
+                type="file"
+                required
+                name="photoUploadStudent"
+                value={photoUploadStudent}
+                accept="image/*"
+                onChange={registerTeacherDataChange}
+              />
+            </div>
+            <h3>Signature Upload</h3>
+            <div>
+              <img src={signaturePreviewStudent} alt="Signature Preview" />
+              <input
+                type="file"
+                required
+                name="signatureUploadStudent"
+                value={signatureUploadStudent}
+                accept="image/*"
+                onChange={registerTeacherDataChange}
+              />
+            </div>
+            <div>
+              <input
                 type="password"
                 placeholder="Password"
                 required
@@ -178,8 +629,8 @@ const Register = () => {
                 type="email"
                 placeholder="Email"
                 required
-                name="email"
-                value={email}
+                name="emailTeacher"
+                value={emailTeacher}
                 onChange={registerTeacherDataChange}
               />
             </div>
@@ -194,8 +645,11 @@ const Register = () => {
               />
             </div>
             <div>
-              <select name="gender" onChange={registerTeacherDataChange}>
-                <option value={gender}>Gender</option>
+              <select
+                required
+                name="genderTeacher"
+                onChange={registerTeacherDataChange}>
+                <option value={genderTeacher}>Gender</option>
                 {genders.map((gen) => (
                   <option key={gen} value={gen}>
                     {gen}
@@ -208,19 +662,101 @@ const Register = () => {
                 type="number"
                 placeholder="Mobile Number"
                 required
-                name="mobileNumber"
-                value={mobileNumber}
+                name="mobileNumberTeacher"
+                value={mobileNumberTeacher}
                 onChange={registerTeacherDataChange}
               />
             </div>
             <div>
-              <img src={avatarPreview} alt="Avatar Preview" />
+              <select
+                required
+                name="departmentTeacher"
+                onChange={registerStudentDataChange}>
+                <option value={departmentTeacher}>Departments</option>
+                {departments.map((department) => (
+                  <option key={department} value={department}>
+                    {department}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select
+                required
+                name="designationTeacher"
+                onChange={registerStudentDataChange}>
+                <option value={designationTeacher}>Designation</option>
+                {designations.map((designation) => (
+                  <option key={designation} value={designation}>
+                    {designation}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              {/* Calendar */}
+              <input
+                type="text"
+                placeholder="Date Of Birth"
+                required
+                name="dateOfBirthTeacher"
+                value={dateOfBirthTeacher}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Qualification"
+                required
+                name="qualificationTeacher"
+                value={qualificationTeacher}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <div>
+              {/* Multiple Select */}
+              <input
+                type="text"
+                placeholder="Assigned Subject"
+                required
+                name="assignSubjectTeacher"
+                value={assignSubjectTeacher}
+                onChange={registerStudentDataChange}
+              />
+            </div>
+            <h3>Photo Upload</h3>
+            <div>
+              <img src={avatarPreviewTeacher} alt="Avatar Preview" />
               <input
                 type="file"
                 required
-                name="profilePhoto"
-                value={profilePhoto}
+                name="profilePhotoTeacher"
+                value={profilePhotoTeacher}
                 accept="image/*"
+                onChange={registerTeacherDataChange}
+              />
+            </div>
+            <h3>Signature Upload</h3>
+            <div>
+              <img src={signaturePreviewTeacher} alt="Signature Preview" />
+              <input
+                type="file"
+                required
+                name="signatureTeacher"
+                value={signatureTeacher}
+                accept="image/*"
+                onChange={registerTeacherDataChange}
+              />
+            </div>
+            <h3>Resume Upload</h3>
+            <div>
+              <input
+                type="file"
+                required
+                name="resumeTeacher"
+                value={resumeTeacher}
+                accept="pdf/*"
                 onChange={registerTeacherDataChange}
               />
             </div>

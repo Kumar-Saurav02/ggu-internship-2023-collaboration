@@ -1,0 +1,38 @@
+.courseSelection {
+  display: flex;
+  flex-direction: column;
+}
+.courseSelection > h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detailsOfStudent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1rem 2rem;
+}
+.detailsOfStudent > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.courseDetails > h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.backSubjects > h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.backSubjects > div > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

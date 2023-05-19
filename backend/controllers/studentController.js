@@ -1,4 +1,5 @@
 const Student = require("../models/studentModel");
+const CourseSelection = require("../models/courseSelectionModel");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
@@ -9,14 +10,14 @@ exports.registerStudent = catchAsyncErrors(async (req, res, next) => {
   const { enrollmentNumber, name, password, confirmPassword } = req.body;
 
   if (password !== confirmPassword) {
-    return next(new ErrorHandler("Password does not match"));
+    return next(new ErrorHandler("Password does not match", 400));
   }
 
   const studentExist = await Student.findOne({
     enrollmentNo: enrollmentNumber,
   });
   if (studentExist) {
-    return next(new ErrorHandler("Student already registered"));
+    return next(new ErrorHandler("Student already registered", 401));
   }
 
   const student = await Student.create({
@@ -106,6 +107,7 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     marksSGPA,
     marksCGPA,
     marksResult,
+    attendance,
   } = req.body;
 
   const updatedData = {
@@ -237,6 +239,26 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     await req.user.save({ validateBeforeSave: false });
   }
 
+  if (attendance !== undefined) {
+    var flag = true;
+    for (let i = 0; i < req.user.attendanceDetails.length; i++) {
+      if (
+        req.user.attendanceDetails[i].semester.toString() ===
+        attendance[0].toString()
+      ) {
+        req.user.attendanceDetails[i].attendance === attendance[1];
+        flag = false;
+      }
+    }
+    if (flag === true) {
+      req.user.attendanceDetails.push({
+        semester: attendance[0],
+        attendance: attendance[1],
+      });
+    }
+    await req.user.save({ validateBeforeSave: false });
+  }
+
   await Student.findByIdAndUpdate(req.user.id, updatedData, {
     new: true,
     runValidators: true,
@@ -279,3 +301,15 @@ exports.getStudent = catchAsyncErrors(async (req, res, next) => {
     student,
   });
 });
+
+//GET COURSE OF STUDENT'S SEMESTER
+exports.getCourseSelectionForSemester = catchAsyncErrors(
+  async (req, res, next) => {
+    const course = await CourseSelection.findOne(req.user.semester);
+
+    res.status(200).json({
+      success: true,
+      course,
+    });
+  }
+);

@@ -17,14 +17,14 @@ exports.registerTeacher = catchAsyncErrors(async (req, res, next) => {
   } = req.body;
 
   if (password !== confirmPassword) {
-    return next(new ErrorHandler("Password does not match"));
+    return next(new ErrorHandler("Password does not match", 400));
   }
 
   const teacherExist = await Teacher.findOne({
     email,
   });
   if (teacherExist) {
-    return next(new ErrorHandler("Teacher already registered"));
+    return next(new ErrorHandler("Teacher already registered", 401));
   }
 
   const photoUpload = await cloudinary.uploader.upload(profilePhoto, {

@@ -23,7 +23,40 @@ const teacherSchema = new mongoose.Schema({
   gender: {
     type: String,
   },
+  department: {
+    type: String,
+  },
+  designation: {
+    type: String,
+  },
+  dateOfBirth: {
+    type: Date,
+  },
+  qualification: {
+    type: String,
+  },
+  assignSubject: [
+    {
+      type: String,
+    },
+  ],
+  resume: {
+    public_id: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
+  },
   profilePhoto: {
+    public_id: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
+  },
+  signature: {
     public_id: {
       type: String,
     },
