@@ -6,7 +6,7 @@ import {
 } from "../../actions/studentAction";
 import Loader from "../Loader/Loader";
 import "./CourseSelection.css";
-import "../StudentScholarship/StudentScholarship.css";
+import "../studentScholarship/StudentScholarship.css";
 
 const CourseSelection = () => {
   const dispatch = useDispatch();
