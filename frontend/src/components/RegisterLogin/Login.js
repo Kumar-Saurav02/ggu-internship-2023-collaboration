@@ -71,7 +71,7 @@ const Login = () => {
         </div>
 
         <Fragment>
-          <div className="full ">
+          <div className="full">
             <div className="heading">
               {!loginStudent && !loginTeacher && <h2>Login</h2>}
               {loginStudent && !loginTeacher && <h2>Login as Student</h2>}
