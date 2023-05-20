@@ -1,0 +1,135 @@
+
+/* yah mera hai */
+
+body
+{
+  background: no-repeat url("../../Images/bg.jpg");
+  background-size: cover ;
+  font-size: 14px;
+  
+
+}
+.lefthalf {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     width: 49%; 
+  }
+
+  .loginImg {
+    width: 75%;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .righthalf {
+    display: inline-block;
+    align-items: center;
+    /* text-align: center; */
+    width: 49%;
+    
+  }
+  
+  .loginBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* justify-content: center; */
+    background-color: white;
+    margin: auto;
+    width: 50%;
+    border: 1.5px solid;
+    padding: 2%;
+    margin-top: 10%;
+
+  }
+  .welcome{
+    display: flex; 
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+   
+  }
+  .ggulogo{
+    flex: 0.5;
+    width: 63px;
+    padding: 1rem ;
+    border-radius: 2rem;
+    margin-right: 5px;
+  }
+  .welcome > div > h2{
+    flex: 0.5;
+    font-size: 1rem;
+  }
+ 
+  .border
+  {
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 2px;
+    background: #f4f2ff;
+    text-align: center;
+    margin: 2px;
+    width: 80%;
+    
+  }
+
+  nav
+  {
+    display: inline-block;
+  }
+
+  #user
+  {
+    width: 100%;
+  }
+
+  .register
+  {
+   margin-top: 30px;
+  }
+
+  .sign_in
+  {
+    margin-top: 5%;
+  }
+  .signInbtn
+  {
+    width: 43%;
+
+  }
+  
+  .signInbtn:hover 
+  {
+    box-shadow: 0 -3px 3px 1px #848ee6;
+  }
+
+  .register:hover 
+  {
+    box-shadow: 0 -3px 3px 1px #848ee6;
+  }
+
+  .regandfor
+  {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10%;
+
+  }
+ 
+ .forlin
+ {
+    margin-left: 10%;
+ }
+
+ .field{
+    display: flex;
+    flex-direction: row;
+    background-color: #f4f2ff;
+
+ }
+  /* .welcome
+  {
+    text-align: left;
+  }
+   */
