@@ -1,5 +1,4 @@
-
-.full_scholarship{
+.full_Sdocument{
     background-color: white;
     padding: 5vh;
     height: 100vh;
@@ -10,14 +9,14 @@
     
 }
 
-.first_scholarship{
+.first_Sdocument{
     padding:2vh;
     background-color: white;
     /* width: 80%; */
     width: auto;
 }
 
-.heading_scholarship{
+.heading_Sdocument{
     padding: 11px;
     background-color: blue;
     text-align: left;
@@ -25,7 +24,7 @@
 }
 
 
-.showdata_scholarship{
+.showdata_Sdocument{
     width:100%;
     display: flex;
     flex-direction: column;
@@ -36,7 +35,7 @@
 
 }
 
-.Field_data_val_scholarship{  
+.Field_data_val_Sdocument{  
     padding-top: 7px;
     padding-bottom: 7px;
     display: flex;
@@ -46,7 +45,7 @@
     border:1px solid black;
 }
 
-.Field_data_val_show_scholarship{
+.Field_data_val_show_Sdocument{
     background-color: rgb(228, 234, 234);
     width: 100%;
     margin-top: 15px;
@@ -61,21 +60,21 @@
 
 
 
-.filldata_scholarship
+.filldata_Sdocument
 {
     display: flex;
     flex-direction: column;
 }
 
 
-.titles_scholarship{
+.titles_Sdocument{
     text-align: left;
     margin-top: 6vh;
     padding: auto;
 
 }
 
-.data_n_title_scholarship{
+.data_n_title_Sdocument{
     width:25%;
     margin: auto;
     text-align: center;
@@ -85,26 +84,18 @@
     width: 70px;
     height: 10rem;
 }
-.input_scholarship{
+.input_Sdocument{
     width:70vh;
-    height: 10vh;
+    height: 40px;
     box-sizing: border-box;
 
 }
-.submitbtn_scholarship{
+.submitbtn_Sdocument{
     padding-top: 3vh;
     float: left;
-}
-.input_scholarship{
-    box-sizing: border-box;
-     width:100%;
-     height:40px;
 }
 /* input[type=text],select{
      box-sizing: border-box;
      width:100%;
      height:40px;
 } */
-
-
-

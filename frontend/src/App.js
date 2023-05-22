@@ -4,6 +4,7 @@ import Register from "./components/RegisterLogin/Register";
 import Login from "./components/RegisterLogin/Login";
 import Scholarship from "./components/studentScholarship/StudentScholarship";
 import CourseSelection from "./components/CourseSelection/CourseSelection";
+import SDocumentUpload from "./components/StudentDocumentUpload/DocumentUpload"
 import { useEffect } from "react";
 import { loadStudent } from "./actions/studentAction";
 import { loadTeacher } from "./actions/teacherAction";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/scholarship" element={<Scholarship />} />
         <Route path="/courseSelection" element={<CourseSelection />} />
+        <Route path="/documents" element={ <SDocumentUpload/> }></Route>
       </Routes>
     </Router>
   );
