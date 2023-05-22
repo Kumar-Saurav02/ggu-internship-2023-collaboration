@@ -619,6 +619,7 @@ const Register = () => {
             </div>
             <h3>Photo Upload</h3>
             <div>
+              <h2>Documents Upload</h2>
               <img src={avatarPreviewStudent} alt="Avatar Preview" />
               <input
                 type="file"
@@ -629,17 +630,20 @@ const Register = () => {
                 onChange={registerTeacherDataChange}
               />
             </div>
-            <h3>Signature Upload</h3>
-            <div>
-              <img src={signaturePreviewStudent} alt="Signature Preview" />
-              <input
-                type="file"
-                required
-                name="signatureUploadStudent"
-                value={signatureUploadStudent}
-                accept="image/*"
-                onChange={registerTeacherDataChange}
-              />
+                      </div>
+                        
+                        <div className="entry">
+                            <label className="label_name" for="{signatureUploadStudent}">Photo Upload</label>
+                             <div className="address" id="label_input">
+                                  <img src={signaturePreviewStudent} alt="Signature Preview" />
+                                  <input
+                                    type="file"
+                                    required
+                                    name="signatureUploadStudent"
+                                    value={signatureUploadStudent}
+                                    accept="image/*"
+                                    onChange={registerTeacherDataChange}
+                                  />
             </div>
             <div>
               <input
