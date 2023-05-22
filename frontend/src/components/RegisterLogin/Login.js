@@ -12,7 +12,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const categoriesOfUser = ["Student", "Teacher", "HOD"];
+  const categoriesOfUser = ["Student", "Teacher"];
   const [typesOfUser, setTypeOfUser] = useState("");
 
   const {
@@ -89,40 +89,6 @@ const Login = () => {
                   </option>
                 ))}
               </select>
-            </div>
-
-            <div className="placed">
-              {!loginStudent && !loginTeacher && (
-                <div>
-                  <div>
-                    <input
-                      className="border"
-                      type="text"
-                      placeholder="Enter ID"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <input
-                      className="border"
-                      type="password"
-                      placeholder="Enter Password"
-                      required
-                    />
-                  </div>
-                  <div className="sign_in">
-                    <button className="signInbtn border hover">Login</button>
-                    <div className="regandfor">
-                      <button className="signInbtn border hover">
-                        New Register
-                      </button>
-                      <a className="forlin" href="google.com">
-                        Forgot Password🤔
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
 
             {loginStudent && (

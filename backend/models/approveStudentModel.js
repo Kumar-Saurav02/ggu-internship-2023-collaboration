@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
-const studentSchema = new mongoose.Schema({
+const approveStudentSchema = new mongoose.Schema({
   enrollmentNo: {
     type: String,
     required: [true, "Please enter enrollment number"],
@@ -12,7 +10,6 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your password"],
     minLength: [8, "Password should have more than 6 characters"],
-    select: false,
   },
   rollNo: {
     type: Number,
@@ -86,31 +83,6 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please fill required box"],
   },
-  feeDetails: [
-    {
-      semester: {
-        type: Number,
-      },
-      bankName: {
-        type: String,
-      },
-      accountNumber: {
-        type: Number,
-      },
-      ifscCode: {
-        type: String,
-      },
-      amount: {
-        type: Number,
-      },
-      challanId: {
-        type: String,
-      },
-      dateOfPayment: {
-        type: Date,
-      },
-    },
-  ],
   localAddress: {
     address: {
       type: String,
@@ -133,29 +105,6 @@ const studentSchema = new mongoose.Schema({
       type: Number,
     },
   },
-  marksDetails: [
-    {
-      semester: {
-        type: Number,
-      },
-      cgpa: {
-        type: Number,
-      },
-      sgpa: {
-        type: Number,
-      },
-      result: {
-        public_id: {
-          type: String,
-          required: true,
-        },
-        url: {
-          type: String,
-          required: true,
-        },
-      },
-    },
-  ],
   photoUpload: {
     public_id: {
       type: String,
@@ -176,78 +125,6 @@ const studentSchema = new mongoose.Schema({
       required: [true, "Please upload the signature"],
     },
   },
-  attendanceDetails: [
-    {
-      semester: {
-        type: Number,
-      },
-      attendance: {
-        type: Number,
-      },
-    },
-  ],
-  backSubject: [
-    {
-      subjectName: {
-        type: String,
-      },
-      subjectCode: {
-        type: String,
-      },
-      semester: {
-        type: Number,
-      },
-      subjectCredit: {
-        type: String,
-      },
-    },
-  ],
-  courseSelected: [
-    {
-      semester: {
-        type: Number,
-      },
-      subjectName: {
-        type: String,
-      },
-      subjectCode: {
-        type: String,
-      },
-      subjectCredit: {
-        type: Number,
-      },
-      category: {
-        type: String,
-      },
-      cycle: {
-        type: String,
-      },
-    },
-  ],
-  role: {
-    type: String,
-  },
 });
 
-//PASSWORD HASHING
-studentSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
-  }
-
-  this.password = await bcrypt.hash(this.password, 10);
-});
-
-//JWT TOKEN
-studentSchema.methods.getJWTToken = function () {
-  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRE,
-  });
-};
-
-//COMPARE PASSWORD
-studentSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
-
-module.exports = mongoose.model("Student", studentSchema);
+module.exports = mongoose.model("ApproveStudent", approveStudentSchema);

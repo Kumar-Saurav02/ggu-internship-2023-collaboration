@@ -1,7 +1,4 @@
 import {
-  REGISTER_TEACHER_REQUEST,
-  REGISTER_TEACHER_SUCCESS,
-  REGISTER_TEACHER_FAIL,
   LOGIN_TEACHER_REQUEST,
   LOGIN_TEACHER_SUCCESS,
   LOGIN_TEACHER_FAIL,
@@ -9,18 +6,31 @@ import {
   LOAD_TEACHER_SUCCESS,
   LOAD_TEACHER_FAIL,
 } from "../constants/teacherConstant";
+import {
+  REGISTER_TEACHER_REQUEST,
+  REGISTER_TEACHER_SUCCESS,
+  REGISTER_TEACHER_FAIL,
+} from "../constants/adminConstant";
 import axios from "axios";
 
 //TEACHER REGISTER
 export const registerTeachers =
   (
+    employeeID,
     email,
     name,
-    password,
-    confirmPassword,
     gender,
     mobileNumber,
-    profilePhoto
+    department,
+    designation,
+    dateOfBirth,
+    qualification,
+    assignSubject,
+    resume,
+    profilePhoto,
+    signature,
+    password,
+    confirmPassword
   ) =>
   async (dispatch) => {
     try {
@@ -28,20 +38,28 @@ export const registerTeachers =
       const config = { headers: { "Content-Type": "application/json" } };
 
       const { data } = await axios.post(
-        `/api/registerTeacher`,
+        `/api/registerApprovalTeacher`,
         {
+          employeeID,
           email,
           name,
-          password,
-          confirmPassword,
           gender,
           mobileNumber,
+          department,
+          designation,
+          dateOfBirth,
+          qualification,
+          assignSubject,
+          resume,
           profilePhoto,
+          signature,
+          password,
+          confirmPassword,
         },
         config
       );
 
-      dispatch({ type: REGISTER_TEACHER_SUCCESS, payload: data });
+      dispatch({ type: REGISTER_TEACHER_SUCCESS, payload: data.message });
     } catch (error) {
       dispatch({
         type: REGISTER_TEACHER_FAIL,

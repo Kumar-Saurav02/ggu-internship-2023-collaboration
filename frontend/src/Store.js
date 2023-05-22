@@ -6,11 +6,20 @@ import {
   registerLoginStudentsReducer,
 } from "./reducers/studentReducer";
 import { registerLoginTeachersReducer } from "./reducers/teacherReducer";
+import {
+  acceptingRejectingStudentTeacherApprovalReducer,
+  getStudentApprovalRequestReducer,
+  getTeacherApprovalRequestReducer,
+} from "./reducers/adminReducer";
 
 const reducer = combineReducers({
   registerLoginStudents: registerLoginStudentsReducer,
   registerLoginTeachers: registerLoginTeachersReducer,
   courseForStudents: getCourseForStudentReducer,
+  studentsApprovalRequests: getStudentApprovalRequestReducer,
+  teachersApprovalRequests: getTeacherApprovalRequestReducer,
+  acceptingRejectingStudentTeacherApproval:
+    acceptingRejectingStudentTeacherApprovalReducer,
 });
 
 let initialState = {};

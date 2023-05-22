@@ -1,7 +1,4 @@
 import {
-  REGISTER_STUDENT_REQUEST,
-  REGISTER_STUDENT_SUCCESS,
-  REGISTER_STUDENT_FAIL,
   LOGIN_STUDENT_REQUEST,
   LOGIN_STUDENT_SUCCESS,
   LOGIN_STUDENT_FAIL,
@@ -20,14 +17,13 @@ export const registerLoginStudentsReducer = (
   action
 ) => {
   switch (action.type) {
-    case REGISTER_STUDENT_REQUEST:
     case LOGIN_STUDENT_REQUEST:
     case LOAD_STUDENT_REQUEST:
       return {
         loading: true,
         isAuthenticated: false,
       };
-    case REGISTER_STUDENT_SUCCESS:
+
     case LOGIN_STUDENT_SUCCESS:
     case LOAD_STUDENT_SUCCESS:
       return {
@@ -42,7 +38,7 @@ export const registerLoginStudentsReducer = (
         student: null,
         isAuthenticated: false,
       };
-    case REGISTER_STUDENT_FAIL:
+
     case LOGIN_STUDENT_FAIL:
     case LOAD_STUDENT_FAIL:
       return {

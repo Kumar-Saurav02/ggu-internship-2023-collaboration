@@ -1,7 +1,4 @@
 import {
-  REGISTER_STUDENT_REQUEST,
-  REGISTER_STUDENT_SUCCESS,
-  REGISTER_STUDENT_FAIL,
   LOGIN_STUDENT_REQUEST,
   LOGIN_STUDENT_SUCCESS,
   LOGIN_STUDENT_FAIL,
@@ -14,24 +11,89 @@ import {
   COURSE_STUDENT_SUCCESS,
   COURSE_STUDENT_FAIL,
 } from "../constants/studentConstant";
+import {
+  REGISTER_STUDENT_REQUEST,
+  REGISTER_STUDENT_SUCCESS,
+  REGISTER_STUDENT_FAIL,
+} from "../constants/adminConstant";
 import axios from "axios";
 
 //STUDENT REGISTER
 export const registerStudents =
-  (enrollmentNumber, name, password, confirmPassword) => async (dispatch) => {
+  (
+    enrollmentNo,
+    rollNo,
+    name,
+    fatherName,
+    motherName,
+    currentSemester,
+    email,
+    mobileNumber,
+    fatherMobileNumber,
+    motherMobileNumber,
+    gender,
+    dateOfBirth,
+    dateOfJoining,
+    religion,
+    bloodGroup,
+    category,
+    physicallyHandicapped,
+    aadharNumber,
+    hosteler,
+    localAddress,
+    localState,
+    localPinCode,
+    permanentAddress,
+    permanentState,
+    permanentPinCode,
+    avatarStudent,
+    signatureAvatarStudent,
+    password,
+    confirmPassword
+  ) =>
+  async (dispatch) => {
     try {
       dispatch({ type: REGISTER_STUDENT_REQUEST });
       const config = { headers: { "Content-Type": "application/json" } };
 
       const { data } = await axios.post(
-        `/api/registerStudent`,
-        { enrollmentNumber, name, password, confirmPassword },
+        `/api/registerApprovalStudent`,
+        {
+          enrollmentNo,
+          rollNo,
+          name,
+          fatherName,
+          motherName,
+          currentSemester,
+          email,
+          mobileNumber,
+          fatherMobileNumber,
+          motherMobileNumber,
+          gender,
+          dateOfBirth,
+          dateOfJoining,
+          religion,
+          bloodGroup,
+          category,
+          physicallyHandicapped,
+          aadharNumber,
+          hosteler,
+          localAddress,
+          localState,
+          localPinCode,
+          permanentAddress,
+          permanentState,
+          permanentPinCode,
+          avatarStudent,
+          signatureAvatarStudent,
+          password,
+          confirmPassword,
+        },
         config
       );
 
-      dispatch({ type: REGISTER_STUDENT_SUCCESS, payload: data.student });
+      dispatch({ type: REGISTER_STUDENT_SUCCESS, payload: data.message });
     } catch (error) {
-      console.log(error.response.data.message);
       dispatch({
         type: REGISTER_STUDENT_FAIL,
         payload: error.response.data.message,
@@ -44,7 +106,6 @@ export const loginStudents =
   (enrollmentNumber, password) => async (dispatch) => {
     try {
       dispatch({ type: LOGIN_STUDENT_REQUEST });
-      console.log(enrollmentNumber + " " + password);
 
       const config = { headers: { "Content-Type": "application/json" } };
 
