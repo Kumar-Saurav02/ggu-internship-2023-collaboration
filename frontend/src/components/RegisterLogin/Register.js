@@ -11,7 +11,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import "./Register.css";
 
-const Register = () => {
+const Register = () => 
+{
   const dispatch = useDispatch();
 
   const categoriesOfUser = ["Student", "Teacher", "HOD"];
@@ -314,14 +315,14 @@ const Register = () => {
 
   return (
     <Fragment>
-      <div className="register">
+      <div className="registerBox">
         <div className="heading">
-          {!registerStudent && !registerTeacher && <h2>Register</h2>}
-          {registerStudent && !registerTeacher && <h2>Register as Student</h2>}
-          {!registerStudent && registerTeacher && <h2>Register as Teacher</h2>}
+          {!registerStudent && !registerTeacher && <h1>Register</h1>}
+          {registerStudent && !registerTeacher && <h1>Register as Student</h1>}
+          {!registerStudent && registerTeacher && <h1>Register as Teacher</h1>}
         </div>
-        <div className="toggleForRegister">
-          <select onChange={(e) => setTypeOfUser(e.target.value)}>
+        <div className="toggleForRegister ">
+          <select className="border" onChange={(e) => setTypeOfUser(e.target.value)}>
             <option value={typesOfUser}>User</option>
             {categoriesOfUser.map((user) => (
               <option key={user} value={user}>
@@ -331,305 +332,387 @@ const Register = () => {
           </select>
         </div>
         {registerStudent && (
-          <div>
-            <div>
-              <input
-                type="text"
-                placeholder="Enrollment Number"
-                required
-                name="enrollmentNo"
-                value={enrollmentNo}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Name"
-                required
-                name="nameStudent"
-                value={nameStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Roll Number"
-                required
-                name="rollNoStudent"
-                value={rollNoStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Father's Name"
-                required
-                name="fatherNameStudent"
-                value={fatherNameStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Mother's Name"
-                required
-                name="motherNameStudent"
-                value={motherNameStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <select
-                required
-                name="currentSemesterStudent"
-                onChange={registerStudentDataChange}>
-                <option value={currentSemesterStudent}>Semester</option>
-                {semesters.map((sem) => (
-                  <option key={sem} value={sem}>
-                    {sem}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <input
-                type="email"
-                placeholder="Email"
-                required
-                name="emailStudent"
-                value={emailStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="number"
-                placeholder="Mobile Number"
-                required
-                name="mobileNumberStudent"
-                value={mobileNumberStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Father's Mobile Number"
-                required
-                name="fatherMobileNumberStudent"
-                value={fatherMobileNumberStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="number"
-                placeholder="Father's Mobile Number"
-                required
-                name="motherMobileNumberStudent"
-                value={motherMobileNumberStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <select
-                required
-                name="genderStudent"
-                onChange={registerStudentDataChange}>
-                <option value={genderStudent}>Gender</option>
-                {genders.map((gen) => (
-                  <option key={gen} value={gen}>
-                    {gen}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              {/* Calendar */}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Date Of Birth"
-                  value={dateOfBirthStudent}
-                  onChange={(newValue) => setDateOfBirthStudent(newValue)}
-                />
-              </LocalizationProvider>
-            </div>
-            <div>
-              {/* Calendar */}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Date Of Joining"
-                  value={dateOfJoiningStudent}
-                  onChange={(newValue) => setDateOfJoiningStudent(newValue)}
-                />
-              </LocalizationProvider>
-            </div>
-            <div>
-              <select
-                required
-                name="religionStudent"
-                onChange={registerStudentDataChange}>
-                <option value={religionStudent}>Religion</option>
-                {religions.map((religion) => (
-                  <option key={religion} value={religion}>
-                    {religion}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <select
-                required
-                name="bloodGroupStudent"
-                onChange={registerStudentDataChange}>
-                <option value={bloodGroupStudent}>Blood Group</option>
-                {bloodGroups.map((bloodGroup) => (
-                  <option key={bloodGroup} value={bloodGroup}>
-                    {bloodGroup}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <select
-                required
-                name="categoryStudent"
-                onChange={registerStudentDataChange}>
-                <option value={categoryStudent}>Category</option>
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <select
-                required
-                name="physicallyHandicappedStudent"
-                onChange={registerStudentDataChange}>
-                <option value={physicallyHandicappedStudent}>
-                  Physically Handicapped
-                </option>
-                {yesNo.map((yn) => (
-                  <option key={yn} value={yn}>
-                    {yn}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <input
-                type="number"
-                placeholder="Aadhar Number"
-                required
-                name="aadharNumberStudent"
-                value={aadharNumberStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <select
-                required
-                name="hostelerStudent"
-                onChange={registerStudentDataChange}>
-                <option value={hostelerStudent}>Hosteler</option>
-                {yesNo.map((yn) => (
-                  <option key={yn} value={yn}>
-                    {yn}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <h3>Local Address</h3>
-            <div>
-              <input
-                type="text"
-                placeholder="Local Address"
-                required
-                name="localAddressStudent"
-                value={localAddressStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <select
-                required
-                name="localStateStudent"
-                value={localStateStudent}
-                onChange={registerStudentDataChange}>
-                <option value="">State</option>
-                {State &&
-                  State.getStatesOfCountry("IN").map((item) => (
-                    <option key={item.isoCode} value={item.name}>
-                      {item.name}
+          <div className="Data_entry">
+            <div className="subsection" >
+              <h2>Personal Details</h2>
+              <hr></hr>
+              <br></br>
+                <div className="entry">
+                  <label className="label_name" for="{nameStudent}">Name</label>
+                  <input
+                    id="label_input"
+                    type="text"
+                    placeholder="Name"
+                    required
+                    name="nameStudent"
+                    value={nameStudent}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+                <div className="entry">
+                    <label className="label_name" for="{enrollement}">Enrollment Number</label>
+                    <input
+                      id="label_input"
+                      type="text"
+                      placeholder="Enrollment Number"
+                      required
+                      name="enrollmentNo"
+                      value={enrollmentNo}
+                      onChange={registerStudentDataChange}
+                    />
+                </div>
+              
+                
+                <div className="entry">
+                <label className="label_name" for="{rollNoStudent}">Roll Number</label>
+                  <input
+                    id="label_input"
+                    type="text"
+                    placeholder="Roll Number"
+                    required
+                    name="rollNoStudent"
+                    value={rollNoStudent}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{aadharNumberStudent}">Aadhar Number</label>
+                  <input
+                    id="label_input"
+                    type="number"
+                    placeholder="Aadhar Number"
+                    required
+                    name="aadharNumberStudent"
+                    value={aadharNumberStudent}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+                <div className="entry">
+                <label className="label_name" for="{emailStudent}">E-mail ID</label>
+                  <input
+                    id="label_input"
+                    type="email"
+                    placeholder="Email"
+                    required
+                    name="emailStudent"
+                    value={emailStudent}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+                <div className="entry">
+                  <label className="label_name" for="{currentSemesterStudent}">Semester</label> 
+                  <select id="label_input"
+                    required
+                    name="currentSemesterStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={currentSemesterStudent}>Semester</option>
+                    {semesters.map((sem) => (
+                      <option key={sem} value={sem}>
+                        {sem}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{fatherNameStudent}">Fatehr's Name</label>
+                  <input
+                    id="label_input"
+                    type="text"
+                    placeholder="Father's Name"
+                    required
+                    name="fatherNameStudent"
+                    value={fatherNameStudent}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+                <div className="entry">
+                <label className="label_name" for="{motherNameStudent}">Mother's Name</label>
+                  <input
+                    id="label_input"
+                    type="text"
+                    placeholder="Mother's Name"
+                    required
+                    name="motherNameStudent"
+                    value={motherNameStudent}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+                
+                
+                <div className="entry">
+                <label className="label_name" for="{mobileNumberStudent}">Mobile Number</label>
+                  <input
+                    id="label_input"
+                    type="number"
+                    placeholder="Mobile Number"
+                    required
+                    name="mobileNumberStudent"
+                    value={mobileNumberStudent}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{registerStudentDataChange}">Gender</label>                 
+                  <select id="label_input"
+                    required
+                    name="genderStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={genderStudent}>Gender</option>
+                    {genders.map((gen) => (
+                      <option key={gen} value={gen}>
+                        {gen}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Calendar */}
+                <div className="entry">
+                  <label className="label_name" for="{dateOfBirthStudent}">DoB</label>                    
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker id="label_input"
+                      label="Date Of Birth"
+                      value={dateOfBirthStudent}
+                      onChange={(newValue) => setDateOfBirthStudent(newValue)}
+                    />
+                  </LocalizationProvider>
+                </div>
+
+                {/* Calendar */}
+                
+                <div className="entry">
+                  <label className="label_name" for="{dateOfJoiningStudent}">Date of Joining</label>
+                    
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker id="label_input"
+                      label="Date Of Joining"
+                      value={dateOfJoiningStudent}
+                      onChange={(newValue) => setDateOfJoiningStudent(newValue)}
+                    />
+                  </LocalizationProvider>
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{religionStudent}">Religion</label>
+                  <select id="label_input"
+                    required
+                    name="religionStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={religionStudent}>Religion</option>
+                    {religions.map((religion) => (
+                      <option key={religion} value={religion}>
+                        {religion}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                
+
+                <div className="entry">
+                  <label className="label_name" for="{categoryStudent}">Category</label>
+                  <select id="label_input"
+                    required
+                    name="categoryStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={categoryStudent}>Category</option>
+                    {categories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="entry">
+                  <label className="label_name" for="{bloodGroup}">Blood Group</label>
+                  <select id="label_input"
+                    required
+                    name="bloodGroupStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={bloodGroupStudent}>Blood Group</option>
+                    {bloodGroups.map((bloodGroup) => (
+                      <option key={bloodGroup} value={bloodGroup}>
+                        {bloodGroup}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{phusicallyHandicappedStudent}">Physically Handicapped</label>
+                  <select id="label_input"
+                    required
+                    name="physicallyHandicappedStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={physicallyHandicappedStudent}>
+                      Physically Handicapped
                     </option>
-                  ))}
-              </select>
+                    {yesNo.map((yn) => (
+                      <option key={yn} value={yn}>
+                        {yn}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+
+                <div className="entry">
+                  <label className="label_name" for="{hostelerStudent}">Hosteler</label>
+                  <select id="label_input"
+                    required
+                    name="hostelerStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={hostelerStudent}>Hosteler</option>
+                    {yesNo.map((yn) => (
+                      <option key={yn} value={yn}>
+                        {yn}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
             </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Pin Code"
-                required
-                name="localPinCodeStudent"
-                value={localPinCodeStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <h3>Permanent Address</h3>
-            <div>
-              <input
-                type="number"
-                placeholder="Permanent Address"
-                required
-                name="permanentAddressStudent"
-                value={permanentAddressStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <div>
-              <select
-                required
-                name="permanentStateStudent"
-                value={permanentStateStudent}
-                onChange={registerStudentDataChange}>
-                <option value="">State</option>
-                {State &&
-                  State.getStatesOfCountry("IN").map((item) => (
-                    <option key={item.isoCode} value={item.name}>
-                      {item.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
-            <div>
-              <input
-                type="number"
-                placeholder="Pin Code"
-                required
-                name="permanentPinCodeStudent"
-                value={permanentPinCodeStudent}
-                onChange={registerStudentDataChange}
-              />
-            </div>
-            <h3>Photo Upload</h3>
-            <div>
-              <h2>Documents Upload</h2>
-              <img src={avatarPreviewStudent} alt="Avatar Preview" />
-              <input
-                type="file"
-                required
-                name="photoUploadStudent"
-                value={photoUploadStudent}
-                accept="image/*"
-                onChange={registerTeacherDataChange}
-              />
-            </div>
+
+            <div className="subsection">
+                <div>
+                  <h2>Contact Details</h2>
+                  <hr></hr>
+                  <br></br>
+                  
+                  <div className="entry">
+                    <label className="label_name" for="{fatherMbileNumberStudent}">Father's Mobile number</label>
+                    <input
+                      id="label_input"
+                      type="text"
+                      placeholder="Father's Mobile Number"
+                      required
+                      name="fatherMobileNumberStudent"
+                      value={fatherMobileNumberStudent}
+                      onChange={registerStudentDataChange}
+                    />
+                  </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{motherMbileNumberStudent}">Mother's Mobile number</label>
+                  <input
+                    id="label_input"
+                    type="number"
+                    placeholder="Mother's Mobile Number"
+                    required
+                    name="motherMobileNumberStudent"
+                    value={motherMobileNumberStudent}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+                
+                <div className="entry">
+                  <label className="label_name" for="{localAddressStudent}">Local Address</label>
+
+                  <div className="address" id="label_input">  
+                            <input
+                              // id="label_input"
+                              type="text"
+                              placeholder="Local Address"
+                              required
+                              name="localAddressStudent"
+                              value={localAddressStudent}
+                              onChange={registerStudentDataChange}
+                            />
+                            <br></br>
+                          <select 
+                            // required id="label_input"
+                            name="localStateStudent"
+                            value={localStateStudent}
+                            onChange={registerStudentDataChange}>
+                            <option value="">State</option>
+                            {State &&
+                              State.getStatesOfCountry("IN").map((item) => (
+                                <option key={item.isoCode} value={item.name}>
+                                  {item.name}
+                                </option>
+                              ))}
+                          </select>
+                            <br></br>
+                          <input
+                            // id="label_input"
+                            type="text"
+                            placeholder="Pin Code"
+                            required
+                            name="localPinCodeStudent"
+                            value={localPinCodeStudent}
+                            onChange={registerStudentDataChange}
+                          />
+                  </div>
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{permanentAddressStudent}">Permanent Address</label>
+                  <div className="address" id="label_input"> 
+                        <input
+                        type="number"
+                        placeholder="Permanent Address"
+                        required
+                        name="permanentAddressStudent"
+                        value={permanentAddressStudent}
+                        onChange={registerStudentDataChange}
+                        />   
+
+                        <br></br> 
+
+                        <select
+                          required
+                          name="permanentStateStudent"
+                          value={permanentStateStudent}
+                          onChange={registerStudentDataChange}>
+                          <option value="">State</option>
+                          {State &&
+                            State.getStatesOfCountry("IN").map((item) => (
+                              <option key={item.isoCode} value={item.name}>
+                                {item.name}
+                              </option>
+                            ))}
+                        </select>
+
+                        <br></br>
+
+                        <input
+                          type="number"
+                          placeholder="Pin Code"
+                          required
+                          name="permanentPinCodeStudent"
+                          value={permanentPinCodeStudent}
+                          onChange={registerStudentDataChange}
+                        />
+                     </div>
+                 </div>
+             </div>
+
+            </div> 
+
+            <div className="subsection">
+                 <div>
+                      <h2>Documents Upload</h2>
+                      <hr></hr>
+                      <br></br>
+                      <div className="entry">
+                          <label className="label_name" for="{photoUploadStudent}">Photo Upload</label>
+                          
+                          <div className="address" id="label_input">
+                              <img src={avatarPreviewStudent} alt="Avatar Preview" />
+                              <input 
+                                type="file"
+                                required
+                                name="photoUploadStudent"
+                                value={photoUploadStudent}
+                                accept="image/*"
+                                onChange={registerTeacherDataChange}
+                              />
+                          </div>
                       </div>
                         
                         <div className="entry">
@@ -644,200 +727,286 @@ const Register = () => {
                                     accept="image/*"
                                     onChange={registerTeacherDataChange}
                                   />
+                              </div>
+                        </div>
+                </div>
             </div>
-            <div>
-              <input
-                type="password"
-                placeholder="Password"
-                required
-                name="passwordStudent"
-                value={passwordStudent}
-                onChange={registerStudentDataChange}
-              />
+            
+            <div className="subsection">
+                <div>
+                    <h2>Password configuration</h2>
+                    <hr></hr>
+                    <br></br>
+                    <div className="entry">
+                      <label className="label_name" for="{passwordStudent}">Enter Password</label>
+                      <input
+                        id="label_input"
+                          type="password"
+                          placeholder="Password"
+                          required
+                          name="passwordStudent"
+                          value={passwordStudent}
+                          onChange={registerStudentDataChange}
+                        />
+                    </div>
+                    
+                    <div className="entry">
+                      <label className="label_name" for="{confirmPasswordStudent}">Confirm Password</label>
+                      <input
+                          id="label_input"
+                          type="password"
+                          placeholder="Confirm Password"
+                          required
+                          name="confirmPasswordStudent"
+                          value={confirmPasswordStudent}
+                          onChange={registerStudentDataChange}
+                    />
+                     </div>
+                </div>
+                  
             </div>
-            <div>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                required
-                name="confirmPasswordStudent"
-                value={confirmPasswordStudent}
-                onChange={registerStudentDataChange}
-              />
+
+            <div className="btn">
+            <button class="signInbtn border hover" onClick={registerStudentDetails}>Register</button>
             </div>
-            <button onClick={registerStudentDetails}>Register</button>
+
           </div>
         )}
 
         {/* TEACHER */}
         {registerTeacher && (
-          <div>
-            <div>
-              <input
-                type="email"
-                placeholder="Email"
-                required
-                name="emailTeacher"
-                value={emailTeacher}
-                onChange={registerTeacherDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Name"
-                required
-                name="nameTeacher"
-                value={nameTeacher}
-                onChange={registerTeacherDataChange}
-              />
-            </div>
-            <div>
-              <select
-                required
-                name="genderTeacher"
-                onChange={registerTeacherDataChange}>
-                <option value={genderTeacher}>Gender</option>
-                {genders.map((gen) => (
-                  <option key={gen} value={gen}>
-                    {gen}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <input
-                type="number"
-                placeholder="Mobile Number"
-                required
-                name="mobileNumberTeacher"
-                value={mobileNumberTeacher}
-                onChange={registerTeacherDataChange}
-              />
-            </div>
-            <div>
-              <select
-                required
-                name="departmentTeacher"
-                onChange={registerStudentDataChange}>
-                <option value={departmentTeacher}>Departments</option>
-                {departments.map((department) => (
-                  <option key={department} value={department}>
-                    {department}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <select
-                required
-                name="designationTeacher"
-                onChange={registerStudentDataChange}>
-                <option value={designationTeacher}>Designation</option>
-                {designations.map((designation) => (
-                  <option key={designation} value={designation}>
-                    {designation}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              {/* Calendar */}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Date Of Birth"
-                  value={dateOfBirthTeacher}
-                  onChange={(newValue) => setDateOfBirthTeacher(newValue)}
-                />
-              </LocalizationProvider>
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Qualification"
-                required
-                name="qualificationTeacher"
-                value={qualificationTeacher}
-                onChange={registerStudentDataChange}
-              />
-            </div>
+          <div className="Data_entry">
 
-            <div>
-              <h3>Assigned Subject</h3>
-              <button onClick={addInput}>Add another field</button>
-              {arr.map((item, i) => {
-                return (
+            <div className="subsection" >
+              <h2>Personal Details</h2>
+              <hr></hr>
+              <br></br>
+              <div className="entry">
+                  <label className="label_name" for="{nameTeacher}">Name</label>
                   <input
-                    onChange={handleChange}
-                    value={item.value}
-                    id={i}
-                    type={item.type}
-                    size="40"
+                    id="label_input"
+                    type="text"
+                    placeholder="Name"
+                    required
+                    name="nameTeacher"
+                    value={nameTeacher}
+                    onChange={registerTeacherDataChange}
                   />
-                );
-              })}
+                </div>
+                
+                <div className="entry">
+                  <label className="label_name" for="{emailTeacher}">E-Mail</label>
+                  <input
+                    id="label_input"
+                    type="email"
+                    placeholder="Email"
+                    required
+                    name="emailTeacher"
+                    value={emailTeacher}
+                    onChange={registerTeacherDataChange}
+                  />
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{mobileNumberTeacher}">Mobile Number</label>
+                  <input
+                    id="label_input"
+                    type="number"
+                    placeholder="Mobile Number"
+                    required
+                    name="mobileNumberTeacher"
+                    value={mobileNumberTeacher}
+                    onChange={registerTeacherDataChange}
+                  />
+                </div>
+
+                 {/* Calendar */} 
+                <div className="entry">
+                  <label className="label_name" for="{dateOfBirthStudent}">DoB</label>
+              
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker id="label_input"
+                        label="Date Of Birth"
+                        value={dateOfBirthTeacher}
+                        onChange={(newValue) => setDateOfBirthTeacher(newValue)}
+                      />
+                    </LocalizationProvider>
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{qualificationTeacher}">Qualification</label>
+                  <input
+                    id="label_input"
+                    type="text"
+                    placeholder="Qualification"
+                    required
+                    name="qualificationTeacher"
+                    value={qualificationTeacher}
+                    onChange={registerStudentDataChange}
+                  />
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{genderTeaher}">Gender</label>                 
+                  <select id="label_input"
+                    required
+                    name="genderTeacher"
+                    onChange={registerTeacherDataChange}>
+                    <option value={genderTeacher}>Gender</option>
+                    {genders.map((gen) => (
+                      <option key={gen} value={gen}>
+                        {gen}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="entry">
+                  <label className="label_name" for="{departmentTeacher}">Department</label>                 
+                  <select id="label_input"
+                      required
+                      name="departmentTeacher"
+                      onChange={registerStudentDataChange}>
+                      <option value={departmentTeacher}>Department</option>
+                      {departments.map((department) => (
+                        <option key={department} value={department}>
+                          {department}
+                        </option>
+                      ))}
+                    </select>
+                </div>
+
+                <div className="entry">
+                  <label className="label_name" for="{designationTeacher}">Designation</label>                 
+                  <select id="label_input"
+                    required
+                    name="designationTeacher"
+                    onChange={registerStudentDataChange}>
+                    <option value={designationTeacher}>Designation</option>
+                    {designations.map((designation) => (
+                      <option key={designation} value={designation}>
+                        {designation}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                                
+                <div className="entry">
+                  <label className="label_name" for="{item.value}">Assigned Subject</label>
+                   <div className="address" id="label_input">
+                        {arr.map((item, i) => {
+                            return (
+                              <input
+                                onChange={handleChange}
+                                value={item.value}
+                                id={i}
+                                type={item.type}
+                                size="40"
+                              />
+                            );
+                           })}
+
+                         <button onClick={addInput}>Add another field</button>
+                  </div>
+                </div>
+             </div>
+
+            <div className="subsection"> 
+                <h2>Documents Upload</h2>
+                <hr></hr>
+                <br></br>
+
+
+                <div className="entry">
+                  <label className="label_name" for="{profilePhotoTeacher}">Photo Upload</label>
+                          
+                  <div className="address" id="label_input">
+
+                      <img src={avatarPreviewTeacher} alt="Avatar Preview" />
+                      <input
+                        type="file"
+                        required
+                        name="profilePhotoTeacher"
+                        value={profilePhotoTeacher}
+                        accept="image/*"
+                        onChange={registerTeacherDataChange}
+                      />
+                  </div>
+                </div>
+
+
+                <div className="entry">
+                  <label className="label_name" for="{signatureTeacher}">Signature Upload</label>
+                  <div className="address" id="label_input">
+                      <img src={signaturePreviewTeacher} alt="Signature Preview" />
+                      <input
+                        type="file"
+                        required
+                        name="signatureTeacher"
+                        value={signatureTeacher}
+                        accept="image/*"
+                        onChange={registerTeacherDataChange}
+                      />
+                    </div>
+                  
+                </div>
+
+                <div className="entry">
+                <label className="label_name" for="{resumeTeacher}">Resume Upload</label>
+                  <input
+                    type="file"
+                    required
+                    name="resumeTeacher"
+                    value={resumeTeacher}
+                    accept="pdf/*"
+                    onChange={registerTeacherDataChange}
+                  />
+                </div>
+
+
             </div>
-            <h3>Photo Upload</h3>
-            <div>
-              <img src={avatarPreviewTeacher} alt="Avatar Preview" />
-              <input
-                type="file"
-                required
-                name="profilePhotoTeacher"
-                value={profilePhotoTeacher}
-                accept="image/*"
-                onChange={registerTeacherDataChange}
-              />
+            
+            <div className="subsection"> 
+                <h2>Password configuration</h2>
+                <hr></hr>
+                <br></br>
+                
+                <div className="entry">
+                  <label className="label_name" for="{passwprdTeacher}">Password</label>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    name="passwordTeacher"
+                    value={passwordTeacher}
+                    onChange={registerTeacherDataChange}
+                  />
+                </div>
+                <div className="entry">
+                  <label className="label_name" for="{confirmPasswordTeacher}">Confirm Password</label>
+                  <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    required
+                    name="confirmPasswordTeacher"
+                    value={confirmPasswordTeacher}
+                    onChange={registerTeacherDataChange}
+                  />
+                </div>
+
+
+
+
             </div>
-            <h3>Signature Upload</h3>
-            <div>
-              <img src={signaturePreviewTeacher} alt="Signature Preview" />
-              <input
-                type="file"
-                required
-                name="signatureTeacher"
-                value={signatureTeacher}
-                accept="image/*"
-                onChange={registerTeacherDataChange}
-              />
+            
+            <div className="btn">
+              <button class="signInbtn border hover" onClick={registerTeacherDetails}>Register</button>
             </div>
-            <h3>Resume Upload</h3>
-            <div>
-              <input
-                type="file"
-                required
-                name="resumeTeacher"
-                value={resumeTeacher}
-                accept="pdf/*"
-                onChange={registerTeacherDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="password"
-                placeholder="Password"
-                required
-                name="passwordTeacher"
-                value={passwordTeacher}
-                onChange={registerTeacherDataChange}
-              />
-            </div>
-            <div>
-              <input
-                type="password"
-                placeholder="Confirm Password"
-                required
-                name="confirmPasswordTeacher"
-                value={confirmPasswordTeacher}
-                onChange={registerTeacherDataChange}
-              />
-            </div>
-            <button onClick={registerTeacherDetails}>Register</button>
           </div>
         )}
       </div>
-    </Fragment>
-  );
+   </Fragment> 
+   );
 };
 
 export default Register;

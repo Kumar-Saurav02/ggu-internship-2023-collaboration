@@ -101,7 +101,7 @@ body
   
   .signInbtn:hover 
   {
-    box-shadow: 0 -3px 3px 1px #848ee6;
+    box-shadow: 3px 3px black;
   }
 
   .register:hover 
@@ -128,8 +128,4 @@ body
     background-color: #f4f2ff;
 
  }
-  /* .welcome
-  {
-    text-align: left;
-  }
-   */
+  
