@@ -54,6 +54,14 @@ const studentSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please fill your gender"],
   },
+  department: {
+    type: String,
+    required: [true, "Please fill your department"],
+  },
+  course: {
+    type: String,
+    required: [true, "Please fill your course"],
+  },
   dateOfBirth: {
     type: String,
     required: [true, "Please fill your date of birth"],

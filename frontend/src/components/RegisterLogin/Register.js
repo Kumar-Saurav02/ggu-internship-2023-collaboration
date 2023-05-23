@@ -56,6 +56,8 @@ const Register = () => {
     fatherMobileNumberStudent: "",
     motherMobileNumberStudent: "",
     genderStudent: "",
+    departmentStudent: "",
+    courseStudent: "",
     // dateOfBirthStudent: "",
     // dateOfJoiningStudent: "",
     religionStudent: "",
@@ -87,6 +89,8 @@ const Register = () => {
     fatherMobileNumberStudent,
     motherMobileNumberStudent,
     genderStudent,
+    departmentStudent,
+    courseStudent,
     // dateOfBirthStudent,
     // dateOfJoiningStudent,
     religionStudent,
@@ -173,6 +177,7 @@ const Register = () => {
     "Department of Mechanical Engineering",
     "Department of Industrial & Production Engineering",
   ];
+  const courses = ["Bachelor's Of Technology"];
 
   const registerStudentDataChange = (e) => {
     if (e.target.name === "photoUploadStudent") {
@@ -280,6 +285,12 @@ const Register = () => {
     if (genderStudent.trim() === "") {
       return toast.error("Select your gender");
     }
+    if (departmentStudent.trim() === "") {
+      return toast.error("Select your department");
+    }
+    if (courseStudent.trim() === "") {
+      return toast.error("Select your course");
+    }
     if (religionStudent.trim() === "") {
       return toast.error("Select your religion");
     }
@@ -304,8 +315,8 @@ const Register = () => {
     if (localStateStudent.trim() === "") {
       return toast.error("Fill your local address properly");
     }
-    if (localPinCodeStudent.trim() === "") {
-      return toast.error("Fill your local address properly");
+    if (localPinCodeStudent.trim() === "" || localPinCodeStudent.length !== 6) {
+      return toast.error("Pin Code should be of 6 length");
     }
     if (permanentAddressStudent.trim() === "") {
       return toast.error("Fill your permanent address properly");
@@ -313,8 +324,11 @@ const Register = () => {
     if (permanentStateStudent.trim() === "") {
       return toast.error("Fill your permanent address properly");
     }
-    if (permanentPinCodeStudent.trim() === "") {
-      return toast.error("Fill your permanent address properly");
+    if (
+      permanentPinCodeStudent.trim() === "" ||
+      permanentPinCodeStudent.length !== 6
+    ) {
+      return toast.error("Pin Code should be of 6 length");
     }
     if (
       avatarStudent.trim() === "/static/media/Profile.5c163bc80773d22cc37a.png"
@@ -363,6 +377,8 @@ const Register = () => {
         fatherMobileNumberStudent.trim(),
         motherMobileNumberStudent.trim(),
         genderStudent.trim(),
+        departmentStudent.trim(),
+        courseStudent.trim(),
         updatedDateOfBirth,
         updatedDateOfJoining,
         religionStudent.trim(),
@@ -641,6 +657,32 @@ const Register = () => {
                     {genders.map((gen) => (
                       <option key={gen} value={gen}>
                         {gen}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    required
+                    name="departmentStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={departmentStudent}>Department</option>
+                    {departments.map((department) => (
+                      <option key={department} value={department}>
+                        {department}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    required
+                    name="courseStudent"
+                    onChange={registerStudentDataChange}>
+                    <option value={courseStudent}>Courses</option>
+                    {courses.map((course) => (
+                      <option key={course} value={course}>
+                        {course}
                       </option>
                     ))}
                   </select>

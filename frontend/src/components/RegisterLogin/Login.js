@@ -113,17 +113,6 @@ const Login = () => {
                     onChange={(e) => setPasswordStudent(e.target.value)}
                   />
                 </div>
-                <div className="sign_in">
-                  <button className="signInbtn border hover">Login</button>
-                  <div className="regandfor">
-                    <button className="signInbtn border hover">
-                      New Register
-                    </button>
-                    <a className="forlin" href="google.com">
-                      Forgot Password🤔
-                    </a>
-                  </div>
-                </div>
               </div>
             )}
             {loginTeacher && (
@@ -131,6 +120,7 @@ const Login = () => {
                 <div>
                   <input
                     className="border"
+                    // employee ID krna hai
                     type="email"
                     placeholder="Email"
                     required
@@ -148,20 +138,23 @@ const Login = () => {
                     onChange={(e) => setPasswordTeacher(e.target.value)}
                   />
                 </div>
-
                 <div className="sign_in">
                   <button className="signInbtn border hover">Login</button>
-                  <div className="regandfor">
-                    <button className="signInbtn border hover">
-                      New Register
-                    </button>
-                    <a className="forlin" href="google.com">
-                      Forgot Password🤔
-                    </a>
-                  </div>
                 </div>
               </div>
             )}
+            <div className="sign_in">
+              <div className="regandfor">
+                <button
+                  onClick={() => navigate("/register")}
+                  className="signInbtn border hover">
+                  New Registration
+                </button>
+                <a className="forlin" href="google.com">
+                  Forgot Password🤔
+                </a>
+              </div>
+            </div>
           </div>
         </Fragment>
       </div>
