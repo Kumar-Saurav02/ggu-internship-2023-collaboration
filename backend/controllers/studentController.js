@@ -1,32 +1,253 @@
 const Student = require("../models/studentModel");
+const ApproveStudent = require("../models/approveStudentModel");
+const CourseSelection = require("../models/courseSelectionModel");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const cloudinary = require("cloudinary").v2;
+const sendEmail = require("../utils/sendEmail");
 
-//REGISTER STUDENT
-exports.registerStudent = catchAsyncErrors(async (req, res, next) => {
-  const { enrollmentNumber, name, password, confirmPassword } = req.body;
-
-  if (password !== confirmPassword) {
-    return next(new ErrorHandler("Password does not match"));
-  }
+//REGISTER APPROVAL STUDENT
+exports.registerApprovalStudent = catchAsyncErrors(async (req, res, next) => {
+  const {
+    enrollmentNo,
+    rollNo,
+    name,
+    fatherName,
+    motherName,
+    currentSemester,
+    email,
+    mobileNumber,
+    fatherMobileNumber,
+    motherMobileNumber,
+    gender,
+    department,
+    course,
+    dateOfBirth,
+    dateOfJoining,
+    religion,
+    bloodGroup,
+    category,
+    physicallyHandicapped,
+    aadharNumber,
+    hosteler,
+    localAddress,
+    localState,
+    localPinCode,
+    permanentAddress,
+    permanentState,
+    permanentPinCode,
+    avatarStudent,
+    signatureAvatarStudent,
+    password,
+    confirmPassword,
+  } = req.body;
 
   const studentExist = await Student.findOne({
-    enrollmentNo: enrollmentNumber,
+    enrollmentNo: enrollmentNo,
   });
   if (studentExist) {
-    return next(new ErrorHandler("Student already registered"));
+    return next(new ErrorHandler("Student already registered", 401));
   }
 
-  const student = await Student.create({
-    enrollmentNo: enrollmentNumber,
-    name,
-    password,
-    role: "student",
-  });
+  if (password !== confirmPassword) {
+    return next(new ErrorHandler("Password does not match", 400));
+  }
 
-  sendToken(student, 201, res);
+  const data = {
+    enrollmentNo,
+    rollNo,
+    name,
+    fatherName,
+    motherName,
+    currentSemester,
+    email,
+    mobileNumber,
+    fatherMobileNumber,
+    motherMobileNumber,
+    gender,
+    department,
+    course,
+    dateOfBirth,
+    dateOfJoining,
+    religion,
+    bloodGroup,
+    category,
+    physicallyHandicapped,
+    aadharNumber,
+    hosteler,
+    password,
+  };
+  data.localAddress = {
+    address: localAddress,
+    state: localState,
+    pinCode: localPinCode,
+  };
+  data.permanentAddress = {
+    address: permanentAddress,
+    state: permanentState,
+    pinCode: permanentPinCode,
+  };
+  const profilePhotoUpload = await cloudinary.uploader.upload(avatarStudent, {
+    folder: "Profile Photo Student",
+    width: 300,
+    crop: "scale",
+  });
+  data.photoUpload = {
+    public_id: profilePhotoUpload.public_id,
+    url: profilePhotoUpload.secure_url,
+  };
+  const signaturePhotoUpload = await cloudinary.uploader.upload(
+    signatureAvatarStudent,
+    {
+      folder: "Signature of Student",
+      width: 300,
+      crop: "scale",
+    }
+  );
+  data.signatureUpload = {
+    public_id: signaturePhotoUpload.public_id,
+    url: signaturePhotoUpload.secure_url,
+  };
+  await ApproveStudent.create(data);
+
+  res.status(200).json({
+    success: true,
+    message: "Data sent for approval",
+  });
+});
+
+//REGISTER STUDENT
+exports.registerStudentAccept = catchAsyncErrors(async (req, res, next) => {
+  let student = await ApproveStudent.findById(req.params.id);
+  if (!student) {
+    return next(new ErrorHandler(`Some error occurred`));
+  }
+
+  const {
+    enrollmentNo,
+    rollNo,
+    name,
+    fatherName,
+    motherName,
+    currentSemester,
+    email,
+    mobileNumber,
+    fatherMobileNumber,
+    motherMobileNumber,
+    gender,
+    department,
+    course,
+    dateOfBirth,
+    dateOfJoining,
+    religion,
+    bloodGroup,
+    category,
+    physicallyHandicapped,
+    aadharNumber,
+    hosteler,
+    localAddress,
+    permanentAddress,
+    photoUpload,
+    signatureUpload,
+    password,
+  } = student;
+
+  message = `Your registration is approved at GGU portal. 
+              \n User ID :- ${enrollmentNo}
+              \n Password :- ${password}
+              \n You can login now`;
+  try {
+    await sendEmail({
+      email: email,
+      subject: `Registration Approval Request Update`,
+      message,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+
+  const data = {
+    enrollmentNo,
+    rollNo,
+    name,
+    fatherName,
+    motherName,
+    currentSemester,
+    email,
+    mobileNumber,
+    fatherMobileNumber,
+    motherMobileNumber,
+    gender,
+    dateOfBirth,
+    dateOfJoining,
+    religion,
+    bloodGroup,
+    category,
+    physicallyHandicapped,
+    aadharNumber,
+    hosteler,
+    password,
+  };
+  data.localAddress = {
+    address: localAddress.address,
+    state: localAddress.state,
+    pinCode: localAddress.pinCode,
+  };
+  data.permanentAddress = {
+    address: permanentAddress.address,
+    state: permanentAddress.state,
+    pinCode: permanentAddress.pinCode,
+  };
+  data.photoUpload = {
+    public_id: photoUpload.public_id,
+    url: photoUpload.url,
+  };
+  data.signatureUpload = {
+    public_id: signatureUpload.public_id,
+    url: signatureUpload.url,
+  };
+  data.role = "student";
+
+  await student.deleteOne({ enrollmentNo });
+  await Student.create(data);
+
+  res.status(200).json({
+    success: true,
+    message: "Student is registered",
+  });
+});
+
+//REJECT APPROVAL STUDENT
+exports.rejectApprovalStudent = catchAsyncErrors(async (req, res, next) => {
+  let student = await ApproveStudent.findById(req.params.id);
+  if (!student) {
+    return next(new ErrorHandler(`Some error occurred`));
+  }
+
+  message = `Your registration is not approved at GGU portal`;
+  try {
+    await sendEmail({
+      email: email,
+      subject: `Registration Approval Request Update`,
+      message,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+
+  const photo = student.photoUpload.public_id;
+  const signature = student.signatureUpload.public_id;
+
+  await cloudinary.uploader.destroy(photo);
+  await cloudinary.uploader.destroy(signature);
+
+  await student.deleteOne({ enrollmentNo });
+
+  res.status(200).json({
+    success: true,
+    message: "Student disapproved",
+  });
 });
 
 //LOGIN STUDENT
@@ -70,6 +291,9 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
 //UPDATE DETAILS
 exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
   const {
+    enrollmentNo,
+    name,
+    password,
     rollNo,
     fatherName,
     motherName,
@@ -106,9 +330,13 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     marksSGPA,
     marksCGPA,
     marksResult,
+    attendance,
   } = req.body;
 
   const updatedData = {
+    enrollmentNo,
+    name,
+    password,
     rollNo,
     fatherName,
     motherName,
@@ -118,6 +346,8 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     fatherMobileNumber,
     motherMobileNumber,
     gender,
+    department,
+    course,
     dateOfBirth,
     dateOfJoining,
     religion,
@@ -144,10 +374,13 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
   }
 
   if (signaturePhoto !== undefined) {
+    if (req.user.signatureUpload.public_id !== undefined) {
+      await cloudinary.uploader.destroy(req.user.signatureUpload.public_id);
+    }
     const signaturePhotoUpload = await cloudinary.uploader.upload(
       signaturePhoto,
       {
-        folder: "signaturePhoto",
+        folder: "Signature of Student",
         width: 300,
         crop: "scale",
       }
@@ -237,6 +470,26 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     await req.user.save({ validateBeforeSave: false });
   }
 
+  if (attendance !== undefined) {
+    var flag = true;
+    for (let i = 0; i < req.user.attendanceDetails.length; i++) {
+      if (
+        req.user.attendanceDetails[i].semester.toString() ===
+        attendance[0].toString()
+      ) {
+        req.user.attendanceDetails[i].attendance === attendance[1];
+        flag = false;
+      }
+    }
+    if (flag === true) {
+      req.user.attendanceDetails.push({
+        semester: attendance[0],
+        attendance: attendance[1],
+      });
+    }
+    await req.user.save({ validateBeforeSave: false });
+  }
+
   await Student.findByIdAndUpdate(req.user.id, updatedData, {
     new: true,
     runValidators: true,
@@ -255,6 +508,16 @@ exports.getAllStudents = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     students,
+  });
+});
+
+//GET ALL APPROVAL
+exports.getAllStudentsApproval = catchAsyncErrors(async (req, res, next) => {
+  const requests = await ApproveStudent.find();
+
+  res.status(200).json({
+    success: true,
+    requests,
   });
 });
 
@@ -279,3 +542,15 @@ exports.getStudent = catchAsyncErrors(async (req, res, next) => {
     student,
   });
 });
+
+//GET COURSE OF STUDENT'S SEMESTER
+exports.getCourseSelectionForSemester = catchAsyncErrors(
+  async (req, res, next) => {
+    const course = await CourseSelection.findOne(req.user.semester);
+
+    res.status(200).json({
+      success: true,
+      course,
+    });
+  }
+);

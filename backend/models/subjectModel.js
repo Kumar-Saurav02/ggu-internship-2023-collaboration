@@ -3,16 +3,16 @@ const mongoose = require("mongoose");
 const subjectSchema = new mongoose.Schema({
   subjectName: {
     type: String,
+    required: [true, "Subject name required"],
   },
   subjectCode: {
     type: String,
-  },
-  semester: {
-    type: String,
+    required: [true, "Subject code required"],
   },
   subjectCredit: {
-    type: String,
+    type: Number,
+    required: [true, "Subject credit required"],
   },
 });
 
-module.exports = mongoose.model("Student", subjectSchema);
+module.exports = mongoose.model("Subject", subjectSchema);
