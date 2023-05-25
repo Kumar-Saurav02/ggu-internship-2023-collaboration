@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Register from "./components/RegisterLogin/Register";
 import Login from "./components/RegisterLogin/Login";
-import Scholarship from "./components/studentScholarship/StudentScholarship";
+import Scholarship from "./components/StudentScholarship/StudentScholarship";
 import CourseSelection from "./components/CourseSelection/CourseSelection";
 import SDocumentUpload from "./components/StudentDocumentUpload/DocumentUpload"
 import { useEffect } from "react";
