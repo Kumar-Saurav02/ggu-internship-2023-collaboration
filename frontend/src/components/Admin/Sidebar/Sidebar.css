@@ -1,0 +1,16 @@
+.mainBox
+{
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    align-items: center;
+    width: 50%;
+    border: solid 2px black;
+    padding: 5%;
+}
+
+.sidebar
+{
+    padding: 5px;
+    align-items: center;
+}

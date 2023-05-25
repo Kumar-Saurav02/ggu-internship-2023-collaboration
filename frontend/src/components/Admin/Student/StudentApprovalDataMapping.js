@@ -12,15 +12,35 @@ const StudentApprovalDataMapping = ({ key, data }) => {
   };
   return (
     <Fragment>
-      <div>
-        <p>{key}</p>
-        <p>{data.enrollmentNo}</p>
-        <p>{data.name}</p>
-        <p>{data.currentSemester}</p>
-        <button onClick={openStudentDetails}>Details</button>
-        <button>Accept</button>
-        <button>Reject</button>
+      
+      <div className="content">
+            <div className="key">{key}</div>
+
+            <div className="label">
+              <div className="field">Name </div>
+              <div className="field">Enrollment No </div>
+              <div className="field">Fathe's Name </div>
+              <div className="field">Semester </div>
+              <div className="field">Email </div>
+            </div>
+          
+            <div className="briefinfo">
+                {/* ek choot gaya hai tutu that is department ka field back end me hi nai hai*/}
+                <div className="field">{data.name} </div>
+                <div className="field">{data.enrollmentNo} </div>
+                <div className="field">{data.fatherName} </div>
+                <div className="field">{data.currentSemester} </div>
+                <div className="field">{data.email} </div>
+            </div>
+            
+            <div className="btn">
+                <button class="signInbtn border hover">Reject</button>
+                <button class="signInbtn border hover">Accept</button>
+                <button  className="signInbtn border hover" onClick={openStudentDetails}>Details</button>
+                
+            </div>
       </div>
+
     </Fragment>
   );
 };
