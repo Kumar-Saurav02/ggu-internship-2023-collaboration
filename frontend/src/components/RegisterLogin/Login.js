@@ -113,6 +113,9 @@ const Login = () => {
                     onChange={(e) => setPasswordStudent(e.target.value)}
                   />
                 </div>
+                <div className="sign_in">
+                  <button className="signInbtn border hover">Login</button>
+                </div>
               </div>
             )}
             {loginTeacher && (

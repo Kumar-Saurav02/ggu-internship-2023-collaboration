@@ -1,0 +1,38 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 5px;
+  margin: auto;
+  width: 80%;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
+.field {
+  padding: 2px;
+  margin: 2px;
+}
+
+.btn.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.approvBox {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  padding-bottom: 2%;
+  background-color: whitesmoke;
+}
+
+.studentDetails {
+  width: 100vw;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  position: absolute;
+}

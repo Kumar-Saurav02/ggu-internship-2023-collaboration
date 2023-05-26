@@ -33,15 +33,17 @@ const TeachersApproval = () => {
         <Loader />
       ) : (
         <Fragment>
-          <Sidebar />
-          <div>
-            {teacherApproval &&
-              teacherApproval.map((teacherData, i) => (
-                <div>
-                  <p>{i + 1}</p>
-                  <TeacherApprovalDataMapping data={teacherData} />
-                </div>
-              ))}
+          <div className="teacherDetails">
+            <Sidebar />
+            <div>
+              {teacherApproval &&
+                teacherApproval.map((teacherData, i) => (
+                  <div>
+                    <p>{i + 1}</p>
+                    <TeacherApprovalDataMapping data={teacherData} />
+                  </div>
+                ))}
+            </div>
           </div>
         </Fragment>
       )}

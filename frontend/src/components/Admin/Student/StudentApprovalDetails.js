@@ -2,131 +2,167 @@ import React, { Fragment } from "react";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import Sidebar from "../Sidebar/Sidebar";
+import "./StudentApproval.css";
 
 const StudentApprovalDetails = () => {
   const { state } = useLocation();
-  console.log(state.dateOfBirth.split("T")[0]);
+
   return (
     <Fragment>
-      <Sidebar />
-      <div>
-        <div>
-          <h3>Enrollment Number: </h3>
-          <p>{state.enrollmentNo}</p>
-        </div>
-        <div>
-          <h3>Name: </h3>
-          <p>{state.name}</p>
-        </div>
-        <div>
-          <h3>Roll Number: </h3>
-          <p>{state.rollNo}</p>
-        </div>
-        <div>
-          <h3>Father's Name: </h3>
-          <p>{state.fatherName}</p>
-        </div>
-        <div>
-          <h3>Mother's Name: </h3>
-          <p>{state.motherName}</p>
-        </div>
-        <div>
-          <h3>Current Semester: </h3>
-          <p>{state.currentSemester}</p>
-        </div>
-        <div>
-          <h3>Email: </h3>
-          <p>{state.email}</p>
-        </div>
-        <div>
-          <h3>Mobile Number: </h3>
-          <p>{state.mobileNumber}</p>
-        </div>
-        <div>
-          <h3>Father's Mobile Number: </h3>
-          <p>{state.fatherMobileNumber}</p>
-        </div>
-        <div>
-          <h3>Mother's Mobile Number: </h3>
-          <p>{state.motherMobileNumber}</p>
-        </div>
-        <div>
-          <h3>Gender: </h3>
-          <p>{state.gender}</p>
-        </div>
-        <div>
-          <h3>Date Of Birth: </h3>
-          <p>{state.dateOfBirth.split("T")[0]}</p>
-        </div>
-        <div>
-          <h3>Date Of Joining: </h3>
-          <p>{state.dateOfJoining.split("T")[0]}</p>
-        </div>
-        <div>
-          <h3>Religion: </h3>
-          <p>{state.religion}</p>
-        </div>
-        <div>
-          <h3>Blood Group: </h3>
-          <p>{state.bloodGroup}</p>
-        </div>
-        <div>
-          <h3>Category: </h3>
-          <p>{state.category}</p>
-        </div>
-        <div>
-          <h3>Physically Handicapped: </h3>
-          <p>{state.physicallyHandicapped}</p>
-        </div>
-        <div>
-          <h3>Aadhar Number: </h3>
-          <p>{state.aadharNumber}</p>
-        </div>
-        <div>
-          <h3>Hosteler: </h3>
-          <p>{state.hosteler}</p>
-        </div>
-        <div>
-          <h3>Local Address: </h3>
-          <div>
-            <h3>Address: </h3>
-            <p>{state.localAddress.address}</p>
+      <div className="studentDetails">
+        <Sidebar />
+        <div className="approvBox">
+          <div className="subsection">
+            <h2>Student Details</h2>
+            <hr></hr>
+            <br></br>
+
+            <div className="entry">
+              <label className="label_name">Enrollement No.</label>
+              <p>{state.enrollmentNo}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Name</label>
+              <p>{state.name}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Roll Number</label>
+              <p>{state.rollNo}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Aadhar Number</label>
+              <p>{state.aadharNumber}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Father's Name</label>
+              <p>{state.fatherName}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Mother's Name</label>
+              <p>{state.motherName}</p>
+            </div>
+
+            {/* yahan branch name hoga and the department name 2 more field need to be added*/}
+            <div className="entry">
+              <label className="label_name">Current Semester</label>
+              <p>{state.currentSemester}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Student Phone Number</label>
+              <p>{state.mobileNumber}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Gender</label>
+              <p>{state.gender}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Date of Birth</label>
+              <p>{state.dateOfBirth.split("T")[0]}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Date of Joining</label>
+              <p>{state.dateOfJoining.split("T")[0]}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Religion</label>
+              <p>{state.religion}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Category</label>
+              <p>{state.category}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Blood Group</label>
+              <p>{state.bloodGroup}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Physically Handicapped</label>
+              <p>{state.physicallyHandicapped}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Hosteler</label>
+              <p>{state.hosteler}</p>
+            </div>
           </div>
-          <div>
-            <h3>State: </h3>
-            <p>{state.localAddress.state}</p>
+
+          <div className="subsection">
+            <h2>Contact Details</h2>
+            <hr></hr>
+            <br></br>
+
+            <div className="entry">
+              <label className="label_name">Local Address</label>
+
+              <div className="address">
+                <p>{state.localAddress.address}</p>
+                <br></br>
+                <p>{state.localAddress.state}</p>
+                <br></br>
+                <p>{state.localAddress.pinCode}</p>
+                <br></br>
+              </div>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Permanent Address</label>
+
+              <div className="address">
+                <p>{state.permanentAddress.address}</p>
+                <br></br>
+                <p>{state.permanentAddress.state}</p>
+                <br></br>
+                <p>{state.permanentAddress.pinCode}</p>
+                <br></br>
+              </div>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Father Mobile Number</label>
+              <p>{state.fatherMobileNumber}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Mother Mobile Number</label>
+              <p>{state.motherMobileNumber}</p>
+            </div>
           </div>
-          <div>
-            <h3>Pin Code: </h3>
-            <p>{state.localAddress.pinCode}</p>
+
+          <div className="subsection">
+            <div>
+              <h2>Photographs</h2>
+              <hr></hr>
+              <br></br>
+
+              <div className="entry">
+                <label className="label_name">Photo</label>
+                <img src={state.photoUpload.url} />
+              </div>
+
+              <div className="entry">
+                <label className="label_name">Signature</label>
+                <img src={state.signatureUpload.url} />
+              </div>
+            </div>
           </div>
-        </div>
-        <div>
-          <h3>Permanent Address: </h3>
-          <div>
-            <h3>Address: </h3>
-            <p>{state.permanentAddress.address}</p>
+
+          <div className="btn">
+            <button class="signInbtn border hover">Reject</button>
+            <button class="signInbtn border hover">Accept</button>
           </div>
-          <div>
-            <h3>State: </h3>
-            <p>{state.permanentAddress.state}</p>
-          </div>
-          <div>
-            <h3>Pin Code: </h3>
-            <p>{state.permanentAddress.pinCode}</p>
-          </div>
-        </div>
-        <div>
-          <h3>Profile Photo: </h3>
-          <img src={state.photoUpload.url} />
-        </div>
-        <div>
-          <h3>Signature: </h3>
-          <img src={state.signatureUpload.url} />
-        </div>
-        <div>
-          <button>Accept</button>
-          <button>Reject</button>
         </div>
       </div>
     </Fragment>
