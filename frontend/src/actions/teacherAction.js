@@ -69,7 +69,7 @@ export const registerTeachers =
   };
 
 // TEACHER LOGIN
-export const loginTeachers = (email, password) => async (dispatch) => {
+export const loginTeachers = (employeeID, password) => async (dispatch) => {
   try {
     dispatch({ type: LOGIN_TEACHER_REQUEST });
 
@@ -78,13 +78,15 @@ export const loginTeachers = (email, password) => async (dispatch) => {
     const { data } = await axios.post(
       `/api/loginTeacher`,
       {
-        email,
+        employeeID,
         password,
       },
       config
     );
 
-    dispatch({ type: LOGIN_TEACHER_SUCCESS, payload: data.user });
+    console.log(data);
+
+    dispatch({ type: LOGIN_TEACHER_SUCCESS, payload: data.teacher });
   } catch (error) {
     dispatch({
       type: LOGIN_TEACHER_FAIL,

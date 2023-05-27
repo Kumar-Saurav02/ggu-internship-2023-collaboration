@@ -47,10 +47,19 @@ const StudentApprovalDetails = () => {
               <p>{state.motherName}</p>
             </div>
 
-            {/* yahan branch name hoga and the department name 2 more field need to be added*/}
             <div className="entry">
               <label className="label_name">Current Semester</label>
               <p>{state.currentSemester}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Department</label>
+              <p>{state.department}</p>
+            </div>
+
+            <div className="entry">
+              <label className="label_name">Course</label>
+              <p>{state.course}</p>
             </div>
 
             <div className="entry">

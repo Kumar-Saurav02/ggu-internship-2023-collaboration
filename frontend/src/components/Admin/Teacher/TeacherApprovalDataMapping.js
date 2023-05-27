@@ -23,10 +23,9 @@ const TeacherApprovalDataMapping = ({ key, data }) => {
         </div>
 
         <div className="briefinfo">
-          {/* ek choot gaya hai tutu that is department ka field back end me hi nai hai*/}
           <div className="field">{data.name} </div>
           <div className="field">{data.employeeID} </div>
-          {/* <div className="field">{data.fatherName} </div>  this is for the department*/}
+          <div className="field">{data.department} </div>
           <div className="field">{data.email} </div>
         </div>
 

@@ -1,8 +1,15 @@
 import { React, Fragment } from "react";
 import { Link } from "react-router-dom";
+import { logoutStudent } from "../../../actions/studentAction";
 import "./Header.css";
+import { useDispatch } from "react-redux";
 
 export default function Header() {
+  const dispatch = useDispatch();
+
+  const logoutKro = () => {
+    dispatch(logoutStudent());
+  };
   return (
     <Fragment>
       <div className="navbar">
@@ -11,7 +18,7 @@ export default function Header() {
           <Link to="/">Login</Link>
           <Link to="/admin">Admin</Link>
           <Link to="/register">Register</Link>
-          {/* <Link to="/about">About</Link> */}
+          <button onClick={logoutKro}>Logout</button>
         </div>
       </div>
     </Fragment>

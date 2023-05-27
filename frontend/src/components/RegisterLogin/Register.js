@@ -1022,7 +1022,7 @@ const Register = () => {
                           name="photoUploadStudent"
                           value={photoUploadStudent}
                           accept="image/*"
-                          onChange={registerTeacherDataChange}
+                          onChange={registerStudentDataChange}
                         />
                       </div>
                     </div>
@@ -1044,7 +1044,7 @@ const Register = () => {
                           name="signatureUploadStudent"
                           value={signatureUploadStudent}
                           accept="image/*"
-                          onChange={registerTeacherDataChange}
+                          onChange={registerStudentDataChange}
                         />
                       </div>
                     </div>
@@ -1193,7 +1193,7 @@ const Register = () => {
                       required
                       name="qualificationTeacher"
                       value={qualificationTeacher}
-                      onChange={registerStudentDataChange}
+                      onChange={registerTeacherDataChange}
                     />
                   </div>
 
@@ -1223,7 +1223,7 @@ const Register = () => {
                       id="label_input"
                       required
                       name="departmentTeacher"
-                      onChange={registerStudentDataChange}>
+                      onChange={registerTeacherDataChange}>
                       <option value={departmentTeacher}>Department</option>
                       {departments.map((department) => (
                         <option key={department} value={department}>
@@ -1241,7 +1241,7 @@ const Register = () => {
                       id="label_input"
                       required
                       name="designationTeacher"
-                      onChange={registerStudentDataChange}>
+                      onChange={registerTeacherDataChange}>
                       <option value={designationTeacher}>Designation</option>
                       {designations.map((designation) => (
                         <option key={designation} value={designation}>

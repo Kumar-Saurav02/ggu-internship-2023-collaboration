@@ -2,8 +2,8 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Register from "./components/RegisterLogin/Register";
 import Login from "./components/RegisterLogin/Login";
-import Scholarship from "./components/StudentScholarship/StudentScholarship";
-import CourseSelection from "./components/CourseSelection/CourseSelection";
+import StudentScholarship from "./components/Student/StudentScholarship/StudentScholarship";
+import CourseSelection from "./components/Student/CourseSelection/CourseSelection";
 import { useEffect } from "react";
 import { loadStudent } from "./actions/studentAction";
 import { loadTeacher } from "./actions/teacherAction";
@@ -14,6 +14,9 @@ import TeacherApprovalDetails from "./components/Admin/Teacher/TeacherApprovalDe
 import TeachersApproval from "./components/Admin/Teacher/TeachersApproval";
 import Header from "./components/Layout/Header/Header";
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
+import ProfileStudent from "./components/Student/Profile/ProfileStudent";
+import DocumentUploadStudent from "./components/Student/DocumentUploadStudent/DocumentUploadStudent";
+import ProfileTeacher from "./components/Teacher/Profile/ProfileTeacher";
 
 function App() {
   useEffect(() => {
@@ -26,8 +29,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/scholarship" element={<Scholarship />} />
-        <Route path="/courseSelection" element={<CourseSelection />} />
+
+        {/* Admin */}
+        <Route path="/admin" element={<Dashboard />} />
         <Route path="/studentsApproval" element={<StudentsApproval />} />
         <Route
           path="/studentApprovalDetails"
@@ -38,7 +42,18 @@ function App() {
           path="/teacherApprovalDetails"
           element={<TeacherApprovalDetails />}
         />
-        <Route path="/admin" element={<Dashboard />} />
+
+        {/* Student */}
+        <Route path="/studentProfile" element={<ProfileStudent />} />
+        <Route
+          path="/studentDocumentUpload"
+          element={<DocumentUploadStudent />}
+        />
+        <Route path="/studentCourseSelection" element={<CourseSelection />} />
+        <Route path="/studentScholarship" element={<StudentScholarship />} />
+
+        {/* Teacher */}
+        <Route path="/teacherProfile" element={<ProfileTeacher />} />
       </Routes>
     </Router>
   );

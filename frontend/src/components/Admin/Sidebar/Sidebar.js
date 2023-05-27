@@ -18,13 +18,20 @@ const Sidebar = () => {
     <div className="sidebar">
       <Link to="/studentsApproval">
         <p>
-          <ListAltIcon />
+          <PeopleIcon />
           Students Approval
         </p>
       </Link>
       <Link to="/teachersApproval">
         <p>
-          <PeopleIcon /> Teachers Approval
+          <PeopleIcon />
+          Teachers Approval
+        </p>
+      </Link>
+      <Link to="/teachersApproval">
+        <p>
+          <PeopleIcon />
+          HOD Approval
         </p>
       </Link>
     </div>

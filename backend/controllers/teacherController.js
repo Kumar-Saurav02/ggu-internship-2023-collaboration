@@ -4,6 +4,7 @@ const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const cloudinary = require("cloudinary").v2;
+const sendEmail = require("../utils/sendEmail");
 
 //REGISTER APPROVAL TEACHER
 exports.registerApprovalTeacher = catchAsyncErrors(async (req, res, next) => {
@@ -126,6 +127,7 @@ exports.registerTeacherAccept = catchAsyncErrors(async (req, res, next) => {
     signature,
     password,
   } = teacher;
+  console.log(teacher);
 
   message = `Your registration is approved at GGU portal. 
               \n User ID :- ${employeeID}
@@ -152,9 +154,6 @@ exports.registerTeacherAccept = catchAsyncErrors(async (req, res, next) => {
     dateOfBirth,
     qualification,
     assignSubject,
-    resume,
-    profilePhoto,
-    signature,
     password,
   };
 
@@ -162,20 +161,20 @@ exports.registerTeacherAccept = catchAsyncErrors(async (req, res, next) => {
     data.role = "hod";
   } else data.role = "teacher";
 
-  // data.profilePhoto = {
-  //   public_id: profilePhotoPublicID,
-  //   url: profilePhotoURL,
-  // };
+  data.profilePhoto = {
+    public_id: profilePhoto.public_id,
+    url: profilePhoto.url,
+  };
 
-  // data.signature = {
-  //   public_id: signaturePublicID,
-  //   url: signatureURL,
-  // };
+  data.signature = {
+    public_id: signature.public_id,
+    url: signature.url,
+  };
 
-  // data.resume = {
-  //   public_id: resumePublicID,
-  //   url: resumeURL,
-  // };
+  data.resume = {
+    public_id: resume.public_id,
+    url: resume.url,
+  };
 
   await teacher.deleteOne({ employeeID });
   await Teacher.create(data);
@@ -222,22 +221,24 @@ exports.rejectApprovalTeacher = catchAsyncErrors(async (req, res, next) => {
 
 //LOGIN TEACHER
 exports.loginTeacher = catchAsyncErrors(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { employeeID, password } = req.body;
 
-  if (!email || !password) {
-    return next(new ErrorHandler("Please enter email and password both", 400));
+  if (!employeeID || !password) {
+    return next(
+      new ErrorHandler("Please enter employeeID and password both", 400)
+    );
   }
 
   const teacher = await Teacher.findOne({
-    email,
+    employeeID,
   }).select("+password");
   if (!teacher) {
-    return next(new ErrorHandler("Invalid email or password", 401));
+    return next(new ErrorHandler("Invalid employeeID or password", 401));
   }
 
   const isPasswordMatched = await teacher.comparePassword(password);
   if (!isPasswordMatched) {
-    return next(new ErrorHandler("Invalid email or password", 401));
+    return next(new ErrorHandler("Invalid employeeID or password", 401));
   }
 
   sendToken(teacher, 200, res);

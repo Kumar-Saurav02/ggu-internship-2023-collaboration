@@ -179,6 +179,8 @@ exports.registerStudentAccept = catchAsyncErrors(async (req, res, next) => {
     fatherMobileNumber,
     motherMobileNumber,
     gender,
+    department,
+    course,
     dateOfBirth,
     dateOfJoining,
     religion,
