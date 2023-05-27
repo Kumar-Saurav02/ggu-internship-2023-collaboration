@@ -12,33 +12,35 @@ const TeacherApprovalDataMapping = ({ key, data }) => {
   };
   return (
     <Fragment>
-
       <div className="content">
-            <div className="key">{key}</div>
+        
 
-            <div className="label">
-              <div className="field">Name </div>
-              <div className="field">Employee ID</div>
-              <div className="field">Department </div>
-              <div className="field">Email </div>
-            </div>
+        <div className="col">
+          <div className="field">Name </div>
+            <div className="field">Employee ID</div>
+            <div className="field">Department </div>
+            <div className="field">Email </div>
+        </div>
+
+        <div className="col">
           
-            <div className="briefinfo">
-                {/* ek choot gaya hai tutu that is department ka field back end me hi nai hai*/}
-                <div className="field">{data.name} </div>
-                <div className="field">{data.employeeID} </div>
-                {/* <div className="field">{data.fatherName} </div>  this is for the department*/ }
-                <div className="field">{data.email} </div>
-            </div>
-            
-            <div className="btn">
-                <button class="signInbtn border hover">Reject</button>
-                <button class="signInbtn border hover">Accept</button>
-                <button  className="signInbtn border hover" onClick={openTeacherDetails}>Details</button>
-                
-            </div>
-      </div>
+          <div className="field">{data.name} </div>
+          <div className="field">{data.employeeID} </div>
+          <div className="field">Departmentdisplay hoga </div>
+          
+          <div className="field">{data.email} </div>
+        </div>
 
+        <div className=" col stdbtn">
+          <button class="signInbtn border hover">Reject</button>
+          <button class="signInbtn border hover">Accept</button>
+          <button
+            className="signInbtn border hover"
+            onClick={openTeacherDetails}>
+            Details
+          </button>
+        </div>
+      </div>
 
       {/* <div>
         <p>{key}</p>
@@ -48,7 +50,6 @@ const TeacherApprovalDataMapping = ({ key, data }) => {
         <button>Accept</button>
         <button>Reject</button>
       </div> */}
-      
     </Fragment>
   );
 };

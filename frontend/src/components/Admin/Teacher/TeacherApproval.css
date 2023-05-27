@@ -1,39 +1,46 @@
-.content
-{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 5px;
-    margin: auto;
-    width: 80%;
-    border: 1px solid black;
-    font-size: 16px;
+.approvBox {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  padding-bottom: 2%;
+  background-color: whitesmoke;
 }
 
-.field
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 5px;
+  margin: auto;
+  width: 80%;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
+.col
 {
-    padding: 2px;
-    margin: 2px;
-    
+  width: 33.33%;
+}
+
+.request
+{
+  border: 1px solid;
+  border-radius: 5px;
+  margin: 0% 5%;
+  padding: 0% 5%;
+  background-color: whitesmoke;
 }
 
 
-.btn.content
-{
-    display: flex;
-    flex-wrap: wrap;
+.teacherDetails {
+  width: 100vw;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  position: absolute;
 }
 
-.approvBox
-{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: auto;
-    padding-bottom: 2%;
-    background-color: whitesmoke;
-    
-}
 
 

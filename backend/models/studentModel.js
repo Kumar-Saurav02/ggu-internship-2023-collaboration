@@ -115,7 +115,7 @@ const studentSchema = new mongoose.Schema({
         type: String,
       },
       dateOfPayment: {
-        type: Date,
+        type: String,
       },
     },
   ],

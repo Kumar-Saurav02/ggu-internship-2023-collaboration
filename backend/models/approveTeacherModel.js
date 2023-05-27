@@ -17,8 +17,7 @@ const approveTeacherSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please enter your password"],
-    minLength: [8, "Password should have more than 6 characters"],
-    select: false,
+    minLength: [8, "Password should have more than 8 characters"],
   },
   mobileNumber: {
     type: Number,
