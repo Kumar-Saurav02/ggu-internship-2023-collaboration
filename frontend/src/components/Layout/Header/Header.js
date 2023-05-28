@@ -3,12 +3,16 @@ import { Link } from "react-router-dom";
 import { logoutStudent } from "../../../actions/studentAction";
 import "./Header.css";
 import { useDispatch } from "react-redux";
+import { logoutTeacher } from "../../../actions/teacherAction";
 
 export default function Header() {
   const dispatch = useDispatch();
 
-  const logoutKro = () => {
+  const logoutKroStudent = () => {
     dispatch(logoutStudent());
+  };
+  const logoutKroTeacher = () => {
+    dispatch(logoutTeacher());
   };
   return (
     <Fragment>
@@ -18,7 +22,8 @@ export default function Header() {
           <Link to="/">Login</Link>
           <Link to="/admin">Admin</Link>
           <Link to="/register">Register</Link>
-          <button onClick={logoutKro}>Logout</button>
+          <button onClick={logoutKroStudent}>Logout Student</button>
+          <button onClick={logoutKroTeacher}>Logout Teacher</button>
         </div>
       </div>
     </Fragment>

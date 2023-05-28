@@ -74,10 +74,9 @@ const TeacherApprovalDetails = () => {
 
             <div className="entry">
               <label className="label_name">Resume</label>
-              <object data={state.resume.url}>Resume</object>
               <br></br>
               <a target="_blank" rel="noreferrer" href={state.resume.url}>
-                Download Resume
+                View
               </a>
             </div>
           </div>

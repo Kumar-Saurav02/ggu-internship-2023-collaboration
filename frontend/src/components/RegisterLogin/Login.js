@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import "./Login.css";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Loader/Loader";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginStudents } from "../../actions/studentAction";
 import formfill from "../../Images/form_fill.jpg";
 import ggulogo from "../../Images/logo_pic.jpg";
@@ -41,9 +41,9 @@ const Login = () => {
   }, [typesOfUser]);
 
   useEffect(() => {
-    if (studentError) {
-      toast.error(studentError);
-    }
+    // if (studentError) {
+    //   toast.error(studentError);
+    // }
     if (studentAuthenticated) {
       toast.success("Login Successful");
       navigate("/studentProfile");
@@ -52,10 +52,10 @@ const Login = () => {
       toast.success("Login Successful");
       navigate("/teacherProfile");
     }
-    if (teacherError) {
-      toast.error(teacherError);
-    }
-  }, [studentAuthenticated]);
+    // if (teacherError) {
+    //   toast.error(teacherError);
+    // }
+  }, [studentAuthenticated, teacherAuthenticated]);
   const [loginStudent, setLoginStudent] = useState(false);
   const [loginTeacher, setLoginTeacher] = useState(false);
   const [enrollmentNo, setEnrollmentNo] = useState("");
@@ -184,9 +184,7 @@ const Login = () => {
                       className="signInbtn border hover">
                       New Registration
                     </button>
-                    <a className="forlin" href="google.com">
-                      Forgot Password🤔
-                    </a>
+                    <Link className="forlin">Forgot Password🤔</Link>
                   </div>
                 </div>
               </div>

@@ -5,6 +5,8 @@ import {
   LOAD_TEACHER_REQUEST,
   LOAD_TEACHER_SUCCESS,
   LOAD_TEACHER_FAIL,
+  LOGOUT_TEACHER_SUCCESS,
+  LOGOUT_TEACHER_FAIL,
 } from "../constants/teacherConstant";
 
 export const registerLoginTeachersReducer = (
@@ -26,6 +28,12 @@ export const registerLoginTeachersReducer = (
         isAuthenticated: true,
         teacher: action.payload,
       };
+    case LOGOUT_TEACHER_SUCCESS:
+      return {
+        loading: false,
+        teacher: null,
+        isAuthenticated: false,
+      };
     case LOGIN_TEACHER_FAIL:
     case LOAD_TEACHER_FAIL:
       return {
@@ -33,6 +41,12 @@ export const registerLoginTeachersReducer = (
         loading: false,
         isAuthenticated: false,
         teacher: null,
+        error: action.payload,
+      };
+    case LOGOUT_TEACHER_FAIL:
+      return {
+        ...state,
+        loading: false,
         error: action.payload,
       };
     default:

@@ -302,9 +302,9 @@ exports.getAllTeachersApproval = catchAsyncErrors(async (req, res, next) => {
 
 //GET PARTICULAR TEACHER
 exports.getParticularTeacher = catchAsyncErrors(async (req, res, next) => {
-  const { email } = req.body;
+  const { employeeID } = req.body;
 
-  const teacher = await Teacher.find({ email });
+  const teacher = await Teacher.find({ employeeID });
 
   res.status(200).json({
     success: true,

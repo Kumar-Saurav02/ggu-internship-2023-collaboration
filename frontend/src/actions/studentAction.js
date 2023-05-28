@@ -119,7 +119,7 @@ export const loginStudents =
         config
       );
 
-      dispatch({ type: LOGIN_STUDENT_SUCCESS, payload: data.student });
+      dispatch({ type: LOGIN_STUDENT_SUCCESS, payload: data.user });
     } catch (error) {
       dispatch({
         type: LOGIN_STUDENT_FAIL,

@@ -5,6 +5,8 @@ import {
   LOAD_TEACHER_REQUEST,
   LOAD_TEACHER_SUCCESS,
   LOAD_TEACHER_FAIL,
+  LOGOUT_TEACHER_SUCCESS,
+  LOGOUT_TEACHER_FAIL,
 } from "../constants/teacherConstant";
 import {
   REGISTER_TEACHER_REQUEST,
@@ -84,12 +86,24 @@ export const loginTeachers = (employeeID, password) => async (dispatch) => {
       config
     );
 
-    console.log(data);
-
-    dispatch({ type: LOGIN_TEACHER_SUCCESS, payload: data.teacher });
+    dispatch({ type: LOGIN_TEACHER_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({
       type: LOGIN_TEACHER_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Logout STUDENT
+export const logoutTeacher = () => async (dispatch) => {
+  try {
+    await axios.get(`/api/logoutStudent`);
+
+    dispatch({ type: LOGOUT_TEACHER_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: LOGOUT_TEACHER_FAIL,
       payload: error.response.data.message,
     });
   }
@@ -102,7 +116,7 @@ export const loadTeacher = () => async (dispatch) => {
 
     const { data } = await axios.get(`/api/getTeacherDetail`);
 
-    dispatch({ type: LOAD_TEACHER_SUCCESS, payload: data });
+    dispatch({ type: LOAD_TEACHER_SUCCESS, payload: data.teacher });
   } catch (error) {
     dispatch({ type: LOAD_TEACHER_FAIL, payload: error.response.data.message });
   }

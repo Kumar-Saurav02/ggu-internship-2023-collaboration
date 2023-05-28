@@ -361,8 +361,20 @@ const Register = () => {
     if (dateOfJoiningStudent === undefined) {
       return toast.error("Please select date of joining");
     }
-    const updatedDateOfBirth = dateOfBirthStudent.$d;
-    const updatedDateOfJoining = dateOfJoiningStudent.$d;
+    const updatingDateOfBirth = dateOfBirthStudent.$d.toString().split(" ");
+    const updatingDateOfJoining = dateOfJoiningStudent.$d.toString().split(" ");
+    const updatedDateOfBirth =
+      updatingDateOfBirth[1] +
+      " " +
+      updatingDateOfBirth[2] +
+      " " +
+      updatingDateOfBirth[3];
+    const updatedDateOfJoining =
+      updatingDateOfJoining[1] +
+      " " +
+      updatingDateOfJoining[2] +
+      " " +
+      updatingDateOfJoining[3];
 
     dispatch(
       registerStudents(
@@ -458,7 +470,13 @@ const Register = () => {
     }
 
     //FIXING FORMAT OF DATE OF BIRTH
-    const updatedDateOfBirth = dateOfBirthTeacher.$d;
+    const updatingDateOfBirth = dateOfBirthTeacher.$d.toString().split(" ");
+    const updatedDateOfBirth =
+      updatingDateOfBirth[1] +
+      " " +
+      updatingDateOfBirth[2] +
+      " " +
+      updatingDateOfBirth[3];
 
     dispatch(
       registerTeachers(

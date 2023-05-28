@@ -15,7 +15,6 @@ const TeachersApproval = () => {
     error,
   } = useSelector((state) => state.teachersApprovalRequests);
 
-  console.log(teacherApproval);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
