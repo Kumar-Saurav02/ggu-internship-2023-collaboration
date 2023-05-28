@@ -28,7 +28,7 @@ const Sidebar = () => {
           Teachers Approval
         </p>
       </Link>
-      <Link to="/teachersApproval">
+      <Link to="/HODApproval">
         <p>
           <PeopleIcon />
           HOD Approval

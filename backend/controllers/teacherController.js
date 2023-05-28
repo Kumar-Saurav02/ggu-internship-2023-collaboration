@@ -127,7 +127,6 @@ exports.registerTeacherAccept = catchAsyncErrors(async (req, res, next) => {
     signature,
     password,
   } = teacher;
-  console.log(teacher);
 
   message = `Your registration is approved at GGU portal. 
               \n User ID :- ${employeeID}

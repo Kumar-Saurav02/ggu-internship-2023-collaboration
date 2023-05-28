@@ -1,7 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import "./StudentApproval.css";
 import { useDispatch, useSelector } from "react-redux";
-import { studentApprovalRequest } from "../../../actions/adminAction";
+import {
+  clearMessages,
+  studentApprovalRequest,
+} from "../../../actions/adminAction";
 import Loader from "../../Loader/Loader";
 import { useNavigate } from "react-router-dom";
 import StudentApprovalDataMapping from "./StudentApprovalDataMapping";
@@ -15,20 +18,41 @@ const StudentsApproval = () => {
     error,
   } = useSelector((state) => state.studentsApprovalRequests);
 
+  const {
+    loading: acceptRejectLoading,
+    message,
+    error: acceptRejectError,
+  } = useSelector((state) => state.acceptingRejectingStudentTeacherApproval);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
+  // useEffect(() => {
+  //   if (acceptRejectError) {
+  //     toast.error(acceptRejectError);
+  //     dispatch(clearMessages());
+  //   }
+  //   if (message) {
+  //     toast.success(message);
+  //     dispatch(clearMessages());
+  //     navigate("/studentsApproval");
+  //   }
+  // }, [acceptRejectError, message]);
 
+  // useEffect(() => {
+  //   if (error) {
+  //     toast.error(error);
+  //     dispatch(clearMessages());
+  //   }
+  // }, [error]);
+
+  useEffect(() => {
     dispatch(studentApprovalRequest());
-  }, [dispatch]);
+  }, []);
 
   return (
     <Fragment>
-      {studentApprovalLoading ? (
+      {studentApprovalLoading || acceptRejectLoading ? (
         <Loader />
       ) : (
         <Fragment>

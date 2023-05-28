@@ -23,6 +23,7 @@ import {
   TEACHER_APPROVAL_REJECT_REQUEST,
   TEACHER_APPROVAL_REJECT_SUCCESS,
   TEACHER_APPROVAL_REJECT_FAIL,
+  CLEAR_MESSAGES,
 } from "../constants/adminConstant";
 
 //GET ALL STUDENTS APPROVAL REQUESTS
@@ -47,6 +48,11 @@ export const getStudentApprovalRequestReducer = (
         loading: false,
         studentApproval: null,
         error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
@@ -91,6 +97,12 @@ export const acceptingRejectingStudentTeacherApprovalReducer = (
         message: null,
         error: action.payload,
       };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        message: null,
+        error: null,
+      };
     default:
       return state;
   }
@@ -117,6 +129,11 @@ export const getTeacherApprovalRequestReducer = (
         loading: false,
         teacherApproval: null,
         error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

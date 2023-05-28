@@ -17,6 +17,7 @@ import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import ProfileStudent from "./components/Student/Profile/ProfileStudent";
 import DocumentUploadStudent from "./components/Student/DocumentUploadStudent/DocumentUploadStudent";
 import ProfileTeacher from "./components/Teacher/Profile/ProfileTeacher";
+import HODApproval from "./components/Admin/HOD/HODApproval";
 
 function App() {
   useEffect(() => {
@@ -42,6 +43,7 @@ function App() {
           path="/teacherApprovalDetails"
           element={<TeacherApprovalDetails />}
         />
+        <Route path="/HODApproval" element={<HODApproval />} />
 
         {/* Student */}
         <Route path="/studentProfile" element={<ProfileStudent />} />

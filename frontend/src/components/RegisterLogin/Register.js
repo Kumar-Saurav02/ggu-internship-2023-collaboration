@@ -10,6 +10,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { toast } from "react-toastify";
 import "./Register.css";
 import Loader from "../Loader/Loader";
+import { clearMessages } from "../../actions/adminAction";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -36,13 +37,14 @@ const Register = () => {
   }, [typesOfUser]);
 
   useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
+    // if (error) {
+    //   toast.error(error);
+    // }
     if (studentMessage) {
       toast.success(studentMessage);
+      dispatch(clearMessages());
     }
-  }, [studentMessage, error]);
+  }, [studentMessage, dispatch]);
 
   const [student, setStudent] = useState({
     enrollmentNo: "",
@@ -77,6 +79,7 @@ const Register = () => {
     passwordStudent: "",
     confirmPasswordStudent: "",
   });
+  console.log(student);
   const {
     enrollmentNo,
     nameStudent,
@@ -976,14 +979,12 @@ const Register = () => {
                     </div>
 
                     <div className="entry">
-                      <label
-                        className="label_name"
-                        for="{permanentAddressStudent}">
+                      <label className="label_name" for="{permanentAddress}">
                         Permanent Address
                       </label>
                       <div className="address" id="label_input">
                         <input
-                          type="number"
+                          type="text"
                           placeholder="Permanent Address"
                           required
                           name="permanentAddressStudent"

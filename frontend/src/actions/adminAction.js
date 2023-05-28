@@ -17,6 +17,7 @@ import {
   TEACHER_APPROVAL_REJECT_REQUEST,
   TEACHER_APPROVAL_REJECT_SUCCESS,
   TEACHER_APPROVAL_REJECT_FAIL,
+  CLEAR_MESSAGES,
 } from "../constants/adminConstant";
 import axios from "axios";
 
@@ -132,4 +133,9 @@ export const teacherApprovalRequestReject = (id) => async (dispatch) => {
       payload: error.response.data.message,
     });
   }
+};
+
+// CLEARING MESSAGES
+export const clearMessages = () => async (dispatch) => {
+  dispatch({ type: CLEAR_MESSAGES });
 };

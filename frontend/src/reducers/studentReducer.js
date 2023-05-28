@@ -1,3 +1,4 @@
+import { CLEAR_MESSAGES } from "../constants/adminConstant";
 import {
   LOGIN_STUDENT_REQUEST,
   LOGIN_STUDENT_SUCCESS,
@@ -54,6 +55,11 @@ export const registerLoginStudentsReducer = (
         loading: false,
         error: action.payload,
       };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }
@@ -76,6 +82,11 @@ export const getCourseForStudentReducer = (state = { course: {} }, action) => {
         loading: false,
         course: null,
         error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

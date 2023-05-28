@@ -216,7 +216,7 @@ exports.registerStudentAccept = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Student is registered",
+    message: "Student is Registered",
   });
 });
 
@@ -226,6 +226,8 @@ exports.rejectApprovalStudent = catchAsyncErrors(async (req, res, next) => {
   if (!student) {
     return next(new ErrorHandler(`Some error occurred`));
   }
+
+  const { enrollmentNo, email } = student;
 
   message = `Your registration is not approved at GGU portal`;
   try {
@@ -248,7 +250,7 @@ exports.rejectApprovalStudent = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Student disapproved",
+    message: "Student Disapproved",
   });
 });
 

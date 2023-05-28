@@ -19,8 +19,6 @@ const ProfileTeacher = () => {
     dispatch(loadTeacher());
   }, []);
 
-  console.log(teacher);
-
   return (
     <Fragment>
       {loading ? (

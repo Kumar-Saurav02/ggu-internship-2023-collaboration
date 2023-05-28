@@ -1,3 +1,4 @@
+import { CLEAR_MESSAGES } from "../constants/adminConstant";
 import {
   LOGIN_TEACHER_REQUEST,
   LOGIN_TEACHER_SUCCESS,
@@ -48,6 +49,11 @@ export const registerLoginTeachersReducer = (
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
