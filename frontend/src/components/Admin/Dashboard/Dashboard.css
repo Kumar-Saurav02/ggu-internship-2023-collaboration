@@ -1,8 +1,10 @@
 .dashboard {
-  width: 100vw;
+  width: 90%;
   max-width: 100%;
   display: grid;
   grid-template-columns: 1fr 5fr;
   position: absolute;
   /* border: 2px solid black; */
+  margin: auto;
+  flex-direction: co;
 }
