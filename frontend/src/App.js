@@ -18,6 +18,8 @@ import ProfileStudent from "./components/Student/Profile/ProfileStudent";
 import DocumentUploadStudent from "./components/Student/DocumentUploadStudent/DocumentUploadStudent";
 import ProfileTeacher from "./components/Teacher/Profile/ProfileTeacher";
 import HODApproval from "./components/Admin/HOD/HODApproval";
+import CreateSubject from "./components/HOD/CreateSubject/CreateSubject";
+import CreateCourse from "./components/HOD/CreateCourse/CreateCourse";
 
 function App() {
   useEffect(() => {
@@ -56,6 +58,10 @@ function App() {
 
         {/* Teacher */}
         <Route path="/teacherProfile" element={<ProfileTeacher />} />
+
+        {/* HOD */}
+        <Route path="/hod/CreateSubject" element={<CreateSubject />} />
+        <Route path="/hod/CreateCourse" element={<CreateCourse />} />
       </Routes>
     </Router>
   );

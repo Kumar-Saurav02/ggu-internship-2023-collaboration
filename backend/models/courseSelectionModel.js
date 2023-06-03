@@ -18,9 +18,6 @@ const courseSelectionSchema = new mongoose.Schema({
       category: {
         type: String,
       },
-      cycle: {
-        type: String,
-      },
     },
   ],
 });

@@ -117,6 +117,16 @@ const studentSchema = new mongoose.Schema({
       dateOfPayment: {
         type: String,
       },
+      fees: {
+        public_id: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
     },
   ],
   localAddress: {
@@ -196,14 +206,14 @@ const studentSchema = new mongoose.Schema({
   ],
   backSubject: [
     {
+      semester: {
+        type: Number,
+      },
       subjectName: {
         type: String,
       },
       subjectCode: {
         type: String,
-      },
-      semester: {
-        type: Number,
       },
       subjectCredit: {
         type: String,
@@ -227,8 +237,29 @@ const studentSchema = new mongoose.Schema({
       category: {
         type: String,
       },
-      cycle: {
+      term: {
         type: String,
+      },
+    },
+  ],
+  scholarshipDetails: [
+    {
+      session: {
+        type: String,
+      },
+      state: {
+        type: String,
+      },
+      scholarship: {
+        type: String,
+      },
+      scholarshipDocument: {
+        public_id: {
+          type: String,
+        },
+        url: {
+          type: String,
+        },
       },
     },
   ],

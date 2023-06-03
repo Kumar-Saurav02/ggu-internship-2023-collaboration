@@ -307,6 +307,8 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     fatherMobileNumber,
     motherMobileNumber,
     gender,
+    department,
+    course,
     dateOfBirth,
     dateOfJoining,
     religion,
@@ -330,13 +332,13 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     feeAmount,
     feeChallanId,
     feeDateOfPayment,
+    feeDocument,
     marksSemester,
     marksSGPA,
     marksCGPA,
     marksResult,
     attendance,
   } = req.body;
-
   const updatedData = {
     enrollmentNo,
     name,
@@ -361,7 +363,6 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     aadharNumber,
     hosteler,
   };
-
   if (profilePhoto !== undefined) {
     if (req.user.photoUpload.public_id !== undefined) {
       await cloudinary.uploader.destroy(req.user.photoUpload.public_id);
@@ -411,18 +412,34 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
       (detail) => detail.semester.toString() === feeSemester.toString()
     );
     if (isDetailPresent) {
-      req.user.feeDetails.forEach((detail) => {
+      for (const detail of req.user.feeDetails) {
         if (detail.semester.toString() === feeSemester.toString()) {
-          (detail.semester = feeSemester),
-            (detail.bankName = feeBankName),
-            (detail.accountNumber = feeAccountNumber),
-            (detail.ifscCode = feeifscCode),
-            (detail.amount = feeAmount),
-            (detail.challanId = feeChallanId),
-            (detail.dateOfPayment = feeDateOfPayment);
+          await cloudinary.uploader.destroy(detail.fees.public_id);
+          const uploadFees = await cloudinary.uploader.upload(feeDocument, {
+            folder: "fees",
+          });
+          await Student.updateOne(
+            { _id: req.user._id, "feeDetails.semester": detail.semester },
+            {
+              $set: {
+                "feeDetails.$.semester": feeSemester,
+                "feeDetails.$.bankName": feeBankName,
+                "feeDetails.$.accountNumber": feeAccountNumber,
+                "feeDetails.$.ifscCode": feeifscCode,
+                "feeDetails.$.amount": feeAmount,
+                "feeDetails.$.challanId": feeChallanId,
+                "feeDetails.$.dateOfPayment": feeDateOfPayment,
+                "feeDetails.$.fees.public_id": uploadFees.public_id,
+                "feeDetails.$.fees.url": uploadFees.secure_url,
+              },
+            }
+          );
         }
-      });
+      }
     } else {
+      const uploadFees = await cloudinary.uploader.upload(feeDocument, {
+        folder: "fees",
+      });
       req.user.feeDetails.push({
         semester: feeSemester,
         bankName: feeBankName,
@@ -431,9 +448,13 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
         amount: feeAmount,
         challanId: feeChallanId,
         dateOfPayment: feeDateOfPayment,
+        fees: {
+          public_id: uploadFees.public_id,
+          url: uploadFees.secure_url,
+        },
       });
+      await req.user.save({ validateBeforeSave: false });
     }
-    await req.user.save({ validateBeforeSave: false });
   }
 
   if (marksSemester !== undefined) {
@@ -448,32 +469,38 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
           const uploadResult = await cloudinary.uploader.upload(marksResult, {
             folder: "results",
           });
-          (detail.semester = marksSemester),
-            (detail.bankName = marksSGPA),
-            (detail.accountNumber = marksCGPA),
-            (detail.result.public_id = uploadResult.public_id),
-            (detail.result.url = uploadResult.secure_url);
+          await Student.updateOne(
+            { _id: req.user._id, "marksDetails.semester": detail.semester },
+            {
+              $set: {
+                "marksDetails.$.semester": marksSemester,
+                "marksDetails.$.cgpa": marksCGPA,
+                "marksDetails.$.sgpa": marksSGPA,
+                "marksDetails.$.result.public_id": uploadResult.public_id,
+                "marksDetails.$.result.url": uploadResult.secure_url,
+              },
+            }
+          );
         }
       }
     } else {
       const uploadResult = await cloudinary.uploader.upload(marksResult, {
         folder: "results",
       });
+      console.log(uploadResult);
 
       req.user.marksDetails.push({
         semester: marksSemester,
-        bankName: marksSGPA,
-        accountNumber: marksCGPA,
+        cgpa: marksSGPA,
+        sgpa: marksCGPA,
         result: {
           public_id: uploadResult.public_id,
           url: uploadResult.secure_url,
         },
       });
+      await req.user.save({ validateBeforeSave: false });
     }
-
-    await req.user.save({ validateBeforeSave: false });
   }
-
   if (attendance !== undefined) {
     var flag = true;
     for (let i = 0; i < req.user.attendanceDetails.length; i++) {
@@ -481,7 +508,14 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
         req.user.attendanceDetails[i].semester.toString() ===
         attendance[0].toString()
       ) {
-        req.user.attendanceDetails[i].attendance === attendance[1];
+        await Student.updateOne(
+          { _id: req.user._id, "attendanceDetails.semester": attendance[0] },
+          {
+            $set: {
+              "attendanceDetails.$.attendance": attendance[1],
+            },
+          }
+        );
         flag = false;
       }
     }
@@ -490,8 +524,8 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
         semester: attendance[0],
         attendance: attendance[1],
       });
+      await req.user.save({ validateBeforeSave: false });
     }
-    await req.user.save({ validateBeforeSave: false });
   }
 
   await Student.findByIdAndUpdate(req.user.id, updatedData, {
@@ -502,6 +536,7 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    message: "Details Updated Successfully",
   });
 });
 

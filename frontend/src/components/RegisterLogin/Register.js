@@ -79,7 +79,6 @@ const Register = () => {
     passwordStudent: "",
     confirmPasswordStudent: "",
   });
-  console.log(student);
   const {
     enrollmentNo,
     nameStudent,

@@ -10,6 +10,12 @@ import {
   COURSE_STUDENT_REQUEST,
   COURSE_STUDENT_SUCCESS,
   COURSE_STUDENT_FAIL,
+  SUBMIT_FEES_REQUEST,
+  SUBMIT_FEES_SUCCESS,
+  SUBMIT_FEES_FAIL,
+  SUBMIT_MARKS_REQUEST,
+  SUBMIT_MARKS_SUCCESS,
+  SUBMIT_MARKS_FAIL,
 } from "../constants/studentConstant";
 import {
   REGISTER_STUDENT_REQUEST,
@@ -105,6 +111,79 @@ export const registerStudents =
     }
   };
 
+//STUDENT UPDATE COURSE
+export const updatingCourseSelection = (course) => async (dispatch) => {};
+
+//STUDENT UPLOAD FEES
+export const uploadingFees =
+  (
+    feeSemester,
+    feeBankName,
+    feeAccountNumber,
+    feeifscCode,
+    feeAmount,
+    feeChallanId,
+    feeDateOfPayment,
+    feeDocument
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: SUBMIT_FEES_REQUEST });
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/updateStudent`,
+        {
+          feeSemester,
+          feeBankName,
+          feeAccountNumber,
+          feeifscCode,
+          feeAmount,
+          feeChallanId,
+          feeDateOfPayment,
+          feeDocument,
+        },
+        config
+      );
+
+      dispatch({ type: SUBMIT_FEES_SUCCESS, payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: SUBMIT_FEES_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//STUDENT UPLOAD MARKS
+export const uploadingMarks =
+  (marksSemester, marksSGPA, marksCGPA, marksResult) => async (dispatch) => {
+    try {
+      dispatch({ type: SUBMIT_MARKS_REQUEST });
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/updateStudent`,
+        {
+          marksSemester,
+          marksSGPA,
+          marksCGPA,
+          marksResult,
+        },
+        config
+      );
+
+      dispatch({ type: SUBMIT_MARKS_SUCCESS, payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: SUBMIT_MARKS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 //STUDENT LOGIN
 export const loginStudents =
   (enrollmentNumber, password) => async (dispatch) => {
@@ -128,7 +207,7 @@ export const loginStudents =
     }
   };
 
-// Logout STUDENT
+// LOGOUT STUDENT
 export const logoutStudent = () => async (dispatch) => {
   try {
     await axios.get(`/api/logoutStudent`);

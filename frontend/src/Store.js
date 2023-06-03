@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   getCourseForStudentReducer,
+  marksFeesUpdateReducer,
   registerLoginStudentsReducer,
 } from "./reducers/studentReducer";
 import { registerLoginTeachersReducer } from "./reducers/teacherReducer";
@@ -11,6 +12,11 @@ import {
   getStudentApprovalRequestReducer,
   getTeacherApprovalRequestReducer,
 } from "./reducers/adminReducer";
+import {
+  createCourseByHODReducer,
+  createSubjectByHODReducer,
+  getAllSubjectsReducer,
+} from "./reducers/hodReducer";
 
 const reducer = combineReducers({
   registerLoginStudents: registerLoginStudentsReducer,
@@ -20,6 +26,10 @@ const reducer = combineReducers({
   teachersApprovalRequests: getTeacherApprovalRequestReducer,
   acceptingRejectingStudentTeacherApproval:
     acceptingRejectingStudentTeacherApprovalReducer,
+  createCourseByHOD: createCourseByHODReducer,
+  createSubjectByHOD: createSubjectByHODReducer,
+  getAllSubjects: getAllSubjectsReducer,
+  marksFeesUpdate: marksFeesUpdateReducer,
 });
 
 let initialState = {};

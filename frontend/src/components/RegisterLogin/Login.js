@@ -150,7 +150,6 @@ const Login = () => {
                     <div>
                       <input
                         className="border"
-                        // employee ID krna hai
                         type="text"
                         placeholder="Employee ID"
                         required

@@ -19,9 +19,8 @@ const CourseSelection = () => {
   } = useSelector((state) => state.registerLoginStudents);
 
   const [attendance, setAttendance] = useState();
-
-  // const [semester, setSemester] = useState("");
-  // const semesters = ["1", "2", "3", "4", "5", "6", "7", "8"];
+  const [courseSelected, setCourseSelected] = useState(false);
+  const [credits, setCredits] = useState(0);
 
   useEffect(() => {
     dispatch(getCourseForStudent());
@@ -40,7 +39,36 @@ const CourseSelection = () => {
         }
       }
     }
+    if (
+      student !== undefined &&
+      student.courseSelected &&
+      student.courseSelected.length != 0
+    ) {
+      for (let i = 0; i < student.courseSelected.length; i++) {
+        if (
+          student.courseSelected[i].semester.toString() ===
+          student.currentSemester.toString()
+        ) {
+          setCourseSelected(true);
+        }
+      }
+    }
   }, [student]);
+
+  useEffect(() => {
+    if (
+      credits === 0 &&
+      course !== undefined &&
+      course.course !== undefined &&
+      course.course
+    ) {
+      var totalCredits = 0;
+      for (let i = 0; i < course.course.length; i++) {
+        totalCredits += course.course[i].subjectCredit;
+      }
+      setCredits(totalCredits);
+    }
+  }, [course]);
 
   return (
     <Fragment>
@@ -75,57 +103,50 @@ const CourseSelection = () => {
                   ) : (
                     <div className="showdata">
                       <div className="Field_data_val">
-                        <span className="data_n_title">
+                        <span>
                           <h4>S. No</h4>
                         </span>
-                        <span className="data_n_title">
-                          <h4>Select</h4>
-                        </span>
-                        <span className="data_n_title">
+                        <span>
                           <h4>Subject Name</h4>
                         </span>
-                        <span className="data_n_title">
+                        <span>
                           <h4>Subject Code</h4>
                         </span>
-                        <span className="data_n_title">
+                        <span>
                           <h4>Credits</h4>
                         </span>
-                        <span className="data_n_title">
+                        <span>
                           <h4>Category</h4>
                         </span>
-                        <span className="data_n_title">
-                          <h4>Cycle</h4>
+                        <span>
+                          <h4>Term</h4>
                         </span>
                       </div>
                       {course.course &&
-                        course.course.map((courses, i) => (
-                          <div key={i} className="show_data_val">
-                            <span className="data_n_title">
-                              <h4>{i + 1}</h4>
-                            </span>
-                            <span className="data_n_title">
-                              <h4>
-                                {" "}
-                                <button>[]</button>
-                              </h4>
-                            </span>
-                            <span className="data_n_title">
-                              <h4> {courses.subjectName}</h4>
-                            </span>
-                            <span className="data_n_title">
-                              <h4> {courses.subjectCode}</h4>
-                            </span>
-                            <span className="data_n_title">
-                              <h4> {courses.subjectCredit}</h4>
-                            </span>
-                            <span className="data_n_title">
-                              <h4> {courses.category}</h4>
-                            </span>
-                            <span className="data_n_title">
-                              <h4> {courses.cycle}</h4>
-                            </span>
-                          </div>
-                        ))}
+                        course.course.map((courses, i) => {
+                          return (
+                            <div key={i} className="show_data_val">
+                              <span>
+                                <h4>{i + 1}</h4>
+                              </span>
+                              <span>
+                                <h4> {courses.subjectName}</h4>
+                              </span>
+                              <span>
+                                <h4> {courses.subjectCode}</h4>
+                              </span>
+                              <span>
+                                <h4> {courses.subjectCredit}</h4>
+                              </span>
+                              <span>
+                                <h4> {courses.category}</h4>
+                              </span>
+                              <span>
+                                <h4> {student.currentSemester} Semester</h4>
+                              </span>
+                            </div>
+                          );
+                        })}
                     </div>
                   )}
                 </div>
@@ -138,39 +159,58 @@ const CourseSelection = () => {
                   ) : (
                     <div className="showdata">
                       <div className="Field_data_val">
-                        <span className="data_n_title">
+                        <span>
                           <h4>S. No</h4>
                         </span>
-                        <span className="data_n_title">
+                        <span>
                           <h4>Select</h4>
                         </span>
-                        <span className="data_n_title">
+                        <span>
                           <h4>Subject Name</h4>
                         </span>
-                        <span className="data_n_title">
+                        <span>
                           <h4>Subject Code</h4>
                         </span>
-                        <span className="data_n_title">
+                        <span>
                           <h4>Credits</h4>
                         </span>
                       </div>
                       {student.backSubject &&
                         student.backSubject.map((back, i) => (
                           <div key={i} className="show_data_val">
-                            <span className="data_n_title">
-                              <h4> </h4>
+                            <span>
+                              <h4> {back.semester}</h4>
                             </span>
-                            <span className="data_n_title">
-                              <h4> </h4>
+                            <span>
+                              <h4>{back.subjectName} </h4>
                             </span>
-                            <span className="data_n_title">
-                              <h4> </h4>
+                            <span>
+                              <h4>{back.subjectCode} </h4>
+                            </span>
+                            <span>
+                              <h4>{back.subjectCredit} </h4>
                             </span>
                           </div>
                         ))}
                     </div>
                   )}
                 </div>
+              </div>
+              <div>
+                <h5>Total Credits</h5>
+                <p>{credits}</p>
+              </div>
+              <div>
+                {courseSelected && (
+                  <div>
+                    <h3>Course is already submitted.</h3>
+                  </div>
+                )}
+                {!courseSelected && (
+                  <div>
+                    <button>Submit Course</button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

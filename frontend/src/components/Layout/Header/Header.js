@@ -1,5 +1,5 @@
 import { React, Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutStudent } from "../../../actions/studentAction";
 import "./Header.css";
 import { useDispatch } from "react-redux";
@@ -7,12 +7,15 @@ import { logoutTeacher } from "../../../actions/teacherAction";
 
 export default function Header() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const logoutKroStudent = () => {
     dispatch(logoutStudent());
+    navigate("/");
   };
   const logoutKroTeacher = () => {
     dispatch(logoutTeacher());
+    navigate("/");
   };
   return (
     <Fragment>

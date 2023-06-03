@@ -11,6 +11,12 @@ import {
   COURSE_STUDENT_REQUEST,
   COURSE_STUDENT_SUCCESS,
   COURSE_STUDENT_FAIL,
+  SUBMIT_FEES_REQUEST,
+  SUBMIT_FEES_SUCCESS,
+  SUBMIT_FEES_FAIL,
+  SUBMIT_MARKS_REQUEST,
+  SUBMIT_MARKS_SUCCESS,
+  SUBMIT_MARKS_FAIL,
 } from "../constants/studentConstant";
 
 export const registerLoginStudentsReducer = (
@@ -86,6 +92,38 @@ export const getCourseForStudentReducer = (state = { course: {} }, action) => {
     case CLEAR_MESSAGES:
       return {
         ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const marksFeesUpdateReducer = (state = { course: {} }, action) => {
+  switch (action.type) {
+    case SUBMIT_FEES_REQUEST:
+    case SUBMIT_MARKS_REQUEST:
+      return {
+        loading: true,
+      };
+    case SUBMIT_FEES_SUCCESS:
+    case SUBMIT_MARKS_SUCCESS:
+      return {
+        loading: false,
+        message: action.payload,
+      };
+    case SUBMIT_FEES_FAIL:
+    case SUBMIT_MARKS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        message: null,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        message: null,
         error: null,
       };
     default:
