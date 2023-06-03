@@ -1,10 +1,15 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCourseForStudent } from "../../../actions/studentAction";
+import {
+  getCourseForStudent,
+  submitCourse,
+} from "../../../actions/studentAction";
 import Loader from "../../Loader/Loader";
 import "./CourseSelection.css";
 import "../StudentScholarship/StudentScholarship.css";
 import SidebarStudent from "../SidebarStudent/SidebarStudent";
+import { clearMessages } from "../../../actions/adminAction";
+import { toast } from "react-toastify";
 
 const CourseSelection = () => {
   const dispatch = useDispatch();
@@ -12,15 +17,33 @@ const CourseSelection = () => {
   const { course, loading: courseLoading } = useSelector(
     (state) => state.courseForStudents
   );
+
   const {
     student,
     loading: studentLoading,
     isAuthenticated,
   } = useSelector((state) => state.registerLoginStudents);
 
+  const {
+    loading: uploading,
+    message,
+    error,
+  } = useSelector((state) => state.marksFeesCourseUpdate);
+
   const [attendance, setAttendance] = useState();
   const [courseSelected, setCourseSelected] = useState(false);
   const [credits, setCredits] = useState(0);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearMessages());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(clearMessages());
+    }
+  }, [error, message]);
 
   useEffect(() => {
     dispatch(getCourseForStudent());
@@ -55,6 +78,10 @@ const CourseSelection = () => {
     }
   }, [student]);
 
+  const submitCourseDetails = () => {
+    dispatch(submitCourse(course));
+  };
+
   useEffect(() => {
     if (
       credits === 0 &&
@@ -72,7 +99,7 @@ const CourseSelection = () => {
 
   return (
     <Fragment>
-      {courseLoading || studentLoading ? (
+      {courseLoading || studentLoading || uploading ? (
         <Loader />
       ) : (
         <Fragment>
@@ -208,7 +235,7 @@ const CourseSelection = () => {
                 )}
                 {!courseSelected && (
                   <div>
-                    <button>Submit Course</button>
+                    <button onClick={submitCourseDetails}>Submit Course</button>
                   </div>
                 )}
               </div>

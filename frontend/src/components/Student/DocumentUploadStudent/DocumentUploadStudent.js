@@ -24,7 +24,8 @@ const DocumentUploadStudent = () => {
     loading: uploading,
     message,
     error,
-  } = useSelector((state) => state.marksFeesUpdate);
+  } = useSelector((state) => state.marksFeesCourseUpdate);
+
   useEffect(() => {
     dispatch(loadStudent());
   }, []);

@@ -16,6 +16,9 @@ import {
   SUBMIT_MARKS_REQUEST,
   SUBMIT_MARKS_SUCCESS,
   SUBMIT_MARKS_FAIL,
+  SUBMIT_COURSE_REQUEST,
+  SUBMIT_COURSE_SUCCESS,
+  SUBMIT_COURSE_FAIL,
 } from "../constants/studentConstant";
 import {
   REGISTER_STUDENT_REQUEST,
@@ -183,6 +186,30 @@ export const uploadingMarks =
       });
     }
   };
+
+//SUBMIT STUDENT COURSE
+export const submitCourse = (courseSubmission) => async (dispatch) => {
+  try {
+    dispatch({ type: SUBMIT_COURSE_REQUEST });
+
+    console.log(courseSubmission);
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/updateStudent`,
+      { courseSubmission },
+      config
+    );
+
+    dispatch({ type: SUBMIT_COURSE_SUCCESS, payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: SUBMIT_COURSE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 //STUDENT LOGIN
 export const loginStudents =

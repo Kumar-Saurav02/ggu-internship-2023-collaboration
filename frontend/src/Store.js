@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   getCourseForStudentReducer,
-  marksFeesUpdateReducer,
+  marksFeesCourseUpdateReducer,
   registerLoginStudentsReducer,
 } from "./reducers/studentReducer";
 import { registerLoginTeachersReducer } from "./reducers/teacherReducer";
@@ -29,7 +29,7 @@ const reducer = combineReducers({
   createCourseByHOD: createCourseByHODReducer,
   createSubjectByHOD: createSubjectByHODReducer,
   getAllSubjects: getAllSubjectsReducer,
-  marksFeesUpdate: marksFeesUpdateReducer,
+  marksFeesCourseUpdate: marksFeesCourseUpdateReducer,
 });
 
 let initialState = {};

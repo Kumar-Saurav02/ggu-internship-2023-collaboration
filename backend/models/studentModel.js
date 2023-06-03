@@ -225,21 +225,25 @@ const studentSchema = new mongoose.Schema({
       semester: {
         type: Number,
       },
-      subjectName: {
-        type: String,
-      },
-      subjectCode: {
-        type: String,
-      },
-      subjectCredit: {
-        type: Number,
-      },
-      category: {
-        type: String,
-      },
-      term: {
-        type: String,
-      },
+      subjects: [
+        {
+          subjectName: {
+            type: String,
+          },
+          subjectCode: {
+            type: String,
+          },
+          subjectCredit: {
+            type: Number,
+          },
+          category: {
+            type: String,
+          },
+          term: {
+            type: String,
+          },
+        },
+      ],
     },
   ],
   scholarshipDetails: [

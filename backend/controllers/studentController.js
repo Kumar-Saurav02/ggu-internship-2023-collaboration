@@ -338,6 +338,7 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     marksCGPA,
     marksResult,
     attendance,
+    courseSubmission,
   } = req.body;
   const updatedData = {
     enrollmentNo,
@@ -487,7 +488,6 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
       const uploadResult = await cloudinary.uploader.upload(marksResult, {
         folder: "results",
       });
-      console.log(uploadResult);
 
       req.user.marksDetails.push({
         semester: marksSemester,
@@ -526,6 +526,24 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
       });
       await req.user.save({ validateBeforeSave: false });
     }
+  }
+
+  if (courseSubmission !== undefined) {
+    var subjects = [];
+    for (let i = 0; i < courseSubmission.course.length; i++) {
+      subjects.push({
+        subjectName: courseSubmission.course[i].subjectName,
+        subjectCode: courseSubmission.course[i].subjectCode,
+        subjectCredit: courseSubmission.course[i].subjectCredit,
+        category: courseSubmission.course[i].category,
+        term: req.user.currentSemester + " " + "Semester",
+      });
+    }
+    req.user.courseSelected.push({
+      semester: courseSubmission.semester,
+      subjects: subjects,
+    });
+    await req.user.save({ validateBeforeSave: false });
   }
 
   await Student.findByIdAndUpdate(req.user.id, updatedData, {
