@@ -26,7 +26,7 @@ const ProfileTeacher = () => {
       ) : (
         <Fragment>
           <div className="profileTeacher">
-            <SidebarTeacher />
+            <SidebarTeacher role={teacher.subRole} />
             <div>
               <div>
                 <label>Employee ID</label>

@@ -24,6 +24,12 @@ import {
   TEACHER_APPROVAL_REJECT_SUCCESS,
   TEACHER_APPROVAL_REJECT_FAIL,
   CLEAR_MESSAGES,
+  UPDATE_TEACHER_ROLE_REQUEST,
+  UPDATE_TEACHER_ROLE_SUCCESS,
+  UPDATE_TEACHER_ROLE_FAIL,
+  GET_ALL_TEACHER_REQUEST,
+  GET_ALL_TEACHER_SUCCESS,
+  GET_ALL_TEACHER_FAIL,
 } from "../constants/adminConstant";
 
 //GET ALL STUDENTS APPROVAL REQUESTS
@@ -47,6 +53,39 @@ export const getStudentApprovalRequestReducer = (
         ...state,
         loading: false,
         studentApproval: null,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+//GET ALL TEACHERS APPROVAL REQUESTS
+export const getTeacherApprovalRequestReducer = (
+  state = { teacherApproval: [] },
+  action
+) => {
+  switch (action.type) {
+    case GET_TEACHER_APPROVAL_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_TEACHER_APPROVAL_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        teacherApproval: action.payload,
+      };
+    case GET_TEACHER_APPROVAL_FAIL:
+      return {
+        ...state,
+        loading: false,
+        teacherApproval: null,
         error: action.payload,
       };
     case CLEAR_MESSAGES:
@@ -108,26 +147,58 @@ export const acceptingRejectingStudentTeacherApprovalReducer = (
   }
 };
 
-export const getTeacherApprovalRequestReducer = (
-  state = { teacherApproval: [] },
-  action
-) => {
+//UPDATE TEACHER ROLE
+export const updateTeacherRoleReducer = (state = {}, action) => {
   switch (action.type) {
-    case GET_TEACHER_APPROVAL_REQUEST:
+    case UPDATE_TEACHER_ROLE_REQUEST:
       return {
         loading: true,
       };
-    case GET_TEACHER_APPROVAL_SUCCESS:
+    case UPDATE_TEACHER_ROLE_SUCCESS:
       return {
         ...state,
         loading: false,
-        teacherApproval: action.payload,
+        message: action.payload,
       };
-    case GET_TEACHER_APPROVAL_FAIL:
+    case UPDATE_TEACHER_ROLE_FAIL:
       return {
         ...state,
         loading: false,
-        teacherApproval: null,
+        message: null,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        message: null,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+//GET ALL TEACHER DETAILS
+export const getAllTeacherDetailsReducer = (
+  state = { teachers: [] },
+  action
+) => {
+  switch (action.type) {
+    case GET_ALL_TEACHER_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_ALL_TEACHER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        teachers: action.payload,
+      };
+    case GET_ALL_TEACHER_FAIL:
+      return {
+        ...state,
+        loading: false,
+        teachers: null,
         error: action.payload,
       };
     case CLEAR_MESSAGES:

@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./CreateSubject.css";
 import { useDispatch, useSelector } from "react-redux";
-import { createSubjectByHOD } from "../../../actions/hodAction";
-import Loader from "../../Loader/Loader";
+import { createSubjectByHOD } from "../../../../actions/hodAction";
+import Loader from "../../../Loader/Loader";
 import { toast } from "react-toastify";
+import SidebarTeacher from "../../SidebarTeacher/SidebarTeacher";
 
 const CreateSubject = () => {
   const dispatch = useDispatch();
@@ -60,40 +61,43 @@ const CreateSubject = () => {
         <Loader />
       ) : (
         <Fragment>
-          <div>
-            <h1>Create Subject</h1>
+          <div className="createSubject">
+            <SidebarTeacher />
             <div>
+              <h1>Create Subject</h1>
               <div>
-                <input
-                  type="text"
-                  placeholder="Subject Name"
-                  required
-                  name="subjectName"
-                  value={subjectName}
-                  onChange={createSubjectDataChange}
-                />
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Subject Name"
+                    required
+                    name="subjectName"
+                    value={subjectName}
+                    onChange={createSubjectDataChange}
+                  />
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Subject Code"
+                    required
+                    name="subjectCode"
+                    value={subjectCode}
+                    onChange={createSubjectDataChange}
+                  />
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    placeholder="Subject Credit"
+                    required
+                    name="subjectCredit"
+                    value={subjectCredit}
+                    onChange={createSubjectDataChange}
+                  />
+                </div>
+                <button onClick={createSubject}>Create</button>
               </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Subject Code"
-                  required
-                  name="subjectCode"
-                  value={subjectCode}
-                  onChange={createSubjectDataChange}
-                />
-              </div>
-              <div>
-                <input
-                  type="number"
-                  placeholder="Subject Credit"
-                  required
-                  name="subjectCredit"
-                  value={subjectCredit}
-                  onChange={createSubjectDataChange}
-                />
-              </div>
-              <button onClick={createSubject}>Create</button>
             </div>
           </div>
         </Fragment>

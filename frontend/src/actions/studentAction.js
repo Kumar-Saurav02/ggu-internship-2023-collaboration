@@ -19,6 +19,9 @@ import {
   SUBMIT_COURSE_REQUEST,
   SUBMIT_COURSE_SUCCESS,
   SUBMIT_COURSE_FAIL,
+  SUBMIT_SCHOLARSHIP_REQUEST,
+  SUBMIT_SCHOLARSHIP_SUCCESS,
+  SUBMIT_SCHOLARSHIP_FAIL,
 } from "../constants/studentConstant";
 import {
   REGISTER_STUDENT_REQUEST,
@@ -192,8 +195,6 @@ export const submitCourse = (courseSubmission) => async (dispatch) => {
   try {
     dispatch({ type: SUBMIT_COURSE_REQUEST });
 
-    console.log(courseSubmission);
-
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.put(
@@ -210,6 +211,40 @@ export const submitCourse = (courseSubmission) => async (dispatch) => {
     });
   }
 };
+
+//SUBMIT STUDENT SCHOLARSHIP
+export const submitScholarship =
+  (
+    scholarshipSession,
+    scholarshipState,
+    scholarshipName,
+    scholarshipDocument
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: SUBMIT_SCHOLARSHIP_REQUEST });
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/updateStudent`,
+        {
+          scholarshipSession,
+          scholarshipState,
+          scholarshipName,
+          scholarshipDocument,
+        },
+        config
+      );
+
+      dispatch({ type: SUBMIT_SCHOLARSHIP_SUCCESS, payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: SUBMIT_SCHOLARSHIP_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 //STUDENT LOGIN
 export const loginStudents =

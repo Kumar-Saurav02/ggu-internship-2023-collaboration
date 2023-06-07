@@ -34,6 +34,12 @@ const Sidebar = () => {
           HOD Approval
         </p>
       </Link>
+      <Link to="/updateTeacherRole">
+        <p>
+          <PeopleIcon />
+          Teacher Role
+        </p>
+      </Link>
     </div>
   );
 };

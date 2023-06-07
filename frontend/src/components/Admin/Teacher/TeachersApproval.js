@@ -8,13 +8,13 @@ import { toast } from "react-toastify";
 import Sidebar from "../Sidebar/Sidebar";
 
 const TeachersApproval = () => {
+  const dispatch = useDispatch();
+
   const {
     teacherApproval,
     loading: teacherApprovalLoading,
     error,
   } = useSelector((state) => state.teachersApprovalRequests);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (error) {

@@ -18,6 +18,12 @@ import {
   TEACHER_APPROVAL_REJECT_SUCCESS,
   TEACHER_APPROVAL_REJECT_FAIL,
   CLEAR_MESSAGES,
+  UPDATE_TEACHER_ROLE_REQUEST,
+  UPDATE_TEACHER_ROLE_SUCCESS,
+  UPDATE_TEACHER_ROLE_FAIL,
+  GET_ALL_TEACHER_REQUEST,
+  GET_ALL_TEACHER_SUCCESS,
+  GET_ALL_TEACHER_FAIL,
 } from "../constants/adminConstant";
 import axios from "axios";
 
@@ -130,6 +136,50 @@ export const teacherApprovalRequestReject = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: TEACHER_APPROVAL_REJECT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//UPDATE TEACHER ROLE
+export const updateTeacherRoleByAdmin = (role, id) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_TEACHER_ROLE_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.put(
+      `/api/updateTeacherRole/${id}`,
+      { role },
+      config
+    );
+
+    dispatch({
+      type: UPDATE_TEACHER_ROLE_SUCCESS,
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_TEACHER_ROLE_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+//GET ALL TEACHER DETAILS
+export const getAllTeacherDetails = () => async (dispatch) => {
+  try {
+    dispatch({ type: GET_ALL_TEACHER_REQUEST });
+
+    const { data } = await axios.get(`/api/getAllTeachers`);
+
+    dispatch({
+      type: GET_ALL_TEACHER_SUCCESS,
+      payload: data.teachers,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_ALL_TEACHER_FAIL,
       payload: error.response.data.message,
     });
   }

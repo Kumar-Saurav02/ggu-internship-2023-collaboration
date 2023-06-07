@@ -1,5 +1,7 @@
 const Student = require("../models/studentModel");
 const ApproveStudent = require("../models/approveStudentModel");
+const ApproveCourse = require("../models/approveCourseModel");
+const ApproveScholarship = require("../models/approveScholarshipModel");
 const CourseSelection = require("../models/courseSelectionModel");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
@@ -339,6 +341,10 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     marksResult,
     attendance,
     courseSubmission,
+    scholarshipSession,
+    scholarshipState,
+    scholarshipName,
+    scholarshipDocument,
   } = req.body;
   const updatedData = {
     enrollmentNo,
@@ -539,11 +545,56 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
         term: req.user.currentSemester + " " + "Semester",
       });
     }
-    req.user.courseSelected.push({
+    await ApproveCourse.create({
+      name: req.user.name,
+      enrollmentNumber: req.user.enrollmentNo,
+      department: req.user.department,
       semester: courseSubmission.semester,
       subjects: subjects,
     });
-    await req.user.save({ validateBeforeSave: false });
+    res.status(200).json({
+      success: true,
+      message: "Course Selection sent for approval",
+    });
+  }
+
+  if (scholarshipSession !== undefined) {
+    if (scholarshipDocument !== "") {
+      const uploadScholarship = await cloudinary.uploader.upload(
+        scholarshipDocument,
+        {
+          folder: "Scholarship",
+        }
+      );
+      const docs = {
+        public_id: uploadScholarship.public_id,
+        url: uploadScholarship.secure_url,
+      };
+      await ApproveScholarship.create({
+        name: req.user.name,
+        enrollmentNumber: req.user.enrollmentNo,
+        department: req.user.department,
+        semester: req.user.currentSemester,
+        session: scholarshipSession,
+        state: scholarshipState,
+        scholarship: scholarshipName,
+        scholarshipDocument: docs,
+      });
+    } else {
+      await ApproveScholarship.create({
+        name: req.user.name,
+        enrollmentNumber: req.user.enrollmentNo,
+        department: req.user.department,
+        semester: req.user.currentSemester,
+        session: scholarshipSession,
+        state: scholarshipState,
+        scholarship: scholarshipName,
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Scholarship details sent for approval",
+    });
   }
 
   await Student.findByIdAndUpdate(req.user.id, updatedData, {

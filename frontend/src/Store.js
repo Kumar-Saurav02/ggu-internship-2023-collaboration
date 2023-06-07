@@ -6,11 +6,18 @@ import {
   marksFeesCourseUpdateReducer,
   registerLoginStudentsReducer,
 } from "./reducers/studentReducer";
-import { registerLoginTeachersReducer } from "./reducers/teacherReducer";
+import {
+  courseScholarshipCheckReducer,
+  getCoursesForApprovalReducer,
+  getScholarshipsForApprovalReducer,
+  registerLoginTeachersReducer,
+} from "./reducers/teacherReducer";
 import {
   acceptingRejectingStudentTeacherApprovalReducer,
+  getAllTeacherDetailsReducer,
   getStudentApprovalRequestReducer,
   getTeacherApprovalRequestReducer,
+  updateTeacherRoleReducer,
 } from "./reducers/adminReducer";
 import {
   createCourseByHODReducer,
@@ -30,6 +37,11 @@ const reducer = combineReducers({
   createSubjectByHOD: createSubjectByHODReducer,
   getAllSubjects: getAllSubjectsReducer,
   marksFeesCourseUpdate: marksFeesCourseUpdateReducer,
+  updateTeacherRole: updateTeacherRoleReducer,
+  getAllTeacherDetails: getAllTeacherDetailsReducer,
+  courseScholarshipCheck: courseScholarshipCheckReducer,
+  getCoursesForApproval: getCoursesForApprovalReducer,
+  getScholarshipsForApproval: getScholarshipsForApprovalReducer,
 });
 
 let initialState = {};
