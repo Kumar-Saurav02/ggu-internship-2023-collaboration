@@ -117,13 +117,20 @@ const DocumentUploadStudent = () => {
         <Fragment>
           <div className="documentUploadStudent">
             <SidebarStudent />
-            <div>
-              <div>
-                <h3>Fees Upload</h3>
-                <div>
-                  <div>
-                    <label>Semester</label>
+            <div className="approvBox">
+              <div className="subsection">
+              <h2>fee Upload</h2>
+              <hr></hr>
+              <br></br>
+                
+              <div className="entry">
+                    <label
+                      className="label_name"
+                      for="{semesterForFees}">
+                      Semester
+                    </label>
                     <select
+                      id="label_input"
                       required
                       name="semesterForFees"
                       onChange={registerFeeDataChange}>
@@ -135,9 +142,14 @@ const DocumentUploadStudent = () => {
                       ))}
                     </select>
                   </div>
-                  <div>
-                    <label>Bank Name</label>
+
+
+                  <div className="entry">
+                    <label className="label_name" for="{bankNameForFees}">
+                      Bank Name
+                    </label>
                     <input
+                      id="label_input"
                       type="text"
                       placeholder="Bank Name"
                       required
@@ -146,9 +158,13 @@ const DocumentUploadStudent = () => {
                       onChange={registerFeeDataChange}
                     />
                   </div>
-                  <div>
-                    <label>IFSC Code</label>
+
+                  <div className="entry">
+                    <label className="label_name" for="{ifscCodeForFees}">
+                      IFSC Code
+                    </label>
                     <input
+                      id="label_input"
                       type="text"
                       placeholder="IFSC Code"
                       required
@@ -157,9 +173,13 @@ const DocumentUploadStudent = () => {
                       onChange={registerFeeDataChange}
                     />
                   </div>
-                  <div>
-                    <label>Amount</label>
+
+                 <div className="entry">
+                    <label className="label_name" for="{amountForFees}">
+                      Amount
+                    </label>
                     <input
+                      id="label_input"
                       type="number"
                       placeholder="Amount"
                       required
@@ -168,7 +188,8 @@ const DocumentUploadStudent = () => {
                       onChange={registerFeeDataChange}
                     />
                   </div>
-                  <div>
+
+                  {/* <div>
                     <label>Challan ID</label>
                     <input
                       type="text"
@@ -178,8 +199,9 @@ const DocumentUploadStudent = () => {
                       value={challanIdForFees}
                       onChange={registerFeeDataChange}
                     />
-                  </div>
-                  <div>
+                  </div> */}
+
+                  {/* <div>
                     <label>Account Number</label>
                     <input
                       type="number"
@@ -189,12 +211,15 @@ const DocumentUploadStudent = () => {
                       value={accountNumberForFees}
                       onChange={registerFeeDataChange}
                     />
-                  </div>
-                  <div>
-                    <label>Date of Payment</label>
-
+                  </div> */}
+                  
+                  <div className="entry">
+                    <label className="label_name" for="{dateOfBirthStudent}">
+                      Date of Payment
+                    </label>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
+                        id="label_input"
                         label="Date Of Payment"
                         value={dateOfPaymentForFees}
                         onChange={(newValue) =>
@@ -203,9 +228,14 @@ const DocumentUploadStudent = () => {
                       />
                     </LocalizationProvider>
                   </div>
-                  <div>
-                    <label>Fee Upload</label>
+                  
+                  <div className="entry">
+                    <label className="label_name" for="{amountForFees}">
+                      Fee Upload
+                    </label>
+                        
                     <input
+                      id="label_input"
                       type="file"
                       required
                       name="feeUploadDocument"
@@ -213,16 +243,25 @@ const DocumentUploadStudent = () => {
                       accept="pdf/*"
                       onChange={registerFeeDataChange}
                     />
-                    <p>File:- {previewFeeUpload}</p>
+                    <br></br>
+                    <p >File:- {previewFeeUpload}</p>
                   </div>
-                </div>
+                
               </div>
-              <div>
-                <h3>Result Upload</h3>
-                <div>
-                  <div>
-                    <label>Semester</label>
+              
+              <div className="subsection">
+                  <h2>fee Upload</h2>
+                  <hr></hr>
+                  <br></br>
+
+                  <div className="entry">
+                    <label
+                      className="label_name"
+                      for="{semesterForResult">
+                      Semester
+                    </label>
                     <select
+                      id="label_input"
                       required
                       name="semesterForResult"
                       onChange={registerResultDataChange}>
@@ -234,9 +273,13 @@ const DocumentUploadStudent = () => {
                       ))}
                     </select>
                   </div>
-                  <div>
-                    <label>CGPA</label>
+
+                  <div className="entry">
+                    <label className="label_name" for="{cgpaForResult}">
+                      Enter CGPA
+                    </label>
                     <input
+                      id="label_input"
                       type="number"
                       placeholder="CGPA"
                       required
@@ -245,9 +288,13 @@ const DocumentUploadStudent = () => {
                       onChange={registerResultDataChange}
                     />
                   </div>
-                  <div>
-                    <label>SGPA</label>
+
+                  <div className="entry">
+                    <label className="label_name" for="{sgpaForResult}">
+                      SGPA
+                    </label>
                     <input
+                      id="label_input"
                       type="number"
                       placeholder="SGPA"
                       required
@@ -256,9 +303,14 @@ const DocumentUploadStudent = () => {
                       onChange={registerResultDataChange}
                     />
                   </div>
-                  <div>
-                    <label>Result Upload</label>
+                  
+                  <div className="entry">
+                    <label className="label_name" for="{amountForFees}">
+                      Result Upload
+                    </label>
+                        
                     <input
+                      id="label_input"
                       type="file"
                       required
                       name="resultUploadForResult"
@@ -268,8 +320,8 @@ const DocumentUploadStudent = () => {
                     />
                     <p>File:- {previewResultUpload}</p>
                   </div>
-                </div>
               </div>
+              
             </div>
           </div>
         </Fragment>

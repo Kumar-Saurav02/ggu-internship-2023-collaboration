@@ -10,10 +10,13 @@
 
 .sidebar {
   /* background-color: rgb(255, 255, 255); */
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   padding: 4rem 1rem;
   border: 1px black solid;
+  /* height: 50%; */
+  
+ 
 }
 
 .sidebar > a > img {

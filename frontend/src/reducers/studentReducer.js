@@ -1,7 +1,5 @@
+import { CLEAR_MESSAGES } from "../constants/adminConstant";
 import {
-  REGISTER_STUDENT_REQUEST,
-  REGISTER_STUDENT_SUCCESS,
-  REGISTER_STUDENT_FAIL,
   LOGIN_STUDENT_REQUEST,
   LOGIN_STUDENT_SUCCESS,
   LOGIN_STUDENT_FAIL,
@@ -13,6 +11,18 @@ import {
   COURSE_STUDENT_REQUEST,
   COURSE_STUDENT_SUCCESS,
   COURSE_STUDENT_FAIL,
+  SUBMIT_FEES_REQUEST,
+  SUBMIT_FEES_SUCCESS,
+  SUBMIT_FEES_FAIL,
+  SUBMIT_MARKS_REQUEST,
+  SUBMIT_MARKS_SUCCESS,
+  SUBMIT_MARKS_FAIL,
+  SUBMIT_COURSE_REQUEST,
+  SUBMIT_COURSE_SUCCESS,
+  SUBMIT_COURSE_FAIL,
+  SUBMIT_SCHOLARSHIP_REQUEST,
+  SUBMIT_SCHOLARSHIP_SUCCESS,
+  SUBMIT_SCHOLARSHIP_FAIL,
 } from "../constants/studentConstant";
 
 export const registerLoginStudentsReducer = (
@@ -20,14 +30,13 @@ export const registerLoginStudentsReducer = (
   action
 ) => {
   switch (action.type) {
-    case REGISTER_STUDENT_REQUEST:
     case LOGIN_STUDENT_REQUEST:
     case LOAD_STUDENT_REQUEST:
       return {
         loading: true,
         isAuthenticated: false,
       };
-    case REGISTER_STUDENT_SUCCESS:
+
     case LOGIN_STUDENT_SUCCESS:
     case LOAD_STUDENT_SUCCESS:
       return {
@@ -42,7 +51,7 @@ export const registerLoginStudentsReducer = (
         student: null,
         isAuthenticated: false,
       };
-    case REGISTER_STUDENT_FAIL:
+
     case LOGIN_STUDENT_FAIL:
     case LOAD_STUDENT_FAIL:
       return {
@@ -57,6 +66,11 @@ export const registerLoginStudentsReducer = (
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
@@ -80,6 +94,49 @@ export const getCourseForStudentReducer = (state = { course: {} }, action) => {
         loading: false,
         course: null,
         error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const marksFeesCourseUpdateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SUBMIT_FEES_REQUEST:
+    case SUBMIT_MARKS_REQUEST:
+    case SUBMIT_COURSE_REQUEST:
+    case SUBMIT_SCHOLARSHIP_REQUEST:
+      return {
+        loading: true,
+      };
+    case SUBMIT_FEES_SUCCESS:
+    case SUBMIT_MARKS_SUCCESS:
+    case SUBMIT_COURSE_SUCCESS:
+    case SUBMIT_SCHOLARSHIP_SUCCESS:
+      return {
+        loading: false,
+        message: action.payload,
+      };
+    case SUBMIT_FEES_FAIL:
+    case SUBMIT_MARKS_FAIL:
+    case SUBMIT_COURSE_FAIL:
+    case SUBMIT_SCHOLARSHIP_FAIL:
+      return {
+        ...state,
+        loading: false,
+        message: null,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        message: null,
+        error: null,
       };
     default:
       return state;

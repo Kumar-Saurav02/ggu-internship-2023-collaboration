@@ -1,101 +1,131 @@
-.border
-{
-  border: 2px solid;
-  border-radius: 5px;
-  padding: 2px;
-  background: #f4f2ff;
-  /* text-align: center;
-  align-items: center; */
-  margin: 2px;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.Data_entry {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
   width: 80%;
-  padding: auto;
+}
+.entry {
+  display: flex;
+  align-items: center;
+  background-color: #e5eaed;
+  /* font-size: 1.2rem; */
+  padding: 3px;
+  margin: 5px;
+}
+.heading {
+  width: 80%;
+  text-align: center;
+  margin: 5%;
+}
+.toggleForRegister {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+}
+.subsection {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  margin: 25px;
+  padding: 25px;
+  border: solid 2px;
+  font-size: 17px;
+}
+
+.registerBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d4d8e4;
   margin: auto;
-  
-}
-.Data_entry
-{
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    width: 80%;
-}
-.entry
-{
-    display: flex;
-    align-items: center;
-    background-color: #e5eaed;
-    /* font-size: 1.2rem; */
-    padding: 3px;
-    margin: 5px
-    
-}
-.heading
-{
-    width: 80%;
-    text-align: center;
-    margin: 5%;
-
-}
-.toggleForRegister
-{
-    display: flex;
-    width: 50%;
-    justify-content: center;
-    
-}
-.subsection
-{
-    display: flex;
-    flex-direction: column;
-    /* justify-content: center; */
-    margin:  25px ;
-    padding: 25px;
-    border: solid 2px;
-    font-size: 17px;
-    
+  width: 65%;
+  border: 1.5px solid;
+  padding-bottom: 2%;
 }
 
+img {
+  width: 30%;
+}
 
-.registerBox
-{
+.label_name,
+.label_input {
+  width: 50%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+}
+
+div.address#label_input {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+}
+
+hr {
+  border: dashed 1px;
+  width: 50%;
+}
+
+@media screen and (max-width : 1050px) {
+  select{
+    max-width : 200px;
+  }
+}
+
+@media screen and (max-width : 700px){
+  .registerBox {
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #d4d8e4;
     margin: auto;
-    width: 65%;
+    width: 99%;
     border: 1.5px solid;
     padding-bottom: 2%;
-}
-
-img{
-    width: 30%;
-}
-
-.label_name, .label_input{
-    width: 50%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-
-}
-
-div.address#label_input
-{
+  }
+  .Data_entry {
+    
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    width: 50%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.btn
-{
+    /* justify-content: center; */
+    width: 90%;
+  }
+  .entry{
+    display : flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  select{
+    max-width : 180px;
+  }
+  .label_name{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+  }
+  .address > button{
+    margin-top: 5px;
+    min-width : 120px;
+  }
+  .address > input {
+    min-width: 114px;
+  }
 }
 
-hr{
-    border: dashed 1px;
-    width: 50%;
-}
+
+

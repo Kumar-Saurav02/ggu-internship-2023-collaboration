@@ -5,7 +5,7 @@ import PeopleIcon from "@mui/icons-material/People";
 
 const SidebarStudent = () => {
   return (
-    <div className="studentSidebar">
+    <div className="sidebar">
       <Link to="/studentProfile">
         <p>
           <PeopleIcon />

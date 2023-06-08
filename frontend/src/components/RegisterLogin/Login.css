@@ -1,6 +1,17 @@
 
 /* yah mera hai */
 
+.border
+{
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 2px;
+    background: #f4f2ff;
+    text-align: center;
+    margin: 2px;
+    width: 80%;
+}
+
 body
 {
   background: no-repeat url("../../Images/bg.jpg");
@@ -9,77 +20,118 @@ body
   
 
 }
-.lefthalf {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-     width: 49%; 
-  }
 
-  .loginImg {
-    width: 75%;
-    align-items: center;
-    padding: 10px;
-  }
+.forlin {
+  margin-left: 10%;
+}
 
-  .righthalf {
-    display: inline-block;
-    align-items: center;
-    /* text-align: center; */
-    width: 49%;
+.fullContainer{
+  position : relative;
+    height : 100vh;
+    display : flex;
+    align-items : top;
+    justify-content : center;
     
-  }
+}
+.fullContainer ::before{
+  background-position : top;
+  background-size : cover;
+  background-repeat : no-repeat;
   
-  .loginBox {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    /* justify-content: center; */
-    background-color: white;
-    margin: auto;
-    width: 50%;
-    border: 1.5px solid;
-    padding: 2%;
-    margin-top: 10%;
+  content : "";
+  position : absolute;
+  top : 0;
+  left : 0;
+  right : 0;
+  bottom : 0;
+  z-index : -1;
+}
+.ggulogo
+{
+  width: 63px;
+  padding: 1rem;
+  border-radius: 2rem;
+  margin-right: 5px;
+}
+.loginBox{
+  background-color: white;
+  flex-direction: row;
+  margin: auto;
+  margin-top: 10%;
+  border: 1.5px solid;
+  display: flex;
+  min-width: 500px;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 2%;
+}
 
-  }
-  .welcome{
-    display: flex; 
-    flex-direction: row;
-    /* justify-content: center; */
-    align-items: center;
-   
-  }
-  .ggulogo{
-    flex: 0.5;
-    width: 63px;
-    padding: 1rem ;
-    border-radius: 2rem;
-    margin-right: 5px;
-  }
-  .welcome > div > h2{
-    flex: 0.5;
-    font-size: 1rem;
-  }
- 
-  .border
+.loginImg
+{
+  width: 75%;
+  padding: 10px;
+}
+
+.lefthalf {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 49%;
+}
+/* .lefthalf >img{
+  height: 180px;
+  width: 186px; */
+  /* margin-right: 20px; */
+  /* padding: 10px;
+} */
+.righthalf{
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.welcome {
+  display : flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.full{
+  display : flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.toggleForLogin{
+  min-width : 232px;
+  margin-bottom : 5px;
+}
+.input_sections{
+  min-width : 225px;
+  margin-bottom : 5px;
+}
+.sign_in{
+  margin-top: 5%;
+  min-width : 100px;
+  margin-bottom : 5px;
+  margin-top : 5px;
+}
+
+.regandfor{
+   display: flex;
+   flex-direction: row; 
+  margin: 10%
+}
+
+
+.signInbtn
   {
-    border: 2px solid;
-    border-radius: 5px;
-    padding: 2px;
-    background: #f4f2ff;
-    text-align: center;
-    margin: 2px;
-    width: 80%;
-    
+    width: 43%;
   }
 
-  nav
-  {
-    display: inline-block;
-  }
 
-  #user
+#user
   {
     width: 100%;
   }
@@ -87,16 +139,6 @@ body
   .register
   {
    margin-top: 30px;
-  }
-
-  .sign_in
-  {
-    margin-top: 5%;
-  }
-  .signInbtn
-  {
-    width: 43%;
-
   }
   
   .signInbtn:hover 
@@ -109,24 +151,29 @@ body
     box-shadow: 0 -3px 3px 1px #848ee6;
   }
 
-  .regandfor
-  {
+@media screen and (max-width : 576px) {
+  .loginBox{
     display: flex;
-    flex-direction: row;
-    margin-top: 10%;
-
+    flex-direction: column;
   }
+
+  .lefthalf >img{
+    height : 0px;
+    width : 0px;
+    margin-right :20px
+  }
+  .loginBox{
+    background-color: white;
+    padding: 20px;
+    margin: auto;
+    margin : auto;
+    border: 1.5px solid;
+    display : flex;
+    min-width: 250px;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+
  
- .forlin
- {
-    margin-left: 10%;
- }
-
- .field{
-    display: flex;
-    flex-direction: row;
-    background-color: #f4f2ff;
-    margin: 5%;
-
- }
-  

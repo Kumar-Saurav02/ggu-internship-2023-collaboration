@@ -27,10 +27,16 @@ const Sidebar = () => {
           <PeopleIcon /> Teachers Approval
         </p>
       </Link>
-      <Link to="/teachersApproval">
+      <Link to="/HODApproval">
         <p>
           <PeopleIcon />
           HOD Approval
+        </p>
+      </Link>
+      <Link to="/updateTeacherRole">
+        <p>
+          <PeopleIcon />
+          Teacher Role
         </p>
       </Link>
     </div>

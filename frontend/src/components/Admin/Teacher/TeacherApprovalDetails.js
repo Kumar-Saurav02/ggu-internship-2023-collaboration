@@ -1,11 +1,49 @@
-import React, { Fragment } from "react";
-import { useLocation } from "react-router-dom";
+import React, { Fragment, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "./TeacherApproval.css";
+import {
+  clearMessages,
+  teacherApprovalRequestAccept,
+  teacherApprovalRequestReject,
+} from "../../../actions/adminAction";
 import Sidebar from "../Sidebar/Sidebar";
+import Loader from "../../Loader/Loader";
 
 const TeacherApprovalDetails = () => {
   const { state } = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { loading, message, error } = useSelector(
+    (state) => state.acceptingRejectingStudentTeacherApproval
+  );
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearMessages());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(clearMessages());
+      navigate("/teachersApproval");
+    }
+  }, [error, message, dispatch, navigate]);
+
+  const acceptTeacherApproval = () => {
+    dispatch(teacherApprovalRequestAccept(state._id));
+  };
+
+  const rejectTeacherApproval = () => {
+    dispatch(teacherApprovalRequestReject(state._id));
+  };
   return (
+    <Fragment>
+      {loading ? (
+        <Loader />
+      ) : (
     <Fragment>
       <div className="teacherDetails">
         <Sidebar />
@@ -74,10 +112,9 @@ const TeacherApprovalDetails = () => {
 
             <div className="entry">
               <label className="label_name">Resume</label>
-              <object data={state.resume.url}>Resume</object>
               <br></br>
               <a target="_blank" rel="noreferrer" href={state.resume.url}>
-                Download Resume
+                View
               </a>
             </div>
           </div>
@@ -90,23 +127,31 @@ const TeacherApprovalDetails = () => {
 
               <div className="entry">
                 <label className="label_name">Photo</label>
-                <img src={state.profilePhoto.url} />
+                <img src={state.profilePhoto.url} alt="profile" />
               </div>
 
               <div className="entry">
                 <label className="label_name">Signature</label>
-                <img src={state.signature.url} />
+                <img src={state.signature.url }alt="signature" />
               </div>
             </div>
           </div>
 
           <div className="btn">
-            <button class="signInbtn border hover">Reject</button>
-            <button class="signInbtn border hover">Accept</button>
+            <button 
+            onClick={rejectTeacherApproval}
+             class="signInbtn border hover">
+              Reject</button>
+            <button 
+             onClick={acceptTeacherApproval}
+             class="signInbtn border hover">
+              Accept</button>
           </div>
         </div>
       </div>
     </Fragment>
+      )}
+      </Fragment>
   );
 };
 

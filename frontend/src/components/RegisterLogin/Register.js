@@ -10,6 +10,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { toast } from "react-toastify";
 import "./Register.css";
 import Loader from "../Loader/Loader";
+import { clearMessages } from "../../actions/adminAction";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -36,13 +37,14 @@ const Register = () => {
   }, [typesOfUser]);
 
   useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
+    // if (error) {
+    //   toast.error(error);
+    // }
     if (studentMessage) {
       toast.success(studentMessage);
+      dispatch(clearMessages());
     }
-  }, [studentMessage, error]);
+  }, [studentMessage, dispatch]);
 
   const [student, setStudent] = useState({
     enrollmentNo: "",
@@ -77,6 +79,7 @@ const Register = () => {
     passwordStudent: "",
     confirmPasswordStudent: "",
   });
+  console.log(student);
   const {
     enrollmentNo,
     nameStudent,
@@ -361,8 +364,20 @@ const Register = () => {
     if (dateOfJoiningStudent === undefined) {
       return toast.error("Please select date of joining");
     }
-    const updatedDateOfBirth = dateOfBirthStudent.$d;
-    const updatedDateOfJoining = dateOfJoiningStudent.$d;
+    const updatingDateOfBirth = dateOfBirthStudent.$d.toString().split(" ");
+    const updatingDateOfJoining = dateOfJoiningStudent.$d.toString().split(" ");
+    const updatedDateOfBirth =
+      updatingDateOfBirth[1] +
+      " " +
+      updatingDateOfBirth[2] +
+      " " +
+      updatingDateOfBirth[3];
+    const updatedDateOfJoining =
+      updatingDateOfJoining[1] +
+      " " +
+      updatingDateOfJoining[2] +
+      " " +
+      updatingDateOfJoining[3];
 
     dispatch(
       registerStudents(
@@ -458,7 +473,13 @@ const Register = () => {
     }
 
     //FIXING FORMAT OF DATE OF BIRTH
-    const updatedDateOfBirth = dateOfBirthTeacher.$d;
+    const updatingDateOfBirth = dateOfBirthTeacher.$d.toString().split(" ");
+    const updatedDateOfBirth =
+      updatingDateOfBirth[1] +
+      " " +
+      updatingDateOfBirth[2] +
+      " " +
+      updatingDateOfBirth[3];
 
     dispatch(
       registerTeachers(
@@ -488,7 +509,7 @@ const Register = () => {
       value: "",
     },
   ];
-
+  
   const [assignedSubject, setAssignedSubject] = useState(inputArr);
 
   const addInput = () => {
@@ -958,14 +979,12 @@ const Register = () => {
                     </div>
 
                     <div className="entry">
-                      <label
-                        className="label_name"
-                        for="{permanentAddressStudent}">
+                      <label className="label_name" for="{permanentAddress}">
                         Permanent Address
                       </label>
                       <div className="address" id="label_input">
                         <input
-                          type="number"
+                          type="text"
                           placeholder="Permanent Address"
                           required
                           name="permanentAddressStudent"

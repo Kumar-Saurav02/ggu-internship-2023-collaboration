@@ -17,6 +17,12 @@ import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import ProfileStudent from "./components/Student/Profile/ProfileStudent";
 import DocumentUploadStudent from "./components/Student/DocumentUploadStudent/DocumentUploadStudent";
 import ProfileTeacher from "./components/Teacher/Profile/ProfileTeacher";
+import HODApproval from "./components/Admin/HOD/HODApproval";
+import CreateSubject from "./components/Teacher/HOD/CreateSubject/CreateSubject";
+import CreateCourse from "./components/Teacher/HOD/CreateCourse/CreateCourse";
+import ChangingTeacherRole from "./components/Admin/Roles/ChangingTeacherRole";
+import CourseApproval from "./components/Teacher/ClassIncharge/CourseApproval/CourseApproval";
+import ScholarshipApproval from "./components/Teacher/ClassIncharge/ScholarshipApproval/ScholarshipApproval";
 
 function App() {
   useEffect(() => {
@@ -42,6 +48,8 @@ function App() {
           path="/teacherApprovalDetails"
           element={<TeacherApprovalDetails />}
         />
+        <Route path="/HODApproval" element={<HODApproval />} />
+        <Route path="/updateTeacherRole" element={<ChangingTeacherRole />} />
 
         {/* Student */}
         <Route path="/studentProfile" element={<ProfileStudent />} />
@@ -54,6 +62,20 @@ function App() {
 
         {/* Teacher */}
         <Route path="/teacherProfile" element={<ProfileTeacher />} />
+
+        {/* HOD */}
+        <Route path="/hod/createSubject" element={<CreateSubject />} />
+        <Route path="/hod/createCourse" element={<CreateCourse />} />
+
+        {/* Class Incharge */}
+        <Route
+          path="/classIncharge/courseApproval"
+          element={<CourseApproval />}
+        />
+        <Route
+          path="/classIncharge/scholarshipApproval"
+          element={<ScholarshipApproval />}
+        />
       </Routes>
     </Router>
   );
