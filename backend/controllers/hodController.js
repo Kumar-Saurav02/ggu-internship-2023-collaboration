@@ -41,9 +41,9 @@ exports.getAllSubjects = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.createCourse = catchAsyncErrors(async (req, res, next) => {
-  const { semester, courses } = req.body;
+  const { semester, department, courses } = req.body;
 
-  const getCourse = await CourseSelection.findOne({ semester });
+  const getCourse = await CourseSelection.findOne({ semester, department });
   if (getCourse) {
     return next(new ErrorHandler("Course already exists", 401));
   }
@@ -60,6 +60,7 @@ exports.createCourse = catchAsyncErrors(async (req, res, next) => {
 
   await CourseSelection.create({
     semester,
+    department,
     course: coursesDetails,
   });
 

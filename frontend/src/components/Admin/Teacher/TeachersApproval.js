@@ -1,20 +1,43 @@
 import React, { Fragment, useEffect } from "react";
 import "./TeacherApproval.css";
 import { useDispatch, useSelector } from "react-redux";
-import { teacherApprovalRequest } from "../../../actions/adminAction";
+import {
+  clearMessages,
+  teacherApprovalRequest,
+} from "../../../actions/adminAction";
 import Loader from "../../Loader/Loader";
 import TeacherApprovalDataMapping from "./TeacherApprovalDataMapping";
 import { toast } from "react-toastify";
 import Sidebar from "../Sidebar/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const TeachersApproval = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     teacherApproval,
     loading: teacherApprovalLoading,
     error,
   } = useSelector((state) => state.teachersApprovalRequests);
+
+  const {
+    loading,
+    message,
+    error: acceptRejectError,
+  } = useSelector((state) => state.acceptingRejectingStudentTeacherApproval);
+
+  useEffect(() => {
+    if (acceptRejectError) {
+      toast.error(acceptRejectError);
+      dispatch(clearMessages());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(clearMessages());
+      navigate("/teachersApproval");
+    }
+  }, [error, message, dispatch, navigate]);
 
   useEffect(() => {
     if (error) {
@@ -26,7 +49,7 @@ const TeachersApproval = () => {
 
   return (
     <Fragment>
-      {teacherApprovalLoading ? (
+      {teacherApprovalLoading || loading ? (
         <Loader />
       ) : (
         <Fragment>

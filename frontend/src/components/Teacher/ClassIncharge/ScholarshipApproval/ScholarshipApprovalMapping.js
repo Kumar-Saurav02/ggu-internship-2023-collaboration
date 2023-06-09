@@ -34,7 +34,7 @@ const ScholarshipApprovalMapping = ({ data }) => {
   };
 
   const rejectScholarship = () => {
-    dispatch(scholarshipRejectByIncharge());
+    dispatch(scholarshipRejectByIncharge(data._id));
   };
 
   return (

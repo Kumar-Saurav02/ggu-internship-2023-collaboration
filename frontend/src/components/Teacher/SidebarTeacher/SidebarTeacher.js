@@ -12,15 +12,21 @@ const SidebarTeacher = ({ role }) => {
           Profile
         </p>
       </Link>
+      <Link to="/attendanceEntry">
+        <p>
+          <PeopleIcon />
+          Attendance Entry
+        </p>
+      </Link>
       {/* {role === "hod" && ( */}
       <div>
-        <Link to="/hod/CreateSubject">
+        <Link to="/hod/createSubject">
           <p>
             <PeopleIcon />
             Create Subject
           </p>
         </Link>
-        <Link to="/hod/CreateCourse">
+        <Link to="/hod/createCourse">
           <p>
             <PeopleIcon />
             Create Course
@@ -40,12 +46,6 @@ const SidebarTeacher = ({ role }) => {
           <p>
             <PeopleIcon />
             Scholarship Approval
-          </p>
-        </Link>
-        <Link to="">
-          <p>
-            <PeopleIcon />
-            Attendance Entry
           </p>
         </Link>
       </div>

@@ -34,8 +34,9 @@ const CourseApprovalMapping = ({ data }) => {
   };
 
   const rejectCourse = () => {
-    dispatch(courseRejectByIncharge());
+    dispatch(courseRejectByIncharge(data._id));
   };
+
   return (
     <Fragment>
       {loading ? (

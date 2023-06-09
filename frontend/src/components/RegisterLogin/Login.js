@@ -41,9 +41,9 @@ const Login = () => {
   }, [typesOfUser]);
 
   useEffect(() => {
-    // if (studentError) {
-    //   toast.error(studentError);
-    // }
+    if (studentError) {
+      toast.error(studentError);
+    }
     if (studentAuthenticated) {
       toast.success("Login Successful");
       navigate("/studentProfile");

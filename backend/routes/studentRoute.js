@@ -1,5 +1,8 @@
 const express = require("express");
 const {
+  studentsBasedOnSemesterAndDepartment,
+} = require("../controllers/attendanceController");
+const {
   registerStudentAccept,
   loginStudent,
   logout,
@@ -11,6 +14,7 @@ const {
   registerApprovalStudent,
   rejectApprovalStudent,
   getAllStudentsApproval,
+  getCourseSubjectList,
 } = require("../controllers/studentController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const router = express.Router();
@@ -20,29 +24,19 @@ router.route("/registerStudentAccept/:id").post(registerStudentAccept);
 router.route("/rejectApprovalStudent/:id").delete(rejectApprovalStudent);
 router.route("/loginStudent").post(loginStudent);
 router.route("/logoutStudent").get(logout);
-router
-  .route("/updateStudent")
-  .put(isAuthenticatedUser, authorizeRoles("student"), updateDetails);
-router
-  .route("/getStudentDetail")
-  .get(isAuthenticatedUser, authorizeRoles("student"), getStudent);
+router.route("/updateStudent").put(updateDetails);
+router.route("/getStudentDetail").get(isAuthenticatedUser, getStudent);
 router
   .route("/getCourseForSelection")
-  .get(
-    isAuthenticatedUser,
-    authorizeRoles("student"),
-    getCourseSelectionForSemester
-  );
+  .get(isAuthenticatedUser, getCourseSelectionForSemester);
+router.route("/getAllStudents").get(getAllStudents);
+router.route("/getAllRequestsStudents").get(getAllStudentsApproval);
+router.route("/getParticularStudent").get(getParticularStudent);
 router
-  .route("/getAllStudents")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getAllStudents);
-router.route("/getAllRequestsStudents").get(
-  // isAuthenticatedUser,
-  //  authorizeRoles("admin"),
-  getAllStudentsApproval
-);
+  .route("/studentsBasedOnSemesterAndDepartment/:semester/:department")
+  .get(studentsBasedOnSemesterAndDepartment);
 router
-  .route("/getParticularStudent")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getParticularStudent);
+  .route("/getCourseSubjectsList/:semester/:department")
+  .get(isAuthenticatedUser, getCourseSubjectList);
 
 module.exports = router;

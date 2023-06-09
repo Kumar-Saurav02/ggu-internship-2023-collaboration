@@ -15,26 +15,27 @@ import {
 import axios from "axios";
 
 //CREATE COURSE
-export const createCourseByHOD = (semester, courses) => async (dispatch) => {
-  try {
-    dispatch({ type: CREATE_COURSE_REQUEST });
+export const createCourseByHOD =
+  (semester, department, courses) => async (dispatch) => {
+    try {
+      dispatch({ type: CREATE_COURSE_REQUEST });
 
-    const config = { headers: { "Content-Type": "application/json" } };
+      const config = { headers: { "Content-Type": "application/json" } };
 
-    const { data } = await axios.post(
-      `/api/createCourse`,
-      { semester, courses },
-      config
-    );
+      const { data } = await axios.post(
+        `/api/createCourse`,
+        { semester, department, courses },
+        config
+      );
 
-    dispatch({ type: CREATE_COURSE_SUCCESS, payload: data.message });
-  } catch (error) {
-    dispatch({
-      type: CREATE_COURSE_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({ type: CREATE_COURSE_SUCCESS, payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: CREATE_COURSE_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 //CREATE SUBJECT
 export const createSubjectByHOD =

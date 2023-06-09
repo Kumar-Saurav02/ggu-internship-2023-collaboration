@@ -3,6 +3,8 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
   getCourseForStudentReducer,
+  getCourseSubjectsListReducer,
+  getStudentsBaseOnSemesterAndDepartmentReducer,
   marksFeesCourseUpdateReducer,
   registerLoginStudentsReducer,
 } from "./reducers/studentReducer";
@@ -11,6 +13,7 @@ import {
   getCoursesForApprovalReducer,
   getScholarshipsForApprovalReducer,
   registerLoginTeachersReducer,
+  submitAttendanceEntryBySubjectTeacherReducer,
 } from "./reducers/teacherReducer";
 import {
   acceptingRejectingStudentTeacherApprovalReducer,
@@ -42,6 +45,11 @@ const reducer = combineReducers({
   courseScholarshipCheck: courseScholarshipCheckReducer,
   getCoursesForApproval: getCoursesForApprovalReducer,
   getScholarshipsForApproval: getScholarshipsForApprovalReducer,
+  getStudentsBaseOnSemesterAndDepartment:
+    getStudentsBaseOnSemesterAndDepartmentReducer,
+  getCourseSubjectsList: getCourseSubjectsListReducer,
+  submitAttendanceEntryBySubjectTeacher:
+    submitAttendanceEntryBySubjectTeacherReducer,
 });
 
 let initialState = {};

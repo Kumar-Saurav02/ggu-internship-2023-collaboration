@@ -22,6 +22,12 @@ import {
   SUBMIT_SCHOLARSHIP_REQUEST,
   SUBMIT_SCHOLARSHIP_SUCCESS,
   SUBMIT_SCHOLARSHIP_FAIL,
+  GET_STUDENT_SEMESTER_DEPARTMENT_REQUEST,
+  GET_STUDENT_SEMESTER_DEPARTMENT_SUCCESS,
+  GET_STUDENT_SEMESTER_DEPARTMENT_FAIL,
+  COURSE_SUBJECT_LIST_REQUEST,
+  COURSE_SUBJECT_LIST_SUCCESS,
+  COURSE_SUBJECT_LIST_FAIL,
 } from "../constants/studentConstant";
 import {
   REGISTER_STUDENT_REQUEST,
@@ -311,3 +317,48 @@ export const getCourseForStudent = () => async (dispatch) => {
     });
   }
 };
+
+//GET STUDENT BASED ON SEMESTER AND DEPARTMENT
+export const getStudentSemesterDepartment =
+  (semester, department) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_STUDENT_SEMESTER_DEPARTMENT_REQUEST });
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.get(
+        `/api/studentsBasedOnSemesterAndDepartment/${semester}/${department}`,
+        { semester, department },
+        config
+      );
+
+      dispatch({
+        type: GET_STUDENT_SEMESTER_DEPARTMENT_SUCCESS,
+        payload: data.students,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_STUDENT_SEMESTER_DEPARTMENT_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//GET COURSE SUBJECT LISTS
+export const getCourseSubjectsList =
+  (semester, department) => async (dispatch) => {
+    try {
+      dispatch({ type: COURSE_SUBJECT_LIST_REQUEST });
+
+      const { data } = await axios.get(
+        `/api/getCourseSubjectsList/${semester}/${department}`
+      );
+
+      dispatch({ type: COURSE_SUBJECT_LIST_SUCCESS, payload: data.subjects });
+    } catch (error) {
+      dispatch({
+        type: COURSE_SUBJECT_LIST_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };

@@ -15,6 +15,8 @@ const ProfileStudent = () => {
     (state) => state.registerLoginStudents
   );
 
+  console.log(student);
+
   useEffect(() => {
     dispatch(loadStudent());
   }, []);

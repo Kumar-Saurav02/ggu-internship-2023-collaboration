@@ -27,24 +27,24 @@ const StudentsApproval = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (acceptRejectError) {
-  //     toast.error(acceptRejectError);
-  //     dispatch(clearMessages());
-  //   }
-  //   if (message) {
-  //     toast.success(message);
-  //     dispatch(clearMessages());
-  //     navigate("/studentsApproval");
-  //   }
-  // }, [acceptRejectError, message]);
+  useEffect(() => {
+    if (acceptRejectError) {
+      toast.error(acceptRejectError);
+      dispatch(clearMessages());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(clearMessages());
+      navigate("/studentsApproval");
+    }
+  }, [acceptRejectError, message]);
 
-  // useEffect(() => {
-  //   if (error) {
-  //     toast.error(error);
-  //     dispatch(clearMessages());
-  //   }
-  // }, [error]);
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearMessages());
+    }
+  }, [error]);
 
   useEffect(() => {
     dispatch(studentApprovalRequest());

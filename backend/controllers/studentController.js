@@ -45,11 +45,27 @@ exports.registerApprovalStudent = catchAsyncErrors(async (req, res, next) => {
     confirmPassword,
   } = req.body;
 
-  const studentExist = await Student.findOne({
+  const studentExistEnrollmentNumber = await Student.findOne({
     enrollmentNo: enrollmentNo,
   });
-  if (studentExist) {
+  const studentExistRollNumber = await Student.findOne({
+    rollNo: rollNo,
+  });
+
+  const studentExistInApprovalEnrollmentNumber = await ApproveStudent.findOne({
+    enrollmentNo: enrollmentNo,
+  });
+  const studentExistInApprovalRollNumber = await ApproveStudent.findOne({
+    rollNo: rollNo,
+  });
+  if (studentExistEnrollmentNumber || studentExistRollNumber) {
     return next(new ErrorHandler("Student already registered", 401));
+  }
+  if (
+    studentExistInApprovalEnrollmentNumber ||
+    studentExistInApprovalRollNumber
+  ) {
+    return next(new ErrorHandler("Data already sent for approval", 401));
   }
 
   if (password !== confirmPassword) {
@@ -122,6 +138,7 @@ exports.registerApprovalStudent = catchAsyncErrors(async (req, res, next) => {
 //REGISTER STUDENT
 exports.registerStudentAccept = catchAsyncErrors(async (req, res, next) => {
   let student = await ApproveStudent.findById(req.params.id);
+
   if (!student) {
     return next(new ErrorHandler(`Some error occurred`));
   }
@@ -274,6 +291,7 @@ exports.loginStudent = catchAsyncErrors(async (req, res, next) => {
   }
 
   const isPasswordMatched = await student.comparePassword(password);
+
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Invalid email or password", 401));
   }
@@ -654,7 +672,13 @@ exports.getStudent = catchAsyncErrors(async (req, res, next) => {
 //GET COURSE OF STUDENT'S SEMESTER
 exports.getCourseSelectionForSemester = catchAsyncErrors(
   async (req, res, next) => {
-    const course = await CourseSelection.findOne(req.user.semester);
+    const sem = req.user.semester;
+    const depart = req.user.department;
+
+    const course = await CourseSelection.findOne({
+      semester: sem,
+      department: depart,
+    });
 
     res.status(200).json({
       success: true,
@@ -662,3 +686,18 @@ exports.getCourseSelectionForSemester = catchAsyncErrors(
     });
   }
 );
+
+exports.getCourseSubjectList = catchAsyncErrors(async (req, res, next) => {
+  const sem = req.params.semester;
+  const depart = req.params.department;
+
+  const course = await CourseSelection.findOne({
+    semester: sem,
+    department: depart,
+  });
+
+  res.status(200).json({
+    success: true,
+    subjects: course.course,
+  });
+});

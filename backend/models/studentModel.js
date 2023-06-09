@@ -17,6 +17,7 @@ const studentSchema = new mongoose.Schema({
   rollNo: {
     type: Number,
     required: [true, "Please fill your roll number"],
+    unique: true,
   },
   name: {
     type: String,

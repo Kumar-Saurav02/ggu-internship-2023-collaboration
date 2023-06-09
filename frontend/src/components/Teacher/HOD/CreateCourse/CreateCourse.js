@@ -25,7 +25,17 @@ const CreateCourse = () => {
   } = useSelector((state) => state.getAllSubjects);
 
   const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
+  const departments = [
+    "Department of Computer Science and Engineering",
+    "Department of Information Technology",
+    "Department of Electronics & Communication Engineering",
+    "Department of Chemical Engineering",
+    "Department of Civil Engineering",
+    "Department of Mechanical Engineering",
+    "Department of Industrial & Production Engineering",
+  ];
   const [semester, setSemester] = useState(1);
+  const [department, setDepartment] = useState("");
   const [course, setCourse] = useState([]);
   const [subjectCode, setSubjectCode] = useState();
   const [subjectCategory, setSubjectCategory] = useState("Compulsory");
@@ -48,8 +58,15 @@ const CreateCourse = () => {
       ],
     ]);
   };
+
   const submitCreateCourseDetail = () => {
-    dispatch(createCourseByHOD(semester, course));
+    if (semester.trim() === "") {
+      return toast.error("Select semester properly");
+    }
+    if (department === "") {
+      return toast.error("Select department properly");
+    }
+    dispatch(createCourseByHOD(semester, department, course));
   };
 
   useEffect(() => {
@@ -88,6 +105,17 @@ const CreateCourse = () => {
                     {semesters.map((sem) => (
                       <option key={sem} value={sem}>
                         {sem}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <select
+                    required
+                    onChange={(e) => setDepartment(e.target.value)}>
+                    {departments.map((depart) => (
+                      <option key={depart} value={depart}>
+                        {depart}
                       </option>
                     ))}
                   </select>

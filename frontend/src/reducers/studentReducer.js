@@ -23,6 +23,12 @@ import {
   SUBMIT_SCHOLARSHIP_REQUEST,
   SUBMIT_SCHOLARSHIP_SUCCESS,
   SUBMIT_SCHOLARSHIP_FAIL,
+  GET_STUDENT_SEMESTER_DEPARTMENT_REQUEST,
+  GET_STUDENT_SEMESTER_DEPARTMENT_SUCCESS,
+  GET_STUDENT_SEMESTER_DEPARTMENT_FAIL,
+  COURSE_SUBJECT_LIST_REQUEST,
+  COURSE_SUBJECT_LIST_SUCCESS,
+  COURSE_SUBJECT_LIST_FAIL,
 } from "../constants/studentConstant";
 
 export const registerLoginStudentsReducer = (
@@ -136,6 +142,68 @@ export const marksFeesCourseUpdateReducer = (state = {}, action) => {
       return {
         ...state,
         message: null,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getStudentsBaseOnSemesterAndDepartmentReducer = (
+  state = { students: [] },
+  action
+) => {
+  switch (action.type) {
+    case GET_STUDENT_SEMESTER_DEPARTMENT_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_STUDENT_SEMESTER_DEPARTMENT_SUCCESS:
+      return {
+        loading: false,
+        students: action.payload,
+      };
+    case GET_STUDENT_SEMESTER_DEPARTMENT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        students: null,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getCourseSubjectsListReducer = (
+  state = { subjects: [] },
+  action
+) => {
+  switch (action.type) {
+    case COURSE_SUBJECT_LIST_REQUEST:
+      return {
+        loading: true,
+      };
+    case COURSE_SUBJECT_LIST_SUCCESS:
+      return {
+        loading: false,
+        subjects: action.payload,
+      };
+    case COURSE_SUBJECT_LIST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        subjects: null,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
         error: null,
       };
     default:

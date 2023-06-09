@@ -85,6 +85,7 @@ const CourseSelection = () => {
   useEffect(() => {
     if (
       credits === 0 &&
+      course !== null &&
       course !== undefined &&
       course.course !== undefined &&
       course.course
@@ -149,7 +150,8 @@ const CourseSelection = () => {
                           <h4>Term</h4>
                         </span>
                       </div>
-                      {course.course &&
+                      {course &&
+                        course.course &&
                         course.course.map((courses, i) => {
                           return (
                             <div key={i} className="show_data_val">
@@ -223,21 +225,27 @@ const CourseSelection = () => {
                   )}
                 </div>
               </div>
-              <div>
-                <h5>Total Credits</h5>
-                <p>{credits}</p>
-              </div>
+              {attendance < 75 && attendance === undefined && (
+                <div>
+                  <h5>Total Credits</h5>
+                  <p>{credits}</p>
+                </div>
+              )}
               <div>
                 {courseSelected && (
                   <div>
                     <h3>Course is already submitted.</h3>
                   </div>
                 )}
-                {!courseSelected && (
-                  <div>
-                    <button onClick={submitCourseDetails}>Submit Course</button>
-                  </div>
-                )}
+                {!courseSelected &&
+                  attendance < 75 &&
+                  attendance === undefined && (
+                    <div>
+                      <button onClick={submitCourseDetails}>
+                        Submit Course
+                      </button>
+                    </div>
+                  )}
               </div>
             </div>
           </div>

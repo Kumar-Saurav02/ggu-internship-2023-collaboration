@@ -26,6 +26,9 @@ import {
   GET_SCHOLARSHIP_APPROVAL_REQUEST,
   GET_SCHOLARSHIP_APPROVAL_SUCCESS,
   GET_SCHOLARSHIP_APPROVAL_FAIL,
+  SUBMIT_ATTENDANCE_ENTRY_REQUEST,
+  SUBMIT_ATTENDANCE_ENTRY_SUCCESS,
+  SUBMIT_ATTENDANCE_ENTRY_FAIL,
 } from "../constants/teacherConstant";
 
 export const registerLoginTeachersReducer = (
@@ -171,6 +174,37 @@ export const getScholarshipsForApprovalReducer = (
     case CLEAR_MESSAGES:
       return {
         ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const submitAttendanceEntryBySubjectTeacherReducer = (
+  state = {},
+  action
+) => {
+  switch (action.type) {
+    case SUBMIT_ATTENDANCE_ENTRY_REQUEST:
+      return {
+        loading: true,
+      };
+    case SUBMIT_ATTENDANCE_ENTRY_SUCCESS:
+      return {
+        loading: false,
+        message: action.payload,
+      };
+    case SUBMIT_ATTENDANCE_ENTRY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        message: null,
         error: null,
       };
     default:
