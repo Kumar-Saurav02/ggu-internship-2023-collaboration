@@ -60,13 +60,13 @@ const AttendanceEntry = () => {
 
   const submitAttendance = () => {
     if (subject === undefined || subject.trim() === "") {
-      return toast.error("SELECT SUBJECT");
+      return toast.error("Select Subject");
     }
     var allDetails = [];
     for (let j = 0; j < studentDetails.length; j++) {
       if (Number(attendanceStudent[j]) > Number(totalAttendance)) {
         return toast.error(
-          `${studentDetails[j].name} ATTENDANCE IS EXCEEDING TOTAL ATTENDANCE`
+          `${studentDetails[j].name} Attendance Is Exceeding Total Attendance`
         );
       }
       if (
@@ -74,7 +74,7 @@ const AttendanceEntry = () => {
         Number.isNaN(attendanceStudent[j]) === true
       ) {
         return toast.error(
-          `${studentDetails[j].name} ATTENDANCE IS NOT FILLED PROPERLY`
+          `${studentDetails[j].name} Attendance Is Not Filled Properly`
         );
       }
       allDetails.push({
@@ -96,6 +96,8 @@ const AttendanceEntry = () => {
 
   useEffect(() => {
     if (
+      studentDetails !== null &&
+      subjects !== null &&
       studentDetails !== undefined &&
       subjects !== undefined &&
       studentDetails.length > 0 &&
@@ -129,7 +131,6 @@ const AttendanceEntry = () => {
     attendanceSubmissionError,
     attendanceSubmissionMessage,
   ]);
-  console.log(attendanceStudent);
 
   return (
     <Fragment>

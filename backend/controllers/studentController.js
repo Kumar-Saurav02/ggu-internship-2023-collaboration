@@ -696,6 +696,15 @@ exports.getCourseSubjectList = catchAsyncErrors(async (req, res, next) => {
     department: depart,
   });
 
+  if (!course) {
+    return next(
+      new ErrorHandler(
+        "No Subjects Updated For Selected Semester And Department",
+        401
+      )
+    );
+  }
+
   res.status(200).json({
     success: true,
     subjects: course.course,

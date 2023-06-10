@@ -46,7 +46,7 @@ exports.fillAttendanceDetails = catchAsyncErrors(async (req, res, next) => {
         details.students[0].subjects[i].subjectName.trim().toString()
       ) {
         return next(
-          new ErrorHandler(`Subjects Marks are already uploaded`, 404)
+          new ErrorHandler(`Subjects Marks are already uploaded`, 401)
         );
       }
     }
