@@ -9,7 +9,7 @@ exports.createSubject = catchAsyncErrors(async (req, res, next) => {
   if (
     subjectName.trim() === "" ||
     subjectCode.trim() === "" ||
-    subjectCredit <= 0
+    subjectCredit < 0
   ) {
     return next(new ErrorHandler("Enter details properly", 401));
   }
@@ -19,7 +19,7 @@ exports.createSubject = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Subject already exists", 401));
   }
 
-  const subject = await Subject.create({
+  await Subject.create({
     subjectName,
     subjectCode,
     subjectCredit,
@@ -27,7 +27,7 @@ exports.createSubject = catchAsyncErrors(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    subject,
+    message: "Subject Created Successfully",
   });
 });
 
@@ -41,9 +41,9 @@ exports.getAllSubjects = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.createCourse = catchAsyncErrors(async (req, res, next) => {
-  const { semester, courses } = req.body;
+  const { semester, department, courses } = req.body;
 
-  const getCourse = await CourseSelection.findOne({ semester });
+  const getCourse = await CourseSelection.findOne({ semester, department });
   if (getCourse) {
     return next(new ErrorHandler("Course already exists", 401));
   }
@@ -55,18 +55,18 @@ exports.createCourse = catchAsyncErrors(async (req, res, next) => {
       subjectCode: courses[i][1],
       subjectCredit: courses[i][2],
       category: courses[i][3],
-      cycle: courses[i][4],
     });
   }
 
-  const courseSelection = await CourseSelection.create({
+  await CourseSelection.create({
     semester,
+    department,
     course: coursesDetails,
   });
 
   res.status(201).json({
     success: true,
-    courseSelection,
+    message: `Course Created for semester ${semester}`,
   });
 });
 

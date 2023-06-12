@@ -23,6 +23,7 @@ import CreateCourse from "./components/Teacher/HOD/CreateCourse/CreateCourse";
 import ChangingTeacherRole from "./components/Admin/Roles/ChangingTeacherRole";
 import CourseApproval from "./components/Teacher/ClassIncharge/CourseApproval/CourseApproval";
 import ScholarshipApproval from "./components/Teacher/ClassIncharge/ScholarshipApproval/ScholarshipApproval";
+import AttendanceEntry from "./components/Teacher/Attendance/AttendanceEntry";
 
 function App() {
   useEffect(() => {
@@ -62,6 +63,7 @@ function App() {
 
         {/* Teacher */}
         <Route path="/teacherProfile" element={<ProfileTeacher />} />
+        <Route path="/attendanceEntry" element={<AttendanceEntry />} />
 
         {/* HOD */}
         <Route path="/hod/createSubject" element={<CreateSubject />} />

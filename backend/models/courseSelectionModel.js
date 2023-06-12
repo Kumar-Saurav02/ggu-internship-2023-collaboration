@@ -4,6 +4,9 @@ const courseSelectionSchema = new mongoose.Schema({
   semester: {
     type: Number,
   },
+  department: {
+    type: String,
+  },
   course: [
     {
       subjectName: {
@@ -16,9 +19,6 @@ const courseSelectionSchema = new mongoose.Schema({
         type: Number,
       },
       category: {
-        type: String,
-      },
-      cycle: {
         type: String,
       },
     },

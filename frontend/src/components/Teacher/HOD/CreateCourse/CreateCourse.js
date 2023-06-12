@@ -25,7 +25,17 @@ const CreateCourse = () => {
   } = useSelector((state) => state.getAllSubjects);
 
   const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
+  const departments = [
+    "Department of Computer Science and Engineering",
+    "Department of Information Technology",
+    "Department of Electronics & Communication Engineering",
+    "Department of Chemical Engineering",
+    "Department of Civil Engineering",
+    "Department of Mechanical Engineering",
+    "Department of Industrial & Production Engineering",
+  ];
   const [semester, setSemester] = useState(1);
+  const [department, setDepartment] = useState("");
   const [course, setCourse] = useState([]);
   const [subjectCode, setSubjectCode] = useState();
   const [subjectCategory, setSubjectCategory] = useState("Compulsory");
@@ -48,8 +58,15 @@ const CreateCourse = () => {
       ],
     ]);
   };
+
   const submitCreateCourseDetail = () => {
-    dispatch(createCourseByHOD(semester, course));
+    if (semester.trim() === "") {
+      return toast.error("Select semester properly");
+    }
+    if (department === "") {
+      return toast.error("Select department properly");
+    }
+    dispatch(createCourseByHOD(semester, department, course));
   };
 
   useEffect(() => {
@@ -78,11 +95,18 @@ const CreateCourse = () => {
         <Fragment>
           <div className="createCourse">
             <SidebarTeacher />
-            <div>
-              <h1>Create Course</h1>
-              <div>
-                <div>
-                  <select
+            <div className="registerBox">
+              <div className="Data_entry">
+              <h2>Create Course</h2>
+              <hr></hr>
+              <br></br>
+              
+              <div className="entry">
+                    <label className="label_name" for="{sem}">
+                      Semester
+                    </label>
+                    <select
+                      className="label_name"
                     required
                     onChange={(e) => setSemester(e.target.value)}>
                     {semesters.map((sem) => (
@@ -91,10 +115,28 @@ const CreateCourse = () => {
                       </option>
                     ))}
                   </select>
-                </div>
-                <div>
-                  <div>
+              </div>
+              <div className="entry">
+                    <label className="label_name" for="{sem}">
+                      Department
+                    </label>
                     <select
+                      className="label_name"
+                    required
+                    onChange={(e) => setDepartment(e.target.value)}>
+                    {departments.map((depart) => (
+                      <option key={depart} value={depart}>
+                        {depart}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="entry">
+                    <label className="label_name" for="{sem}">
+                      Subject Name
+                    </label>
+                    <select
+                      className="label_name"
                       required
                       onChange={(e) => setSubjectCode(e.target.value)}>
                       <option>Subjects</option>
@@ -107,8 +149,12 @@ const CreateCourse = () => {
                     </select>
                   </div>
 
-                  <div>
+                  <div className="entry">
+                    <label className="label_name" for="{subjectCategory}">
+                      Subject Category
+                    </label>
                     <input
+                      className="label_name"
                       type="text"
                       placeholder="Subject Category"
                       disabled
@@ -117,8 +163,16 @@ const CreateCourse = () => {
                       onChange={(e) => setSubjectCategory(e.target.value)}
                     />
                   </div>
-                  <button onClick={addingCourseDetail}>Add Course</button>
-                </div>
+                  <br></br>
+                  
+                  <div className="btn">
+                    <button 
+                      className="signInbtn border hover"
+                      onClick={addingCourseDetail}>Add Course
+                    </button>
+                  </div>
+                  <br></br>
+                
                 <div>
                   <table>
                     <tr>
@@ -143,12 +197,13 @@ const CreateCourse = () => {
                     </div>
                   )}
                 </div>
-              </div>
+              
               <div>
                 <button onClick={submitCreateCourseDetail}>
                   Create Course
                 </button>
               </div>
+            </div>
             </div>
           </div>
         </Fragment>

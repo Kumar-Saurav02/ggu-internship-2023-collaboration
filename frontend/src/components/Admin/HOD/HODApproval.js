@@ -35,7 +35,7 @@ const HODApproval = () => {
           <div className="teacherDetails">
           <Sidebar />
             <div className="request">
-              <h1> Teacher's Approval</h1>
+              <h1> HOD's Approval</h1>
               <hr></hr>
               <br></br>
               {teacherApproval &&

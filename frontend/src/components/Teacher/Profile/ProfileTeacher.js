@@ -27,79 +27,96 @@ const ProfileTeacher = () => {
         <Fragment>
           <div className="profileTeacher">
             <SidebarTeacher role={teacher.subRole} />
-            <div>
-              <div>
-                <label>Employee ID</label>
+            <div className="approvBox">
+              <div className="subsection">
+                <h2>Teacher's Profile</h2>
+                <hr></hr>
+                <br></br>
+               <div className="entry">
+                <label  className="label_name">Employee ID</label>
                 <p>{teacher.employeeID}</p>
-              </div>
+               </div>
 
-              <div>
-                <label>Name</label>
+              <div className="entry">
+                <label className="label_name">Name</label>
                 <p>{teacher.name}</p>
               </div>
 
-              <div>
-                <label>Email</label>
+              <div className="entry">
+                <label className="label_name">Email</label>
                 <p>{teacher.email}</p>
               </div>
 
-              <div>
-                <label>Mobile Number</label>
+              <div className="entry">
+                <label className="label_name">Mobile Number</label>
                 <p>{teacher.mobileNumber}</p>
               </div>
-              <div>
-                <label>Gender</label>
+              <div className="entry">
+                <label className="label_name">Gender</label>
                 <p>{teacher.gender}</p>
               </div>
-              <div>
-                <label>Department</label>
+              <div className="entry">
+                <label className="label_name"> Department</label>
                 <p>{teacher.department}</p>
               </div>
-              <div>
-                <label>Designation</label>
+              <div className="entry">
+                <label className="label_name">Designation</label>
                 <p>{teacher.designation}</p>
               </div>
 
-              <div>
-                <label>Date OF Birth</label>
+              <div className="entry">
+                <label className="label_name">Date OF Birth</label>
                 <p>{teacher.dateOfBirth}</p>
               </div>
-              <div>
-                <label>Qualification</label>
+              <div className="entry">
+                <label className="label_name">Qualification</label>
                 <p>{teacher.qualification}</p>
               </div>
-              <div>
-                <label>Assigned Subjects</label>
+              <div className="entry">
+                <label className="label_name">Assigned Subjects</label>
+                <div className="address">
                 {teacher.assignSubject &&
                   teacher.assignSubject.map((subject, i) => (
                     <div key={i}>
-                      <p>{i + 1}</p>
+                      <p>
+                      <b>{i + 1}</b>
+                      </p>
                       <p>{subject}</p>
-                    </div>
+                      <br></br>
+                  </div>
                   ))}
+                </div>
               </div>
-              {teacher.profilePhoto && (
-                <div>
-                  <label>Profile Photo</label>
-                  <img src={teacher.profilePhoto.url} />
-                </div>
-              )}
-              {teacher.signature && (
-                <div>
-                  <label>Signature</label>
-                  <img src={teacher.signature.url} />
-                </div>
-              )}
               {teacher.resume && (
-                <div>
-                  <label>Resume</label>
+                <div  className="entry">
+                  <label className="label_name">Resume</label>
                   <br></br>
                   <a target="_blank" rel="noreferrer" href={teacher.resume.url}>
                     View
                   </a>
                 </div>
               )}
+          </div> 
+          <div className="subsection">
+                <div>
+                <h2>Photograph & Signature</h2>
+                  <hr></hr>
+                  <br></br> 
+              {teacher.profilePhoto && (
+                <div className="entry">
+                  <label className="label_name">Profile Photo</label>
+                  <img src={teacher.profilePhoto.url} />
+                </div>
+              )}
+              {teacher.signature && (
+                <div className="entry">
+                  <label className="label_name">Signature</label>
+                  <img src={teacher.signature.url} />
+                </div>
+              )}
             </div>
+            </div>
+          </div>
           </div>
         </Fragment>
       )}

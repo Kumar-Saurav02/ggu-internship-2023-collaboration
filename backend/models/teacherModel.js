@@ -85,6 +85,9 @@ const teacherSchema = new mongoose.Schema({
   role: {
     type: String,
   },
+  subRole: {
+    type: String,
+  },
 });
 
 //PASSWORD HASHING

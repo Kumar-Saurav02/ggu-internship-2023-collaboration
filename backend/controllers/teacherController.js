@@ -1,4 +1,7 @@
 const Teacher = require("../models/teacherModel");
+const Student = require("../models/studentModel");
+const ApproveCourse = require("../models/approveCourseModel");
+const ApproveScholarship = require("../models/approveScholarshipModel");
 const ApproveTeacher = require("../models/approveTeacherModel");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
@@ -127,7 +130,6 @@ exports.registerTeacherAccept = catchAsyncErrors(async (req, res, next) => {
     signature,
     password,
   } = teacher;
-  console.log(teacher);
 
   message = `Your registration is approved at GGU portal. 
               \n User ID :- ${employeeID}
@@ -156,10 +158,10 @@ exports.registerTeacherAccept = catchAsyncErrors(async (req, res, next) => {
     assignSubject,
     password,
   };
-
+  data.role = "teacher";
   if (designation === "HOD") {
-    data.role = "hod";
-  } else data.role = "teacher";
+    data.subRole = "hod";
+  } else data.subRole = "teacher";
 
   data.profilePhoto = {
     public_id: profilePhoto.public_id,
@@ -280,6 +282,23 @@ exports.updateDetailsTeacher = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//UPDATE TEACHER ROLE
+exports.updateRoleOfTeacher = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    subRole: req.body.role,
+  };
+
+  await Teacher.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+  res.status(200).json({
+    success: true,
+    message: "Teacher Role Updated",
+  });
+});
+
 //GET ALL TEACHER
 exports.getAllTeachers = catchAsyncErrors(async (req, res, next) => {
   const teachers = await Teacher.find();
@@ -302,9 +321,9 @@ exports.getAllTeachersApproval = catchAsyncErrors(async (req, res, next) => {
 
 //GET PARTICULAR TEACHER
 exports.getParticularTeacher = catchAsyncErrors(async (req, res, next) => {
-  const { email } = req.body;
+  const { employeeID } = req.body;
 
-  const teacher = await Teacher.find({ email });
+  const teacher = await Teacher.find({ employeeID });
 
   res.status(200).json({
     success: true,
@@ -321,3 +340,108 @@ exports.getTeacher = catchAsyncErrors(async (req, res, next) => {
     teacher,
   });
 });
+
+//CLASS INCHARGE
+
+//ACCEPT COURSE DETAILS
+exports.acceptCourseSelection = catchAsyncErrors(async (req, res, next) => {
+  const student = await Student.findOne({ enrollmentNumber });
+  if (!student) {
+    return next(new ErrorHandler(`Some error occurred`));
+  }
+
+  var subjects = [];
+  for (let i = 0; i < req.body.courseSubmission.course.length; i++) {
+    subjects.push({
+      subjectName: req.body.courseSubmission.course[i].subjectName,
+      subjectCode: req.body.courseSubmission.course[i].subjectCode,
+      subjectCredit: req.body.courseSubmission.course[i].subjectCredit,
+      category: req.body.courseSubmission.course[i].category,
+      term: req.user.currentSemester + " " + "Semester",
+    });
+  }
+
+  await ApproveCourse.deleteOne({ _id: req.body.id });
+
+  student.courseSelected.push({
+    semester: semester,
+    subjects,
+  });
+
+  await student.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    message: "Accepted",
+  });
+});
+
+//REJECT COURSE DETAILS
+exports.rejectCourseSelection = catchAsyncErrors(async (req, res, next) => {
+  await ApproveCourse.deleteOne({ _id: req.body.id });
+
+  res.status(200).json({
+    success: true,
+    message: "Rejected",
+  });
+});
+
+//GET ALL COURSES APPROVAL
+exports.getAllCoursesApproval = catchAsyncErrors(async (req, res, next) => {
+  const courses = await ApproveCourse.find();
+
+  res.status(200).json({
+    success: true,
+    courses,
+  });
+});
+
+//ACCEPT SCHOLARSHIP DETAILS
+exports.acceptScholarshipSelection = catchAsyncErrors(
+  async (req, res, next) => {
+    const { session, state, scholarship, scholarshipDocument } = req.body;
+    const student = await Student.findOne({ enrollmentNumber });
+    if (!student) {
+      return next(new ErrorHandler(`Some error occurred`));
+    }
+
+    if (scholarshipDocument === "") {
+      student.scholarshipDetails.push({
+        session,
+        state,
+        scholarship,
+      });
+    } else {
+      student.scholarshipDetails.push({
+        session,
+        state,
+        scholarship,
+        scholarshipDocument,
+      });
+    }
+  }
+);
+
+//REJECT SCHOLARSHIP DETAILS
+exports.rejectScholarshipSelection = catchAsyncErrors(
+  async (req, res, next) => {
+    await ApproveScholarship.deleteOne({ _id: req.body.id });
+
+    res.status(200).json({
+      success: true,
+      message: "Rejected",
+    });
+  }
+);
+
+//GET ALL SCHOLARSHIP APPROVAL
+exports.getAllScholarshipsApproval = catchAsyncErrors(
+  async (req, res, next) => {
+    const scholarships = await ApproveScholarship.find();
+
+    res.status(200).json({
+      success: true,
+      scholarships,
+    });
+  }
+);

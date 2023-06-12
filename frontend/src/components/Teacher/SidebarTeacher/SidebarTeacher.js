@@ -5,31 +5,36 @@ import PeopleIcon from "@mui/icons-material/People";
 
 const SidebarTeacher = ({ role }) => {
   return (
-    <div className="studentSidebar">
+    <div className="sidebar">
       <Link to="/teacherProfile">
         <p>
           <PeopleIcon />
           Profile
         </p>
       </Link>
+      <Link to="/attendanceEntry">
+        <p>
+          <PeopleIcon />
+          Attendance Entry
+        </p>
+      </Link>
       {/* {role === "hod" && ( */}
-      <div>
-        <Link to="/hod/CreateSubject">
+        <Link to="/hod/createSubject">
           <p>
             <PeopleIcon />
             Create Subject
           </p>
         </Link>
-        <Link to="/hod/CreateCourse">
+        <Link to="/hod/createCourse">
           <p>
             <PeopleIcon />
             Create Course
           </p>
         </Link>
-      </div>
+      
       {/* )} */}
       {/* {role === "classIncharge" && ( */}
-      <div>
+      
         <Link to="/classIncharge/courseApproval">
           <p>
             <PeopleIcon />
@@ -42,13 +47,7 @@ const SidebarTeacher = ({ role }) => {
             Scholarship Approval
           </p>
         </Link>
-        <Link to="">
-          <p>
-            <PeopleIcon />
-            Attendance Entry
-          </p>
-        </Link>
-      </div>
+      
       {/* )} */}
     </div>
   );

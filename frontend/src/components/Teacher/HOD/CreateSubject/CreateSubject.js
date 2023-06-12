@@ -63,11 +63,17 @@ const CreateSubject = () => {
         <Fragment>
           <div className="createSubject">
             <SidebarTeacher />
-            <div>
-              <h1>Create Subject</h1>
-              <div>
-                <div>
-                  <input
+            <div className="registerBox">
+              <div className="Data_entry">
+              <h2>Create Subject</h2>
+              <hr></hr>
+              <br></br>
+              <div className="entry">
+                    <label className="label_name" for="{subjectName}">
+                      Subject Name
+                    </label>
+                    <input
+                    className="label_name"
                     type="text"
                     placeholder="Subject Name"
                     required
@@ -76,8 +82,12 @@ const CreateSubject = () => {
                     onChange={createSubjectDataChange}
                   />
                 </div>
-                <div>
-                  <input
+                <div className="entry">
+                    <label className="label_name" for="{subjectCode}">
+                      Subject Code
+                    </label>
+                    <input
+                    className="label_name"
                     type="text"
                     placeholder="Subject Code"
                     required
@@ -86,8 +96,12 @@ const CreateSubject = () => {
                     onChange={createSubjectDataChange}
                   />
                 </div>
-                <div>
-                  <input
+                <div className="entry">
+                    <label className="label_name" for="{subjectCredit}">
+                      Subject Credit
+                    </label>
+                    <input
+                    className="label_name"
                     type="number"
                     placeholder="Subject Credit"
                     required
@@ -96,10 +110,18 @@ const CreateSubject = () => {
                     onChange={createSubjectDataChange}
                   />
                 </div>
-                <button onClick={createSubject}>Create</button>
-              </div>
+                <br></br>
+                <div className="btn">
+                  <button 
+                    className="signInbtn border hover" 
+                    onClick={createSubject}>Create
+                  </button>
+                </div>
+                
+              
             </div>
-          </div>
+            </div>
+            </div>
         </Fragment>
       )}
     </Fragment>

@@ -17,6 +17,7 @@ const studentSchema = new mongoose.Schema({
   rollNo: {
     type: Number,
     required: [true, "Please fill your roll number"],
+    unique: true,
   },
   name: {
     type: String,
@@ -117,6 +118,16 @@ const studentSchema = new mongoose.Schema({
       dateOfPayment: {
         type: String,
       },
+      fees: {
+        public_id: {
+          type: String,
+          required: true,
+        },
+        url: {
+          type: String,
+          required: true,
+        },
+      },
     },
   ],
   localAddress: {
@@ -196,14 +207,14 @@ const studentSchema = new mongoose.Schema({
   ],
   backSubject: [
     {
+      semester: {
+        type: Number,
+      },
       subjectName: {
         type: String,
       },
       subjectCode: {
         type: String,
-      },
-      semester: {
-        type: Number,
       },
       subjectCredit: {
         type: String,
@@ -215,20 +226,45 @@ const studentSchema = new mongoose.Schema({
       semester: {
         type: Number,
       },
-      subjectName: {
+      subjects: [
+        {
+          subjectName: {
+            type: String,
+          },
+          subjectCode: {
+            type: String,
+          },
+          subjectCredit: {
+            type: Number,
+          },
+          category: {
+            type: String,
+          },
+          term: {
+            type: String,
+          },
+        },
+      ],
+    },
+  ],
+  scholarshipDetails: [
+    {
+      session: {
         type: String,
       },
-      subjectCode: {
+      state: {
         type: String,
       },
-      subjectCredit: {
-        type: Number,
-      },
-      category: {
+      scholarship: {
         type: String,
       },
-      cycle: {
-        type: String,
+      scholarshipDocument: {
+        public_id: {
+          type: String,
+        },
+        url: {
+          type: String,
+        },
       },
     },
   ],

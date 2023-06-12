@@ -25,6 +25,9 @@ import {
   GET_SCHOLARSHIP_APPROVAL_REQUEST,
   GET_SCHOLARSHIP_APPROVAL_SUCCESS,
   GET_SCHOLARSHIP_APPROVAL_FAIL,
+  SUBMIT_ATTENDANCE_ENTRY_REQUEST,
+  SUBMIT_ATTENDANCE_ENTRY_SUCCESS,
+  SUBMIT_ATTENDANCE_ENTRY_FAIL,
 } from "../constants/teacherConstant";
 import {
   REGISTER_TEACHER_REQUEST,
@@ -279,3 +282,33 @@ export const scholarshipRejectByIncharge = (id) => async (dispatch) => {
     });
   }
 };
+
+//ATTENDANCE ENTRY
+export const attendanceEntryBySubjectTeacher =
+  (semester, department, students) => async (dispatch) => {
+    try {
+      dispatch({ type: SUBMIT_ATTENDANCE_ENTRY_REQUEST });
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/attendanceEntryByTeacher`,
+        {
+          semester,
+          department,
+          students,
+        },
+        config
+      );
+
+      dispatch({
+        type: SUBMIT_ATTENDANCE_ENTRY_SUCCESS,
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: SUBMIT_ATTENDANCE_ENTRY_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };

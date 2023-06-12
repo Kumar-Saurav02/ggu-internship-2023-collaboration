@@ -112,7 +112,7 @@ export const teacherApprovalRequestAccept = (id) => async (dispatch) => {
 
     dispatch({
       type: TEACHER_APPROVAL_ACCEPT_SUCCESS,
-      payload: data.requests,
+      payload: data.message,
     });
   } catch (error) {
     dispatch({
