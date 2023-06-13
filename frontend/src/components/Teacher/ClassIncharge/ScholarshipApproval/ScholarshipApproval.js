@@ -17,6 +17,8 @@ const ScholarshipApproval = () => {
     error: scholarshipError,
   } = useSelector((state) => state.getScholarshipsForApproval);
 
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
+
   console.log(scholarships);
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const ScholarshipApproval = () => {
       ) : (
         <Fragment>
           <div className="scholarshipApproval">
-            <SidebarTeacher />
+            <SidebarTeacher role={teacher.subRole} />
             <div>
               <div>
                 {scholarships &&

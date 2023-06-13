@@ -12,7 +12,6 @@ import StudentsApproval from "./components/Admin/Student/StudentsApproval";
 import StudentApprovalDetails from "./components/Admin/Student/StudentApprovalDetails";
 import TeacherApprovalDetails from "./components/Admin/Teacher/TeacherApprovalDetails";
 import TeachersApproval from "./components/Admin/Teacher/TeachersApproval";
-import Header from "./components/Layout/Header/Header";
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import ProfileStudent from "./components/Student/Profile/ProfileStudent";
 import DocumentUploadStudent from "./components/Student/DocumentUploadStudent/DocumentUploadStudent";
@@ -34,7 +33,6 @@ function App() {
   }, []);
   return (
     <Router>
-      <Header />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -43,15 +41,19 @@ function App() {
         <Route
           path="/admin"
           element={
-            <ProtectedRoute role="admin" subRole="" Component={Dashboard} />
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={Dashboard}
+            />
           }
         />
         <Route
           path="/studentsApproval"
           element={
             <ProtectedRoute
-              role="admin"
-              subRole=""
+              role="teacher"
+              subRole="admin"
               Component={StudentsApproval}
             />
           }
@@ -60,8 +62,8 @@ function App() {
           path="/studentApprovalDetails"
           element={
             <ProtectedRoute
-              role="admin"
-              subRole=""
+              role="teacher"
+              subRole="admin"
               Component={StudentApprovalDetails}
             />
           }
@@ -70,8 +72,8 @@ function App() {
           path="/teachersApproval"
           element={
             <ProtectedRoute
-              role="admin"
-              subRole=""
+              role="teacher"
+              subRole="admin"
               Component={TeachersApproval}
             />
           }
@@ -80,8 +82,8 @@ function App() {
           path="/teacherApprovalDetails"
           element={
             <ProtectedRoute
-              role="admin"
-              subRole=""
+              role="teacher"
+              subRole="admin"
               Component={TeacherApprovalDetails}
             />
           }
@@ -89,15 +91,19 @@ function App() {
         <Route
           path="/HODApproval"
           element={
-            <ProtectedRoute role="admin" subRole="" Component={HODApproval} />
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={HODApproval}
+            />
           }
         />
         <Route
           path="/updateTeacherRole"
           element={
             <ProtectedRoute
-              role="admin"
-              subRole=""
+              role="teacher"
+              subRole="admin"
               Component={ChangingTeacherRole}
             />
           }

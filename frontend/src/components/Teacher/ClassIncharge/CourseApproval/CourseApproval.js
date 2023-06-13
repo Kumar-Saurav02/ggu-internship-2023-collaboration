@@ -17,6 +17,8 @@ const CourseApproval = () => {
     error: courseError,
   } = useSelector((state) => state.getCoursesForApproval);
 
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
+
   useEffect(() => {
     dispatch(courseApprovalByIncharge());
   }, [dispatch]);
@@ -35,7 +37,7 @@ const CourseApproval = () => {
       ) : (
         <Fragment>
           <div className="courseApproval">
-            <SidebarTeacher />
+            <SidebarTeacher role={teacher.subRole} />
             <div>
               <div>
                 {courses &&

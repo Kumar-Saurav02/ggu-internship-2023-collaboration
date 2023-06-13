@@ -18,6 +18,8 @@ import {
 const MarksEntry = () => {
   const dispatch = useDispatch();
 
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
+
   const {
     loading: studentsListLoading,
     students: studentDetails,
@@ -223,7 +225,7 @@ const MarksEntry = () => {
       ) : (
         <Fragment>
           <div className="marksEntry">
-            <SidebarTeacher />
+            <SidebarTeacher role={teacher.subRole} />
             <div>
               <h1>Marks Entry</h1>
               <div>

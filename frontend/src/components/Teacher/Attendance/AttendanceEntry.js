@@ -17,6 +17,8 @@ import {
 const AttendanceEntry = () => {
   const dispatch = useDispatch();
 
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
+
   const {
     loading: studentsListLoading,
     students: studentDetails,
@@ -178,7 +180,7 @@ const AttendanceEntry = () => {
       ) : (
         <Fragment>
           <div className="attendanceEntry">
-            <SidebarTeacher />
+            <SidebarTeacher role={teacher.subRole} />
             <div>
               <h1>Attendance Entry</h1>
               <div>

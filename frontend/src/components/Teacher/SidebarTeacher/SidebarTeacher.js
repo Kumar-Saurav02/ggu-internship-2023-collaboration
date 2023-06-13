@@ -1,9 +1,20 @@
 import React from "react";
 import "./SidebarTeacher.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
+import { logoutStudent } from "../../../actions/studentAction";
+import { useDispatch } from "react-redux";
+import { logoutTeacher } from "../../../actions/teacherAction";
 
 const SidebarTeacher = ({ role }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(logoutTeacher());
+    navigate("/");
+  };
+
   return (
     <div className="studentSidebar">
       <Link to="/teacherProfile">
@@ -56,6 +67,41 @@ const SidebarTeacher = ({ role }) => {
           </Link>
         </div>
       )}
+      {role === "admin" && (
+        <div>
+          <Link to="/admin">
+            <p>
+              <PeopleIcon />
+              Dashboard
+            </p>
+          </Link>
+          <Link to="/studentsApproval">
+            <p>
+              <PeopleIcon />
+              Students Approval
+            </p>
+          </Link>
+          <Link to="/teachersApproval">
+            <p>
+              <PeopleIcon />
+              Teachers Approval
+            </p>
+          </Link>
+          <Link to="/HODApproval">
+            <p>
+              <PeopleIcon />
+              HOD Approval
+            </p>
+          </Link>
+          <Link to="/updateTeacherRole">
+            <p>
+              <PeopleIcon />
+              Teacher Role
+            </p>
+          </Link>
+        </div>
+      )}
+      <button onClick={logout}>Logout</button>
     </div>
   );
 };

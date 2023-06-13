@@ -18,11 +18,12 @@ const TeacherDetails = ({ key, data }) => {
     if (role === "Teacher") updatingRole = "teacher";
     if (role === "Class Incharge") updatingRole = "classIncharge";
     if (role === "HOD") updatingRole = "hod";
+    if (role === "Admin") updatingRole = "admin";
     dispatch(updateTeacherRoleByAdmin(updatingRole, data._id));
   };
 
   const [role, setRole] = useState();
-  const roles = ["Teacher", "Class Incharge", "HOD"];
+  const roles = ["Teacher", "Class Incharge", "HOD", "Admin"];
 
   return (
     <Fragment>
@@ -46,6 +47,11 @@ const TeacherDetails = ({ key, data }) => {
         {data.subRole === "teacher" && (
           <div>
             <p>Teacher</p>
+          </div>
+        )}
+        {data.subRole === "admin" && (
+          <div>
+            <p>Admin</p>
           </div>
         )}
         <div>

@@ -6,12 +6,14 @@ import {
   getAllTeacherDetails,
 } from "../../../actions/adminAction";
 import Loader from "../../Loader/Loader";
-import Sidebar from "../Sidebar/Sidebar";
+import SidebarTeacher from "../../Teacher/SidebarTeacher/SidebarTeacher";
 import "./ChangingTeacherRole.css";
 import TeacherDetails from "./TeacherDetails";
 
 const ChangingTeacherRole = () => {
   const dispatch = useDispatch();
+
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
 
   const {
     loading: teacherLoading,
@@ -51,7 +53,7 @@ const ChangingTeacherRole = () => {
       ) : (
         <Fragment>
           <div className="changingTeacherRoles">
-            <Sidebar />
+            <SidebarTeacher role={teacher.subRole} />
             <div>
               <div>
                 {teachers &&

@@ -3,18 +3,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.border {
-  border: 2px solid;
-  border-radius: 5px;
-  padding: 2px;
-  background: #f4f2ff;
-  /* text-align: center;
-  align-items: center; */
-  margin: 2px;
-  width: 80%;
-  padding: auto;
-  margin: auto;
-}
+
 .Data_entry {
   display: flex;
   flex-direction: column;
@@ -88,4 +77,51 @@ div.address#label_input {
 hr {
   border: dashed 1px;
   width: 50%;
+}
+
+@media screen and (max-width: 1050px) {
+  select {
+    max-width: 200px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .registerBox {
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #d4d8e4;
+    margin: auto;
+    width: 99%;
+    border: 1.5px solid;
+    padding-bottom: 2%;
+  }
+  .Data_entry {
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    width: 90%;
+  }
+  .entry {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  select {
+    max-width: 180px;
+  }
+  .label_name {
+    display: flex;
+    flex-direction: column;
+  }
+  .address > button {
+    margin-top: 5px;
+    min-width: 120px;
+  }
+  .address > input {
+    min-width: 114px;
+  }
 }

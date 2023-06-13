@@ -41,11 +41,9 @@ const Login = () => {
 
   useEffect(() => {
     if (studentAuthenticated) {
-      toast.success("Login Successful");
       navigate("/studentProfile");
     }
     if (teacherAuthenticated) {
-      toast.success("Login Successful");
       navigate("/teacherProfile");
     }
   }, [studentAuthenticated, teacherAuthenticated]);

@@ -15,8 +15,8 @@ const ProtectedRoute = ({ role, subRole, Component }) => {
     <>
       {!teacherAuthentication && !studentAuthentication ? (
         <Navigate to="/" />
-      ) : (role === "admin" &&
-          subRole === "" &&
+      ) : (role === "teacher" &&
+          subRole === "admin" &&
           teacher.role === "teacher" &&
           teacher.subRole === "admin") ||
         (role === "teacher" && subRole === "" && teacher.role === "teacher") ||

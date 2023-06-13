@@ -8,12 +8,14 @@ import {
 import Loader from "../../Loader/Loader";
 import TeacherApprovalDataMapping from "./TeacherApprovalDataMapping";
 import { toast } from "react-toastify";
-import Sidebar from "../Sidebar/Sidebar";
 import { useNavigate } from "react-router-dom";
+import SidebarTeacher from "../../Teacher/SidebarTeacher/SidebarTeacher";
 
 const TeachersApproval = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
 
   const {
     teacherApproval,
@@ -54,7 +56,7 @@ const TeachersApproval = () => {
       ) : (
         <Fragment>
           <div className="teacherDetails">
-            <Sidebar />
+            <SidebarTeacher role={teacher.subRole} />
             <div>
               {teacherApproval &&
                 teacherApproval.map((teacherData, i) => {

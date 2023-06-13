@@ -1,135 +1,159 @@
-
-/* yah mera hai */
-
-body
-{
-  background: no-repeat url("../../Images/bg.jpg");
-  background-size: cover ;
-  font-size: 14px;
-  
-
+.border {
+  border: 2px solid;
+  border-radius: 5px;
+  padding: 2px;
+  background: #f4f2ff;
+  text-align: center;
+  margin: 2px;
+  width: 80%;
 }
+
+body {
+  background: no-repeat url("../../Images/bg.jpg");
+  background-size: cover;
+  font-size: 14px;
+}
+
+.forlin {
+  margin-left: 10%;
+}
+
+.fullContainer {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: top;
+  justify-content: center;
+}
+.fullContainer ::before {
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+.ggulogo {
+  width: 63px;
+  padding: 1rem;
+  border-radius: 2rem;
+  margin-right: 5px;
+}
+.loginBox {
+  background-color: white;
+  flex-direction: row;
+  margin: auto;
+  margin-top: 10%;
+  border: 1.5px solid;
+  display: flex;
+  min-width: 500px;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  padding: 2%;
+}
+
+.loginImg {
+  width: 75%;
+  padding: 10px;
+}
+
 .lefthalf {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-     width: 49%; 
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 49%;
+}
+/* .lefthalf >img{
+  height: 180px;
+  width: 186px; */
+/* margin-right: 20px; */
+/* padding: 10px;
+} */
+.righthalf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.welcome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.full {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.toggleForLogin {
+  min-width: 232px;
+  margin-bottom: 5px;
+}
+.input_sections {
+  min-width: 225px;
+  margin-bottom: 5px;
+}
+.sign_in {
+  margin-top: 5%;
+  min-width: 100px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
 
-  .loginImg {
-    width: 75%;
-    align-items: center;
-    padding: 10px;
-  }
+.regandfor {
+  display: flex;
+  flex-direction: row;
+  margin: 10%;
+}
 
-  .righthalf {
-    display: inline-block;
-    align-items: center;
-    /* text-align: center; */
-    width: 49%;
-    
-  }
-  
+.signInbtn {
+  width: 43%;
+}
+
+#user {
+  width: 100%;
+}
+
+.register {
+  margin-top: 30px;
+}
+
+.signInbtn:hover {
+  box-shadow: 3px 3px black;
+}
+
+.register:hover {
+  box-shadow: 0 -3px 3px 1px #848ee6;
+}
+
+@media screen and (max-width: 576px) {
   .loginBox {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    /* justify-content: center; */
+    flex-direction: column;
+  }
+
+  .lefthalf > img {
+    height: 0px;
+    width: 0px;
+    margin-right: 20px;
+  }
+  .loginBox {
     background-color: white;
+    padding: 20px;
     margin: auto;
-    width: 50%;
+    margin: auto;
     border: 1.5px solid;
-    padding: 2%;
-    margin-top: 10%;
-
-  }
-  .welcome{
-    display: flex; 
-    flex-direction: row;
-    /* justify-content: center; */
+    display: flex;
+    min-width: 250px;
     align-items: center;
-   
+    justify-content: center;
   }
-  .ggulogo{
-    flex: 0.5;
-    width: 63px;
-    padding: 1rem ;
-    border-radius: 2rem;
-    margin-right: 5px;
-  }
-  .welcome > div > h2{
-    flex: 0.5;
-    font-size: 1rem;
-  }
- 
-  .border
-  {
-    border: 2px solid;
-    border-radius: 5px;
-    padding: 2px;
-    background: #f4f2ff;
-    text-align: center;
-    margin: 2px;
-    width: 80%;
-    
-  }
-
-  nav
-  {
-    display: inline-block;
-  }
-
-  #user
-  {
-    width: 100%;
-  }
-
-  .register
-  {
-   margin-top: 30px;
-  }
-
-  .sign_in
-  {
-    margin-top: 5%;
-  }
-  .signInbtn
-  {
-    width: 43%;
-
-  }
-  
-  .signInbtn:hover 
-  {
-    box-shadow: 0 -3px 3px 1px #848ee6;
-  }
-
-  .register:hover 
-  {
-    box-shadow: 0 -3px 3px 1px #848ee6;
-  }
-
-  .regandfor
-  {
-    display: flex;
-    flex-direction: row;
-    margin-top: 10%;
-
-  }
- 
- .forlin
- {
-    margin-left: 10%;
- }
-
- .field{
-    display: flex;
-    flex-direction: row;
-    background-color: #f4f2ff;
-
- }
-  /* .welcome
-  {
-    text-align: left;
-  }
-   */
+}
