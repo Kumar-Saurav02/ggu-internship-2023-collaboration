@@ -10,10 +10,13 @@ import {
 } from "./reducers/studentReducer";
 import {
   courseScholarshipCheckReducer,
+  getAttendanceEntryBySubjectReducer,
   getCoursesForApprovalReducer,
+  getMarksEntryBySubjectReducer,
   getScholarshipsForApprovalReducer,
   registerLoginTeachersReducer,
   submitAttendanceEntryBySubjectTeacherReducer,
+  submitMarksEntryBySubjectTeacherReducer,
 } from "./reducers/teacherReducer";
 import {
   acceptingRejectingStudentTeacherApprovalReducer,
@@ -50,6 +53,9 @@ const reducer = combineReducers({
   getCourseSubjectsList: getCourseSubjectsListReducer,
   submitAttendanceEntryBySubjectTeacher:
     submitAttendanceEntryBySubjectTeacherReducer,
+  submitMarksEntryBySubjectTeacher: submitMarksEntryBySubjectTeacherReducer,
+  getAttendanceEntryBySubject: getAttendanceEntryBySubjectReducer,
+  getMarksEntryBySubject: getMarksEntryBySubjectReducer,
 });
 
 let initialState = {};

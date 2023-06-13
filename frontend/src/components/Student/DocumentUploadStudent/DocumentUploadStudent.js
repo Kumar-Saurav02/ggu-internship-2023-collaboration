@@ -7,16 +7,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Loader from "../../Loader/Loader";
 import { toast } from "react-toastify";
-import {
-  loadStudent,
-  uploadingFees,
-  uploadingMarks,
-} from "../../../actions/studentAction";
+import { uploadingFees, uploadingMarks } from "../../../actions/studentAction";
 import { clearMessages } from "../../../actions/adminAction";
 
 const DocumentUploadStudent = () => {
   const dispatch = useDispatch();
-  const { student, loading, isAuthenticated } = useSelector(
+  const { student, loading } = useSelector(
     (state) => state.registerLoginStudents
   );
 
@@ -25,10 +21,6 @@ const DocumentUploadStudent = () => {
     message,
     error,
   } = useSelector((state) => state.marksFeesCourseUpdate);
-
-  useEffect(() => {
-    dispatch(loadStudent());
-  }, []);
 
   useEffect(() => {
     if (error) {

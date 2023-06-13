@@ -8,6 +8,7 @@ import formfill from "../../Images/form_fill.jpg";
 import ggulogo from "../../Images/logo_pic.jpg";
 import { toast } from "react-toastify";
 import { loginTeachers } from "../../actions/teacherAction";
+import { clearMessages } from "../../actions/adminAction";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,14 +21,12 @@ const Login = () => {
     student,
     loading: studentLoading,
     isAuthenticated: studentAuthenticated,
-    error: studentError,
   } = useSelector((state) => state.registerLoginStudents);
 
   const {
     teacher,
     loading: teacherLoading,
     isAuthenticated: teacherAuthenticated,
-    error: teacherError,
   } = useSelector((state) => state.registerLoginTeachers);
 
   useEffect(() => {
@@ -41,9 +40,6 @@ const Login = () => {
   }, [typesOfUser]);
 
   useEffect(() => {
-    if (studentError) {
-      toast.error(studentError);
-    }
     if (studentAuthenticated) {
       toast.success("Login Successful");
       navigate("/studentProfile");
@@ -52,10 +48,8 @@ const Login = () => {
       toast.success("Login Successful");
       navigate("/teacherProfile");
     }
-    // if (teacherError) {
-    //   toast.error(teacherError);
-    // }
   }, [studentAuthenticated, teacherAuthenticated]);
+
   const [loginStudent, setLoginStudent] = useState(false);
   const [loginTeacher, setLoginTeacher] = useState(false);
   const [enrollmentNo, setEnrollmentNo] = useState("");

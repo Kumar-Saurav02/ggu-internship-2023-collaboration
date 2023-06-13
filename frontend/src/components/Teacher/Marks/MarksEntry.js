@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./AttendanceEntry.css";
+import "./MarksEntry.css";
+
 import SidebarTeacher from "../SidebarTeacher/SidebarTeacher";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,11 +11,11 @@ import Loader from "../../Loader/Loader";
 import { toast } from "react-toastify";
 import { clearMessages } from "../../../actions/adminAction";
 import {
-  attendanceEntryBySubjectTeacher,
-  getAttendanceDetailBySubject,
+  getMarksDetailBySubject,
+  marksEntryBySubjectTeacher,
 } from "../../../actions/teacherAction";
 
-const AttendanceEntry = () => {
+const MarksEntry = () => {
   const dispatch = useDispatch();
 
   const {
@@ -30,34 +31,18 @@ const AttendanceEntry = () => {
   } = useSelector((state) => state.getCourseSubjectsList);
 
   const {
-    loading: attendanceSubmissionLoading,
-    message: attendanceSubmissionMessage,
-    error: attendanceSubmissionError,
-  } = useSelector((state) => state.submitAttendanceEntryBySubjectTeacher);
+    loading: marksDetailsLoading,
+    marksDetails,
+    error: marksDetailsError,
+  } = useSelector((state) => state.getMarksEntryBySubject);
 
   const {
-    loading: attendanceDetailsLoading,
-    attendanceDetails,
-    error: attendanceDetailsError,
-  } = useSelector((state) => state.getAttendanceEntryBySubject);
-
-  console.log(studentDetails);
+    loading: marksSubmissionLoading,
+    message: marksSubmissionMessage,
+    error: marksSubmissionError,
+  } = useSelector((state) => state.submitMarksEntryBySubjectTeacher);
 
   const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   const departments = [
     "Department of Computer Science and Engineering",
     "Department of Information Technology",
@@ -70,40 +55,58 @@ const AttendanceEntry = () => {
   const [semester, setSemester] = useState(1);
   const [department, setDepartment] = useState("");
   const [subject, setSubject] = useState("");
-  const [monthName, setMonthName] = useState();
   const [loadInput, setLoadInput] = useState(false);
-  const [totalAttendance, setTotalAttendance] = useState(0);
-  const [attendanceStudent, setAttendanceStudent] = useState([]);
+  const [marksClassTest1, setMarksClassTest1Student] = useState([]);
+  const [marksClassTest2, setMarksClassTest2Student] = useState([]);
+  const [marksEndSemester, setMarksEndSemesterStudent] = useState([]);
 
-  const handleChangeAttendance = (i, e) => {
-    if (totalAttendance === 0) {
-      return toast.error("Fill total attendance first");
-    }
-    const values = [...attendanceStudent];
+  const handleChangeMarksClassTest1 = (i, e) => {
+    const values = [...marksClassTest1];
     values[i] = e.target.value;
-    setAttendanceStudent(values);
+    setMarksClassTest1Student(values);
+  };
+  const handleChangeMarksClassTest2 = (i, e) => {
+    const values = [...marksClassTest2];
+    values[i] = e.target.value;
+    setMarksClassTest2Student(values);
+  };
+  const handleChangeMarksEndSemester = (i, e) => {
+    const values = [...marksEndSemester];
+    values[i] = e.target.value;
+    setMarksEndSemesterStudent(values);
   };
 
-  const submitAttendance = () => {
+  const submitMarks = () => {
     if (subject === undefined || subject.trim() === "") {
       return toast.error("Select Subject");
     }
-    if (monthName === undefined || monthName.trim() === "") {
-      return toast.error("Select Month");
-    }
     var allDetails = [];
     for (let j = 0; j < studentDetails.length; j++) {
-      if (Number(attendanceStudent[j]) > Number(totalAttendance)) {
+      if (
+        Number(marksClassTest1[j]) < 0 ||
+        Number.isNaN(marksClassTest1[j]) === true ||
+        Number(marksClassTest1[j]) > 15
+      ) {
         return toast.error(
-          `${studentDetails[j].name} Attendance Is Exceeding Total Attendance`
+          `${studentDetails[j].name} Marks Of Class Test 1 Is Not Filled Properly`
         );
       }
       if (
-        Number(attendanceStudent[j]) < 0 ||
-        Number.isNaN(attendanceStudent[j]) === true
+        Number(marksClassTest2[j]) < 0 ||
+        Number.isNaN(marksClassTest2[j]) === true ||
+        Number(marksClassTest2[j]) > 15
       ) {
         return toast.error(
-          `${studentDetails[j].name} Attendance Is Not Filled Properly`
+          `${studentDetails[j].name} Marks Of Class Test 2 Is Not Filled Properly`
+        );
+      }
+      if (
+        Number(marksEndSemester[j]) < 0 ||
+        Number.isNaN(marksEndSemester[j]) === true ||
+        Number(marksEndSemester[j]) > 70
+      ) {
+        return toast.error(
+          `${studentDetails[j].name} Marks Of End Semester Is Not Filled Properly`
         );
       }
       allDetails.push({
@@ -111,15 +114,19 @@ const AttendanceEntry = () => {
         rollNumber: studentDetails[j].rollNo,
         enrollmentNumber: studentDetails[j].enrollmentNo,
         subjectName: subject,
-        monthName: monthName,
-        attendance: Number(attendanceStudent[j]),
-        totalAttendance: Number(totalAttendance),
+        classTest1: Number(marksClassTest1[j]),
+        classTest2: Number(marksClassTest2[j]),
+        endSemester: Number(marksEndSemester[j]),
       });
     }
-    dispatch(attendanceEntryBySubjectTeacher(semester, department, allDetails));
+
+    dispatch(marksEntryBySubjectTeacher(semester, department, allDetails));
   };
 
-  const getStudentListForAttendance = () => {
+  const getStudentListForMarks = () => {
+    if (semester.trim() === "" || department.trim() === "") {
+      return toast.error("Select semester and department properly");
+    }
     dispatch(getStudentSemesterDepartment(semester, department));
     dispatch(getCourseSubjectsList(semester, department));
   };
@@ -146,41 +153,79 @@ const AttendanceEntry = () => {
       toast.error(subjectListError);
       dispatch(clearMessages());
     }
-    if (attendanceSubmissionError) {
-      toast.error(attendanceSubmissionError);
+    if (marksSubmissionError) {
+      toast.error(marksSubmissionError);
       dispatch(clearMessages());
     }
-    if (attendanceSubmissionMessage) {
-      toast.success(attendanceSubmissionMessage);
+    if (marksSubmissionMessage) {
+      toast.success(marksSubmissionMessage);
       dispatch(clearMessages());
-      setAttendanceStudent([]);
+      setMarksClassTest1Student([]);
+    }
+    if (marksDetailsError) {
+      toast.error(marksDetailsError);
+      dispatch(clearMessages());
     }
   }, [
     studentDetailsError,
     subjectListError,
-    attendanceSubmissionError,
-    attendanceSubmissionMessage,
+    marksSubmissionError,
+    marksSubmissionMessage,
+    marksDetailsError,
   ]);
 
   useEffect(() => {
     if (department.trim() !== "" && subject.trim() !== "") {
-      dispatch(getAttendanceDetailBySubject(semester, department, subject));
+      dispatch(getMarksDetailBySubject(semester, department, subject));
     }
   }, [subject]);
+
+  useEffect(() => {
+    if (
+      marksDetails !== undefined &&
+      marksDetails !== null &&
+      Object.keys(marksDetails).length !== 0
+    ) {
+      var ct1 = [],
+        ct2 = [],
+        endSem = [];
+      for (let x = 0; x < marksDetails.students.length; x++) {
+        for (let y = 0; y < marksDetails.students[x].subjects.length; y++) {
+          if (
+            marksDetails.students[x].subjects[y].subjectName
+              .trim()
+              .toString() === subject.trim().toString()
+          ) {
+            ct1[x] = marksDetails.students[x].subjects[y].classTest1;
+            ct2[x] = marksDetails.students[x].subjects[y].classTest2;
+            endSem[x] = marksDetails.students[x].subjects[y].endSemester;
+            break;
+          } else {
+            ct1[x] = 0;
+            ct2[x] = 0;
+            endSem[x] = 0;
+          }
+        }
+      }
+      setMarksClassTest1Student(ct1);
+      setMarksClassTest2Student(ct2);
+      setMarksEndSemesterStudent(endSem);
+    }
+  }, [marksDetails]);
 
   return (
     <Fragment>
       {studentsListLoading ||
       subjectListsLoading ||
-      attendanceSubmissionLoading ||
-      attendanceDetailsLoading ? (
+      marksSubmissionLoading ||
+      marksDetailsLoading ? (
         <Loader />
       ) : (
         <Fragment>
-          <div className="attendanceEntry">
+          <div className="marksEntry">
             <SidebarTeacher />
             <div>
-              <h1>Attendance Entry</h1>
+              <h1>Marks Entry</h1>
               <div>
                 <div>
                   <select
@@ -206,7 +251,7 @@ const AttendanceEntry = () => {
                     ))}
                   </select>
                 </div>
-                <button onClick={getStudentListForAttendance}>
+                <button onClick={getStudentListForMarks}>
                   Get Students Lists
                 </button>
               </div>
@@ -215,22 +260,6 @@ const AttendanceEntry = () => {
                   <div>
                     <h3>Semester : {semester}</h3>
                     <h3>Department : {department}</h3>
-                  </div>
-                  <div>
-                    <h2>Month</h2>
-                    <div>
-                      <select
-                        value={monthName}
-                        onChange={(e) => setMonthName(e.target.value)}>
-                        <option>Select Month</option>
-                        {months &&
-                          months.map((month, i) => (
-                            <option key={i} value={month}>
-                              {month}
-                            </option>
-                          ))}
-                      </select>
-                    </div>
                   </div>
                   <div>
                     <h2>LIST OF SUBJECTS</h2>
@@ -247,17 +276,9 @@ const AttendanceEntry = () => {
                           ))}
                       </select>
                     </div>
+                    <p>*Select subject to load previous data</p>
                   </div>
-                  <div>
-                    <h4>Total Attendance</h4>
-                    <input
-                      required
-                      value={totalAttendance}
-                      type="number"
-                      placeholder="Total Attendance"
-                      onChange={(e) => setTotalAttendance(e.target.value)}
-                    />
-                  </div>
+
                   <div>
                     {studentDetails &&
                       studentDetails.sort(function (a, b) {
@@ -269,14 +290,26 @@ const AttendanceEntry = () => {
                           <p>{sub.rollNo}</p>
                           <input
                             type="number"
-                            placeholder="Enter Attendance"
-                            value={attendanceStudent[i]}
-                            onChange={(e) => handleChangeAttendance(i, e)}
+                            placeholder="Enter Marks CT1"
+                            value={marksClassTest1[i]}
+                            onChange={(e) => handleChangeMarksClassTest1(i, e)}
+                          />
+                          <input
+                            type="number"
+                            placeholder="Enter Marks CT2"
+                            value={marksClassTest2[i]}
+                            onChange={(e) => handleChangeMarksClassTest2(i, e)}
+                          />
+                          <input
+                            type="number"
+                            placeholder="Enter Marks End Semester"
+                            value={marksEndSemester[i]}
+                            onChange={(e) => handleChangeMarksEndSemester(i, e)}
                           />
                         </div>
                       ))}
                   </div>
-                  <button onClick={submitAttendance}>Submit Attendance</button>
+                  <button onClick={submitMarks}>Submit Marks</button>
                 </div>
               )}
             </div>
@@ -287,4 +320,4 @@ const AttendanceEntry = () => {
   );
 };
 
-export default AttendanceEntry;
+export default MarksEntry;

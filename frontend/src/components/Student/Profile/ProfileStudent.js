@@ -5,7 +5,7 @@ import SidebarStudent from "../SidebarStudent/SidebarStudent";
 import { loadStudent } from "../../../actions/studentAction";
 import Loader from "../../Loader/Loader";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ProfileStudent = () => {
   const dispatch = useDispatch();
@@ -14,12 +14,6 @@ const ProfileStudent = () => {
   const { student, loading, isAuthenticated } = useSelector(
     (state) => state.registerLoginStudents
   );
-
-  console.log(student);
-
-  useEffect(() => {
-    dispatch(loadStudent());
-  }, []);
 
   const [feePaid, setFeePaid] = useState(false);
 

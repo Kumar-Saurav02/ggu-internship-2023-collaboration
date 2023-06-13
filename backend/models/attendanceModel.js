@@ -20,23 +20,24 @@ const attendanceSchema = new mongoose.Schema({
       enrollmentNumber: {
         type: String,
       },
-      currentAttendance: {
-        type: Number,
-      },
-      currentTotalAttendance: {
-        type: Number,
-      },
       subjects: [
         {
           subjectName: {
             type: String,
           },
-          attendance: {
-            type: Number,
-          },
-          totalAttendance: {
-            type: Number,
-          },
+          months: [
+            {
+              monthName: {
+                type: String,
+              },
+              attendance: {
+                type: Number,
+              },
+              totalAttendance: {
+                type: Number,
+              },
+            },
+          ],
         },
       ],
     },
