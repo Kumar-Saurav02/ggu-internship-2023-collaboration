@@ -9,10 +9,15 @@ import {
 import Loader from "../../Loader/Loader";
 import { toast } from "react-toastify";
 import { clearMessages } from "../../../actions/adminAction";
-import { attendanceEntryBySubjectTeacher } from "../../../actions/teacherAction";
+import {
+  attendanceEntryBySubjectTeacher,
+  getAttendanceDetailBySubject,
+} from "../../../actions/teacherAction";
 
 const AttendanceEntry = () => {
   const dispatch = useDispatch();
+
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
 
   const {
     loading: studentsListLoading,
@@ -32,7 +37,29 @@ const AttendanceEntry = () => {
     error: attendanceSubmissionError,
   } = useSelector((state) => state.submitAttendanceEntryBySubjectTeacher);
 
+  const {
+    loading: attendanceDetailsLoading,
+    attendanceDetails,
+    error: attendanceDetailsError,
+  } = useSelector((state) => state.getAttendanceEntryBySubject);
+
+  console.log(studentDetails);
+
   const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const departments = [
     "Department of Computer Science and Engineering",
     "Department of Information Technology",
@@ -43,8 +70,9 @@ const AttendanceEntry = () => {
     "Department of Industrial & Production Engineering",
   ];
   const [semester, setSemester] = useState(1);
-  const [department, setDepartment] = useState();
-  const [subject, setSubject] = useState();
+  const [department, setDepartment] = useState("");
+  const [subject, setSubject] = useState("");
+  const [monthName, setMonthName] = useState();
   const [loadInput, setLoadInput] = useState(false);
   const [totalAttendance, setTotalAttendance] = useState(0);
   const [attendanceStudent, setAttendanceStudent] = useState([]);
@@ -61,6 +89,9 @@ const AttendanceEntry = () => {
   const submitAttendance = () => {
     if (subject === undefined || subject.trim() === "") {
       return toast.error("Select Subject");
+    }
+    if (monthName === undefined || monthName.trim() === "") {
+      return toast.error("Select Month");
     }
     var allDetails = [];
     for (let j = 0; j < studentDetails.length; j++) {
@@ -82,6 +113,7 @@ const AttendanceEntry = () => {
         rollNumber: studentDetails[j].rollNo,
         enrollmentNumber: studentDetails[j].enrollmentNo,
         subjectName: subject,
+        monthName: monthName,
         attendance: Number(attendanceStudent[j]),
         totalAttendance: Number(totalAttendance),
       });
@@ -89,7 +121,7 @@ const AttendanceEntry = () => {
     dispatch(attendanceEntryBySubjectTeacher(semester, department, allDetails));
   };
 
-  const getStudentList = () => {
+  const getStudentListForAttendance = () => {
     dispatch(getStudentSemesterDepartment(semester, department));
     dispatch(getCourseSubjectsList(semester, department));
   };
@@ -132,21 +164,35 @@ const AttendanceEntry = () => {
     attendanceSubmissionMessage,
   ]);
 
+  useEffect(() => {
+    if (department.trim() !== "" && subject.trim() !== "") {
+      dispatch(getAttendanceDetailBySubject(semester, department, subject));
+    }
+  }, [subject]);
+
   return (
     <Fragment>
       {studentsListLoading ||
       subjectListsLoading ||
-      attendanceSubmissionLoading ? (
+      attendanceSubmissionLoading ||
+      attendanceDetailsLoading ? (
         <Loader />
       ) : (
         <Fragment>
           <div className="attendanceEntry">
-            <SidebarTeacher />
-            <div>
+            <SidebarTeacher role={teacher.subRole}  />
+            <div className="approvBox">
+              <div className="subsection" >
               <h1>Attendance Entry</h1>
-              <div>
-                <div>
+              <hr></hr>
+              <br></br>
+              
+                <div className="entry">
+                  <label className="label_name" for="">
+                      Semester
+                    </label>
                   <select
+                    id="label_input"
                     required
                     onChange={(e) => setSemester(e.target.value)}>
                     <option>Semester</option>
@@ -157,8 +203,13 @@ const AttendanceEntry = () => {
                     ))}
                   </select>
                 </div>
-                <div>
-                  <select
+                <br></br>
+                <div className="entry">
+                    <label className="label_name" for="">
+                        Department
+                      </label>
+                    <select
+                    id="label_input"
                     required
                     onChange={(e) => setDepartment(e.target.value)}>
                     <option>Department</option>
@@ -169,28 +220,69 @@ const AttendanceEntry = () => {
                     ))}
                   </select>
                 </div>
-                <button onClick={getStudentList}>Get Students Lists</button>
+                <br></br>
+                <div className="btn">
+                  <button 
+                    className="signInbtn border hover"
+                    onClick={getStudentListForAttendance}>
+                    Get Students Lists
+                  </button>
+                </div>
               </div>
+
               {loadInput && (
-                <div>
-                  <div>
-                    <h2>LIST OF SUBJECTS</h2>
-                    <div>
+                <div className="subsection">
+                  <div >
+                    <br></br>
+                    <h2>Semester : {semester}</h2>
+                    <br></br>
+                    <h2>Department : {department}</h2>
+                    <br></br>
+                  </div>
+                    <div className="entry">
+                      <label className="label_name" for="">
+                          Select Month
+                        </label>
                       <select
-                        value={subject}
-                        onChange={(e) => setSubject(e.target.value)}>
-                        <option>Subjects</option>
-                        {subjects &&
-                          subjects.map((sub, i) => (
-                            <option key={i} value={sub.subjectName}>
-                              {sub.subjectName}
+                        id="label_input"
+                        value={monthName}
+                        onChange={(e) => setMonthName(e.target.value)}>
+                        <option>Select Month</option>
+                        {months &&
+                          months.map((month, i) => (
+                            <option key={i} value={month}>
+                              {month}
                             </option>
                           ))}
                       </select>
+                      
                     </div>
-                  </div>
-                  <div>
-                    <h4>Total Attendance</h4>
+                            <br></br>
+                    <div className="entry">
+                      <label className="label_name" for="">
+                          Select Subject
+                        </label>
+                        <select
+                          id="label_input"
+                          value={subject}
+                          onChange={(e) => setSubject(e.target.value)}>
+                          <option>Subjects</option>
+                          {subjects &&
+                            subjects.map((sub, i) => (
+                              <option key={i} value={sub.subjectName}>
+                                {sub.subjectName}
+                              </option>
+                            ))}
+                        </select>
+                    </div>
+                    <br></br>
+                  
+                  <div className="entry">
+                  <label
+                      className="label_name"
+                      for="{totalAttendance}">
+                      Total AttendanceEntry
+                    </label>
                     <input
                       required
                       value={totalAttendance}
@@ -215,9 +307,14 @@ const AttendanceEntry = () => {
                             onChange={(e) => handleChangeAttendance(i, e)}
                           />
                         </div>
+                        
                       ))}
                   </div>
-                  <button onClick={submitAttendance}>Submit Attendance</button>
+                  <div className="btn">
+                    <button 
+                      className="signInbtn border hover"
+                      onClick={submitAttendance}>Submit Attendance</button>
+                   </div>
                 </div>
               )}
             </div>

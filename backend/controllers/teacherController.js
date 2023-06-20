@@ -335,6 +335,10 @@ exports.getParticularTeacher = catchAsyncErrors(async (req, res, next) => {
 exports.getTeacher = catchAsyncErrors(async (req, res, next) => {
   const teacher = await Teacher.findById(req.user.id);
 
+  if (!teacher) {
+    return next(new ErrorHandler("No Teacher Found", 401));
+  }
+
   res.status(200).json({
     success: true,
     teacher,

@@ -28,6 +28,15 @@ import {
   SUBMIT_ATTENDANCE_ENTRY_REQUEST,
   SUBMIT_ATTENDANCE_ENTRY_SUCCESS,
   SUBMIT_ATTENDANCE_ENTRY_FAIL,
+  SUBMIT_MARKS_ENTRY_REQUEST,
+  SUBMIT_MARKS_ENTRY_SUCCESS,
+  SUBMIT_MARKS_ENTRY_FAIL,
+  GET_MARKS_BY_SUBJECT_REQUEST,
+  GET_MARKS_BY_SUBJECT_SUCCESS,
+  GET_MARKS_BY_SUBJECT_FAIL,
+  GET_ATTENDANCE_BY_SUBJECT_REQUEST,
+  GET_ATTENDANCE_BY_SUBJECT_SUCCESS,
+  GET_ATTENDANCE_BY_SUBJECT_FAIL,
 } from "../constants/teacherConstant";
 import {
   REGISTER_TEACHER_REQUEST,
@@ -283,7 +292,7 @@ export const scholarshipRejectByIncharge = (id) => async (dispatch) => {
   }
 };
 
-//ATTENDANCE ENTRY
+//ATTENDANCE ENTRY BY SUBJECT TEACHER
 export const attendanceEntryBySubjectTeacher =
   (semester, department, students) => async (dispatch) => {
     try {
@@ -308,6 +317,80 @@ export const attendanceEntryBySubjectTeacher =
     } catch (error) {
       dispatch({
         type: SUBMIT_ATTENDANCE_ENTRY_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//GET ATTENDANCE DETAILS BY SUBJECT
+export const getAttendanceDetailBySubject =
+  (semester, department, subject) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_ATTENDANCE_BY_SUBJECT_REQUEST });
+
+      const { data } = await axios.get(
+        `/api/getAttendanceDetailsOfParticularSubject/${semester}/${department}/${subject}`
+      );
+
+      dispatch({
+        type: GET_ATTENDANCE_BY_SUBJECT_SUCCESS,
+        payload: data.attendanceDetails,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_ATTENDANCE_BY_SUBJECT_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//MARKS ENTRY BY SUBJECT TEACHER
+export const marksEntryBySubjectTeacher =
+  (semester, department, students) => async (dispatch) => {
+    try {
+      dispatch({ type: SUBMIT_MARKS_ENTRY_REQUEST });
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/marksEntryByTeacher`,
+        {
+          semester,
+          department,
+          students,
+        },
+        config
+      );
+
+      dispatch({
+        type: SUBMIT_MARKS_ENTRY_SUCCESS,
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: SUBMIT_MARKS_ENTRY_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//GET MARKS DETAILS BY SUBJECT
+export const getMarksDetailBySubject =
+  (semester, department, subject) => async (dispatch) => {
+    try {
+      dispatch({ type: GET_MARKS_BY_SUBJECT_REQUEST });
+
+      const { data } = await axios.get(
+        `/api/getMarksDetailsOfParticularSubject/${semester}/${department}/${subject}`
+      );
+
+      dispatch({
+        type: GET_MARKS_BY_SUBJECT_SUCCESS,
+        payload: data.marksDetails,
+      });
+    } catch (error) {
+      dispatch({
+        type: GET_MARKS_BY_SUBJECT_FAIL,
         payload: error.response.data.message,
       });
     }

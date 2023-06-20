@@ -12,7 +12,6 @@ import StudentsApproval from "./components/Admin/Student/StudentsApproval";
 import StudentApprovalDetails from "./components/Admin/Student/StudentApprovalDetails";
 import TeacherApprovalDetails from "./components/Admin/Teacher/TeacherApprovalDetails";
 import TeachersApproval from "./components/Admin/Teacher/TeachersApproval";
-import Header from "./components/Layout/Header/Header";
 import Dashboard from "./components/Admin/Dashboard/Dashboard";
 import ProfileStudent from "./components/Student/Profile/ProfileStudent";
 import DocumentUploadStudent from "./components/Student/DocumentUploadStudent/DocumentUploadStudent";
@@ -24,6 +23,8 @@ import ChangingTeacherRole from "./components/Admin/Roles/ChangingTeacherRole";
 import CourseApproval from "./components/Teacher/ClassIncharge/CourseApproval/CourseApproval";
 import ScholarshipApproval from "./components/Teacher/ClassIncharge/ScholarshipApproval/ScholarshipApproval";
 import AttendanceEntry from "./components/Teacher/Attendance/AttendanceEntry";
+import MarksEntry from "./components/Teacher/Marks/MarksEntry";
+import ProtectedRoute from "./components/Route/ProtectedRoute";
 
 function App() {
   useEffect(() => {
@@ -32,51 +33,194 @@ function App() {
   }, []);
   return (
     <Router>
-      <Header />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         {/* Admin */}
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/studentsApproval" element={<StudentsApproval />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={Dashboard}
+            />
+          }
+        />
+        <Route
+          path="/studentsApproval"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={StudentsApproval}
+            />
+          }
+        />
         <Route
           path="/studentApprovalDetails"
-          element={<StudentApprovalDetails />}
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={StudentApprovalDetails}
+            />
+          }
         />
-        <Route path="/teachersApproval" element={<TeachersApproval />} />
+        <Route
+          path="/teachersApproval"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={TeachersApproval}
+            />
+          }
+        />
         <Route
           path="/teacherApprovalDetails"
-          element={<TeacherApprovalDetails />}
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={TeacherApprovalDetails}
+            />
+          }
         />
-        <Route path="/HODApproval" element={<HODApproval />} />
-        <Route path="/updateTeacherRole" element={<ChangingTeacherRole />} />
+        <Route
+          path="/HODApproval"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={HODApproval}
+            />
+          }
+        />
+        <Route
+          path="/updateTeacherRole"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="admin"
+              Component={ChangingTeacherRole}
+            />
+          }
+        />
 
         {/* Student */}
-        <Route path="/studentProfile" element={<ProfileStudent />} />
+        <Route
+          path="/studentProfile"
+          element={
+            <ProtectedRoute
+              role="student"
+              subRole=""
+              Component={ProfileStudent}
+            />
+          }
+        />
         <Route
           path="/studentDocumentUpload"
-          element={<DocumentUploadStudent />}
+          element={
+            <ProtectedRoute
+              role="student"
+              subRole=""
+              Component={DocumentUploadStudent}
+            />
+          }
         />
-        <Route path="/studentCourseSelection" element={<CourseSelection />} />
-        <Route path="/studentScholarship" element={<StudentScholarship />} />
+        <Route
+          path="/studentCourseSelection"
+          element={
+            <ProtectedRoute
+              role="student"
+              subRole=""
+              Component={CourseSelection}
+            />
+          }
+        />
+        <Route
+          path="/studentScholarship"
+          element={
+            <ProtectedRoute
+              role="student"
+              subRole=""
+              Component={StudentScholarship}
+            />
+          }
+        />
 
         {/* Teacher */}
-        <Route path="/teacherProfile" element={<ProfileTeacher />} />
-        <Route path="/attendanceEntry" element={<AttendanceEntry />} />
+        <Route
+          path="/teacherProfile"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole=""
+              Component={ProfileTeacher}
+            />
+          }
+        />
+        <Route
+          path="/attendanceEntry"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole=""
+              Component={AttendanceEntry}
+            />
+          }
+        />
+        <Route
+          path="/marksEntry"
+          element={
+            <ProtectedRoute role="teacher" subRole="" Component={MarksEntry} />
+          }
+        />
 
         {/* HOD */}
-        <Route path="/hod/createSubject" element={<CreateSubject />} />
-        <Route path="/hod/createCourse" element={<CreateCourse />} />
+        <Route
+          path="/hod/createSubject"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="hod"
+              Component={CreateSubject}
+            />
+          }
+        />
+        <Route
+          path="/hod/createCourse"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="hod"
+              Component={CreateCourse}
+            />
+          }
+        />
 
         {/* Class Incharge */}
         <Route
           path="/classIncharge/courseApproval"
-          element={<CourseApproval />}
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="classIncharge"
+              Component={CourseApproval}
+            />
+          }
         />
         <Route
           path="/classIncharge/scholarshipApproval"
-          element={<ScholarshipApproval />}
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole="classIncharge"
+              Component={ScholarshipApproval}
+            />
+          }
         />
       </Routes>
     </Router>

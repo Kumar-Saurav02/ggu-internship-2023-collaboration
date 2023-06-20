@@ -17,6 +17,8 @@ const ScholarshipApproval = () => {
     error: scholarshipError,
   } = useSelector((state) => state.getScholarshipsForApproval);
 
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
+
   console.log(scholarships);
 
   useEffect(() => {
@@ -34,9 +36,12 @@ const ScholarshipApproval = () => {
       ) : (
         <Fragment>
           <div className="scholarshipApproval">
-            <SidebarTeacher />
-            <div>
-              <div>
+            <SidebarTeacher role={teacher.subRole}/>
+            <div className="approvBox">
+              <div className="request">
+              <h1>Mark's Entry</h1>
+                <hr></hr>
+                <br></br>
                 {scholarships &&
                   scholarships.map((scholarship, i) => (
                     <div key={i}>

@@ -5,7 +5,7 @@ import SidebarStudent from "../SidebarStudent/SidebarStudent";
 import { loadStudent } from "../../../actions/studentAction";
 import Loader from "../../Loader/Loader";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ProfileStudent = () => {
   const dispatch = useDispatch();
@@ -14,10 +14,6 @@ const ProfileStudent = () => {
   const { student, loading, isAuthenticated } = useSelector(
     (state) => state.registerLoginStudents
   );
-
-  useEffect(() => {
-    dispatch(loadStudent());
-  }, []);
 
   const [feePaid, setFeePaid] = useState(false);
 
@@ -225,19 +221,33 @@ const ProfileStudent = () => {
                       <p className="label_name" >Fee Details</p>
                       {feePaid &&
                         student.feeDetails &&
-                        student.feeDetails.map((fee) => {
+                        student.feeDetails.sort((p1, p2) =>
+                      p1.semester > p2.semester
+                        ? 1
+                        : p1.semester < p2.semester
+                        ? -1
+                        : 0
+                    ) &&
+                        student.feeDetails.map((fee) => 
                           {
-                            fee.semester === student.currentSemester && (
+                            return (
                               <div>
+                                <p>Semester:- {fee.semester}</p>
                                 <p>Bank Name:- {fee.bankName}</p>
                                 <p>IFSC Code:- {fee.ifscCode}</p>
                                 <p>Amount:- {fee.amount}</p>
                                 <p>Challan ID:- {fee.challanID}</p>
                                 <p>Date:- {fee.dateOfPayment}</p>
+                                <a
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  href={fee.fees.url}>
+                                  View
+                                </a>
                               </div>
                             );
                           }
-                        })}
+                        )}
                       {!feePaid && (
                         <div >
                           <p>Fees is not paid for current semester.</p>
@@ -247,6 +257,13 @@ const ProfileStudent = () => {
                     <div className="entry">
                       <p className="label_name">Marks Details</p>
                       {student.marksDetails &&
+                        student.marksDetails.sort((p1, p2) =>
+                          p1.semester > p2.semester
+                            ? 1
+                            : p1.semester < p2.semester
+                            ? -1
+                            : 0
+                        ) &&
                         student.marksDetails.map((marks) => (
                           <div>
                             <p>Semester:- {marks.semester}</p>
@@ -265,6 +282,22 @@ const ProfileStudent = () => {
                           <p>No marks uploaded</p>
                         </div>
                       )}
+                    </div>
+                    <div className="entry">
+                    <p className="label_name">Attendance Details</p>
+                        {student.attendanceDetails &&
+                          student.attendanceDetails.map((attendance) => (
+                            <div>
+                              <p>Semester:- {attendance.semester}</p>
+                              <p>Attendance:- {attendance.attendance}</p>
+                            </div>
+                          ))}
+                        {student.attendanceDetails &&
+                          student.attendanceDetails.length === 0 && (
+                            <div>
+                              <p>No Attendance Available</p>
+                            </div>
+                          )}
                     </div>
 
               </div>

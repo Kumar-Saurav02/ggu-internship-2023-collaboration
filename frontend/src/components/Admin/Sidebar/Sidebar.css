@@ -1,5 +1,5 @@
 .mainBox {
-  display: flex;
+  display: column;
   flex-direction: row;
   margin: auto;
   align-items: center;
@@ -8,46 +8,74 @@
   padding: 5%;
 }
 
-.sidebar {
+.sidebarss {
   /* background-color: rgb(255, 255, 255); */
-  /* display: flex; */
+  display: flex;
   flex-direction: column;
-  padding: 4rem 1rem;
-  border: 1px black solid;
-  /* height: 50%; */
-  
- 
+  padding: 1rem 2rem;
 }
 
-.sidebar > a > img {
-  width: 100%;
 
+.sidebarss > a > img {
+  width: 100%;
   transition: all 0.5s;
 }
 
-.sidebar > a > img:hover {
+.sidebarss > a > img:hover {
   filter: drop-shadow(0 0 10px rgba(8, 8, 211, 0.781));
 }
-.sidebar > a {
+.sidebarss > a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.493);
   font: 200 1rem "Roboto";
-  padding: 2rem 0rem;
-  transition: all 0.5s;
+  padding: 1rem 0rem;
+  transition: all 0.5s; 
 }
-.sidebar a:hover {
+
+.sidebarss a:hover {
   color: rgba(8, 8, 211, 0.781);
   transform: scale(1.1);
 }
 
-.sidebar a > P {
+.sidebarss a > P {
+  padding: 8px;
   display: flex;
   align-items: center;
+  border : 1px solid rgb(170, 169, 169);
+  border-radius : 5px;
+  box-shadow: 2px 2px 2px rgb(202, 202, 214);
 }
-.sidebar a > p > svg {
+.sidebarss a > p > svg {
   margin-right: 0.5rem;
 }
 
 .MuiTypography-root {
   background-color: #fff !important;
+}
+@media screen and (min-width : 769px) {
+  .bars{
+    display : none;
+  }
+}
+
+@media screen and (max-width : 768px) {
+
+  .sidebarss{
+    position: fixed;
+    z-index: 100;
+    background: #ffffff;
+    width: 40%;
+    padding-right: 1rem;
+    height: 100%;
+  }
+  .bars{
+    display: flex;
+    position: fixed;
+    top: 2rem;
+    left:60%;
+    background:#ffffff;
+    padding:10px;
+    border-radius: 10px;
+    z-index: 100;
+  }
 }

@@ -1,9 +1,18 @@
 import React from "react";
 import "./SidebarStudent.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logoutStudent } from "../../../actions/studentAction";
 import PeopleIcon from "@mui/icons-material/People";
+import { useDispatch } from "react-redux";
 
 const SidebarStudent = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(logoutStudent());
+    navigate("/");
+  };
   return (
     <div className="sidebar">
       <Link to="/studentProfile">
@@ -30,6 +39,11 @@ const SidebarStudent = () => {
           Scholarship
         </p>
       </Link>
+      <br></br>
+      <br></br>
+      <br></br>
+      <button className="signInbtn border hover "
+        onClick={logout}>Logout</button>
     </div>
   );
 };

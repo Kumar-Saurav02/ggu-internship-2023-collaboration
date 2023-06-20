@@ -7,17 +7,31 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Loader from "../../Loader/Loader";
 import { toast } from "react-toastify";
-import { loadStudent } from "../../../actions/studentAction";
+import { uploadingFees, uploadingMarks } from "../../../actions/studentAction";
+import { clearMessages } from "../../../actions/adminAction";
 
 const DocumentUploadStudent = () => {
   const dispatch = useDispatch();
-  const { student, loading, isAuthenticated } = useSelector(
+  const { student, loading } = useSelector(
     (state) => state.registerLoginStudents
   );
 
+  const {
+    loading: uploading,
+    message,
+    error,
+  } = useSelector((state) => state.marksFeesCourseUpdate);
+
   useEffect(() => {
-    dispatch(loadStudent());
-  }, []);
+    if (error) {
+      toast.error(error);
+      dispatch(clearMessages());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(clearMessages());
+    }
+  }, [error, message]);
 
   const semesters = [1, 2, 3, 4, 5, 6, 7, 8];
   const [feeDetails, setFeeDetails] = useState({
@@ -109,9 +123,81 @@ const DocumentUploadStudent = () => {
     }
   }, [semesterForResult]);
 
+  const submitFeeDataChange = () => {
+    if (semesterForFees.trim() === "") {
+      return toast.error("Fill semester properly");
+    }
+    if (bankNameForFees.trim() === "") {
+      return toast.error("Fill Bank Name properly");
+    }
+    if (accountNumberForFees.trim() === "") {
+      return toast.error("Fill account number properly");
+    }
+    if (ifscCodeForFees.trim() === "") {
+      return toast.error("Fill IFSC Code properly");
+    }
+    if (amountForFees.trim() === "") {
+      return toast.error("Fill amount properly");
+    }
+    if (challanIdForFees.trim() === "") {
+      return toast.error("Fill challan ID properly");
+    }
+    if (feeUpload.trim() === "") {
+      return toast.error("Upload document properly");
+    }
+    const updatingDateOfPayment = dateOfPaymentForFees.$d.toString().split(" ");
+    const updatedDateOfPayment =
+      updatingDateOfPayment[1] +
+      " " +
+      updatingDateOfPayment[2] +
+      " " +
+      updatingDateOfPayment[3];
+    dispatch(
+      uploadingFees(
+        semesterForFees.trim(),
+        bankNameForFees.trim(),
+        accountNumberForFees.trim(),
+        ifscCodeForFees.trim(),
+        amountForFees.trim(),
+        challanIdForFees.trim(),
+        updatedDateOfPayment,
+        feeUpload
+      )
+    );
+  };
+
+  const submitMarksDataChange = () => {
+    if (semesterForResult.trim() === "") {
+      return toast.error("Fill semester properly");
+    }
+    if (
+      sgpaForResult.trim() === "" ||
+      (sgpaForResult.trim() <= "10" && sgpaForResult.trim() >= "0")
+    ) {
+      return toast.error("Value should be between 0 and 10");
+    }
+    if (
+      cgpaForResult.trim() === "" ||
+      (cgpaForResult.trim() <= "10" && cgpaForResult.trim() >= "0")
+    ) {
+      return toast.error("Value should be between 0 and 10");
+    }
+    if (resultUpload.trim() === "") {
+      return toast.error("Upload document properly");
+    }
+    dispatch(
+      uploadingMarks(
+        semesterForResult.trim(),
+        sgpaForResult.trim(),
+        cgpaForResult.trim(),
+        resultUpload
+      )
+    );
+  };
+
   return (
     <Fragment>
-      {loading ? (
+      {loading || uploading ? (
         <Loader />
       ) : (
         <Fragment>

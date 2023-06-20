@@ -1,39 +1,158 @@
+.fullapprovalbox{
+  display : flex;
+  flex-direction: column;
+  align-items : center;
+  justify-content: center;
+}
+.half_content{
+  display: flex;
+}
+.label{
+  margin-left: 20px;
+  align-items: left;
+}
+.briefinfo{
+  margin-left: 15px;
+}
 .content {
+  min-width: 600px;
+  margin-bottom: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: left;
   padding: 5px;
-  margin: 10px;
-  width: 80%;
-  border: 1px solid black;
+  margin-top : 15px;
   font-size: 16px;
-  background-color: #d4d8e4;
-}
-
-.field {
-  padding: 2px;
-  margin: 2px;
-}
-
-.btn.content {
-  display: flex;
-  flex-wrap: wrap;
-}
+  border : 1px solid rgb(170, 169, 169);
+  border-radius : 5px;
+  box-shadow: 2px 2px 2px rgb(202, 202, 214);
+ }
 
 .approvBox {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
-  width: 80%;
-  margin: auto;
+  width: 75%;
   padding-bottom: 2%;
   background-color: whitesmoke;
 }
-
 .teacherDetails {
-  width: 100vw;
-  max-width: 100%;
+  margin-bottom: 15px;
   display: grid;
   grid-template-columns: 1fr 5fr;
   position: absolute;
 }
+
+.approvalbuttons{
+  width : 35%;
+  border : 1px solid rgb(170, 169, 169);
+  border-radius : 5px;
+  box-shadow: 2px 2px 2px rgb(202, 202, 214);
+  
+}
+.btn > button:hover{
+  background-color: rgb(239, 235, 235);
+  font-weight: 540;
+  color: black;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 1px rgba(217, 217, 219, 0.781));
+  transition: 300ms;
+}
+.btn_centered{
+  align-items: center;
+  display : flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.btn_centered > button{
+  margin-left: 12px;
+  margin-right: 12px;
+  padding : 6px;
+  font-weight: 500;
+  cursor : pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn_centered > button:hover{
+  background-color: rgb(239, 235, 235);
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 1px rgba(217, 217, 219, 0.781));
+  font-weight: 540;
+  transition: 300ms;
+}
+
+@media screen and (max-width : 768px) {
+  .fullapprovalbox{
+    width : 100vw;
+  }
+  .teacherDetails{
+    margin : 0px 0px 0px 0px;
+    width : 100%;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+  }
+  .approvBox {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 2%;
+    background-color: whitesmoke;
+  }
+  .content {
+    margin-top: 50px;
+    min-width: 90vw;
+    max-width: 20vw;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border : 1px solid rgb(170, 169, 169);
+    border-radius : 5px;
+    box-shadow: 2px 2px 2px rgb(202, 202, 214);
+   }
+   .btn{
+    display : flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    width : 50vw;
+    max-width: 50%;
+   }
+   .half_content{
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    width: 100%;
+   }
+   .label{
+    margin-right: 10px;
+    display : flex;
+    flex-direction: column;
+    justify-content: left;
+   }
+    .field{
+      align-items: center;
+      padding : 2.5px;
+      display : flex;
+      flex-wrap: wrap;
+      max-width: 200px;
+      height : 30px
+   }
+   .subsection{
+      width : 80%;
+      display: flex;
+      flex-direction: column;
+      border: solid 2px;
+      font-size: 17px;
+   }
+
+  }

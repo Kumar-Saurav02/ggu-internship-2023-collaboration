@@ -5,3 +5,75 @@
   grid-template-columns: 1fr 5fr;
   position: absolute;
 }
+.showTeacherRole{
+  display : flex;
+  align-items: center;
+  justify-content: center;
+}
+.fullTeacherRole{
+  margin-top: 15px;
+  width : 75vw;
+  margin-bottom: 15px;
+  border : 1px solid rgb(170, 169, 169);
+  border-radius : 5px;
+  box-shadow: 2px 2px 2px rgb(202, 202, 214);
+}
+
+.sectionsTeacher{
+  /* margin-top: 15px; */
+  /* margin-left: 15px; */
+  display : flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+  margin: 5px 5px 5px 12px;
+
+}
+.sectionsTeacher > p{
+  width: 50%;
+  
+}
+.selectRoles{
+  margin-left: 12px;
+  display : flex;
+  align-items: center;
+  /* justify-content: center; */
+  margin-bottom: 12px;
+}
+.selectRoles > button{
+  width: 30%;
+  border : 1px solid rgb(170, 169, 169);
+  border-radius : 5px;
+  box-shadow: 2px 2px 2px rgb(202, 202, 214);
+  cursor: pointer;
+  padding: 4px;
+}
+.selectRoles > button:hover{
+  background-color: rgb(239, 235, 235);
+  font-weight: 540;
+  color: black;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 1px rgba(217, 217, 219, 0.781));
+  transition: 300ms;
+  padding: 4px;
+}
+.selectRoles > select{
+  width: 30%;
+  padding: 4px;
+  margin-right: 20px;
+  border : 1px solid rgb(170, 169, 169);
+  border-radius : 5px;
+  box-shadow: 2px 2px 2px rgb(202, 202, 214);
+}
+
+@media screen and (max-width : 768px) {
+  .changingTeacherRoles {
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

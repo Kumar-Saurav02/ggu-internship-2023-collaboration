@@ -144,6 +144,7 @@ body
   .signInbtn:hover 
   {
     box-shadow: 3px 3px black;
+    transform: scale(1.1);
   }
 
   .register:hover 
@@ -176,4 +177,11 @@ body
 }
 
 
- 
+.btn > button:hover{
+  background-color: rgb(239, 235, 235);
+  font-weight: 540;
+  color: black;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 1px rgba(217, 217, 219, 0.781));
+  transition: 300ms;
+}

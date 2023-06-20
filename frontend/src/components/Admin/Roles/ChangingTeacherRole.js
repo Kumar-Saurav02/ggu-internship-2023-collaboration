@@ -6,12 +6,14 @@ import {
   getAllTeacherDetails,
 } from "../../../actions/adminAction";
 import Loader from "../../Loader/Loader";
-import Sidebar from "../Sidebar/Sidebar";
+import SidebarTeacher from "../../Teacher/SidebarTeacher/SidebarTeacher";
 import "./ChangingTeacherRole.css";
 import TeacherDetails from "./TeacherDetails";
 
 const ChangingTeacherRole = () => {
   const dispatch = useDispatch();
+
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
 
   const {
     loading: teacherLoading,
@@ -50,22 +52,25 @@ const ChangingTeacherRole = () => {
         <Loader />
       ) : (
         <Fragment>
-          <div className="changingTeacherRoles">
-            <Sidebar />
-            <div className="request">
-            <h1> Role Management</h1>
-              <hr></hr>
-              <br></br>
-              <div>
-                {teachers &&
-                  teachers.map((teacher, i) => (
-                    <div key={i}>
-                      <TeacherDetails data={teacher} />
-                    </div>
-                  ))}
+          <div className="teacherDetails">
+            
+            <SidebarTeacher role={teacher.subRole} />
+            <div className="approvBox"> 
+              <div className="request">
+                <h1> Role Management</h1>
+                <hr></hr>
+                <br></br>
+                
+                  {teachers &&
+                    teachers.map((teacher, i) => (
+                      <div key={i}>
+                        <TeacherDetails data={teacher} />
+                      </div>
+                    ))}
+                
               </div>
             </div>
-          </div>
+            </div>
         </Fragment>
       )}
     </Fragment>

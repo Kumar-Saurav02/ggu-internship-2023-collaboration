@@ -29,6 +29,15 @@ import {
   SUBMIT_ATTENDANCE_ENTRY_REQUEST,
   SUBMIT_ATTENDANCE_ENTRY_SUCCESS,
   SUBMIT_ATTENDANCE_ENTRY_FAIL,
+  SUBMIT_MARKS_ENTRY_REQUEST,
+  SUBMIT_MARKS_ENTRY_SUCCESS,
+  SUBMIT_MARKS_ENTRY_FAIL,
+  GET_MARKS_BY_SUBJECT_REQUEST,
+  GET_MARKS_BY_SUBJECT_SUCCESS,
+  GET_MARKS_BY_SUBJECT_FAIL,
+  GET_ATTENDANCE_BY_SUBJECT_REQUEST,
+  GET_ATTENDANCE_BY_SUBJECT_SUCCESS,
+  GET_ATTENDANCE_BY_SUBJECT_FAIL,
 } from "../constants/teacherConstant";
 
 export const registerLoginTeachersReducer = (
@@ -205,6 +214,94 @@ export const submitAttendanceEntryBySubjectTeacherReducer = (
       return {
         ...state,
         message: null,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getAttendanceEntryBySubjectReducer = (
+  state = { attendanceDetails: {} },
+  action
+) => {
+  switch (action.type) {
+    case GET_ATTENDANCE_BY_SUBJECT_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_ATTENDANCE_BY_SUBJECT_SUCCESS:
+      return {
+        loading: false,
+        attendanceDetails: action.payload,
+      };
+    case GET_ATTENDANCE_BY_SUBJECT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const submitMarksEntryBySubjectTeacherReducer = (state = {}, action) => {
+  switch (action.type) {
+    case SUBMIT_MARKS_ENTRY_REQUEST:
+      return {
+        loading: true,
+      };
+    case SUBMIT_MARKS_ENTRY_SUCCESS:
+      return {
+        loading: false,
+        message: action.payload,
+      };
+    case SUBMIT_MARKS_ENTRY_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        message: null,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getMarksEntryBySubjectReducer = (
+  state = { marksDetails: {} },
+  action
+) => {
+  switch (action.type) {
+    case GET_MARKS_BY_SUBJECT_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_MARKS_BY_SUBJECT_SUCCESS:
+      return {
+        loading: false,
+        marksDetails: action.payload,
+      };
+    case GET_MARKS_BY_SUBJECT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
         error: null,
       };
     default:

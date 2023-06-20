@@ -663,6 +663,10 @@ exports.getParticularStudent = catchAsyncErrors(async (req, res, next) => {
 exports.getStudent = catchAsyncErrors(async (req, res, next) => {
   const student = await Student.findById(req.user.id);
 
+  if (!student) {
+    return next(new ErrorHandler("No Student Found", 401));
+  }
+
   res.status(200).json({
     success: true,
     student,

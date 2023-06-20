@@ -1,10 +1,39 @@
 .dashboard {
-  width: 90%;
+  width: 100vw;
   max-width: 100%;
   display: grid;
   grid-template-columns: 1fr 5fr;
   position: absolute;
-  /* border: 2px solid black; */
-  margin: auto;
-  flex-direction: co;
+}
+.fulladmindashboard::before{
+  height: 100vh;
+  width: 100vw;
+  background-position : top;
+  background-size : cover;
+  background-repeat : no-repeat;
+  background : url("../../../Images/bg.jpg");
+  background-attachment: fixed;
+  content : "";
+  top : 0;
+  left : 0;
+  right : 0;
+  bottom : 0;
+  z-index : -1;
+}
+
+@media screen and (max-width : 768px){
+  .fulladmindashboard{
+    /* width: 100vw;
+    max-width: 100%; */
+    display : flex;
+    flex-direction : row;
+  }
+  .dashboard {
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    }
+  
+  
 }

@@ -27,7 +27,12 @@ const {
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 const {
   fillAttendanceDetails,
+  getAttendanceDetailsOfParticularSubject,
 } = require("../controllers/attendanceController");
+const {
+  fillMarksDetails,
+  getMarksDetailsOfParticularSubject,
+} = require("../controllers/marksController");
 const router = express.Router();
 
 router.route("/registerApprovalTeacher").post(registerApprovalTeacher);
@@ -60,5 +65,16 @@ router.route("/getAllScholarshipsApproval").get(getAllScholarshipsApproval);
 
 //ATTENDANCE
 router.route("/attendanceEntryByTeacher").put(fillAttendanceDetails);
+router
+  .route(
+    "/getAttendanceDetailsOfParticularSubject/:semester/:department/:subject"
+  )
+  .get(getAttendanceDetailsOfParticularSubject);
+
+//MARKS
+router.route("/marksEntryByTeacher").put(fillMarksDetails);
+router
+  .route("/getMarksDetailsOfParticularSubject/:semester/:department/:subject")
+  .get(getMarksDetailsOfParticularSubject);
 
 module.exports = router;

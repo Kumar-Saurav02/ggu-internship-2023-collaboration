@@ -22,11 +22,11 @@ const TeacherDetails = ({ key, data }) => {
   };
 
   const [role, setRole] = useState();
-  const roles = ["Teacher", "Class Incharge", "HOD"];
+  const roles = ["Teacher", "Class Incharge", "HOD", "Admin"];
 
   return (
     <Fragment>
-      <div className="request">
+      <div className="subsection">
         <div className="entry">
         <label className="label_name">Employee ID.</label>
           <p>{data.employeeID}</p>
@@ -51,6 +51,12 @@ const TeacherDetails = ({ key, data }) => {
           <div className="entry">
             <label className="label_name">Current Designation</label>
             <p>Teacher</p>
+          </div>
+        )}
+        {data.subRole === "admin" && (
+          <div className="entry">
+            <label className="label_name">Current Designation</label>
+            <p>Admin</p>
           </div>
         )}
         <div className="entry">

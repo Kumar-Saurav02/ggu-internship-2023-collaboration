@@ -8,13 +8,15 @@ import {
   studentApprovalRequestReject,
 } from "../../../actions/adminAction";
 import Loader from "../../Loader/Loader";
-import Sidebar from "../Sidebar/Sidebar";
+import SidebarTeacher from "../../Teacher/SidebarTeacher/SidebarTeacher";
 import "./StudentApproval.css";
 
 const StudentApprovalDetails = () => {
   const { state } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
 
   const { loading, message, error } = useSelector(
     (state) => state.acceptingRejectingStudentTeacherApproval
@@ -48,7 +50,7 @@ const StudentApprovalDetails = () => {
     ) : (
       <Fragment>
         <div className="studentDetails">
-          <Sidebar />
+          <SidebarTeacher role={teacher.subRole} />
           <div className="approvBox">
             <div className="subsection">
               <h2>Student Details</h2>

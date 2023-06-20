@@ -29,6 +29,7 @@ const TeacherApprovalDataMapping = ({ key, data }) => {
   return (
     <Fragment>
       <div className="content">
+        <div className="half_content">
         <div className="key">{key}</div>
 
         <div className="label">
@@ -62,6 +63,7 @@ const TeacherApprovalDataMapping = ({ key, data }) => {
             Details
           </button>
         </div>
+      </div>
       </div>
     </Fragment>
   );

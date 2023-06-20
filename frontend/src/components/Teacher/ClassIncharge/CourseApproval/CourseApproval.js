@@ -17,6 +17,8 @@ const CourseApproval = () => {
     error: courseError,
   } = useSelector((state) => state.getCoursesForApproval);
 
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
+
   useEffect(() => {
     dispatch(courseApprovalByIncharge());
   }, [dispatch]);
@@ -35,9 +37,12 @@ const CourseApproval = () => {
       ) : (
         <Fragment>
           <div className="courseApproval">
-            <SidebarTeacher />
-            <div>
-              <div>
+            <SidebarTeacher role={teacher.subRole}/>
+            <div className="approvBox">
+              <div className="request">
+                <h1>Mark's Entry</h1>
+                  <hr></hr>
+                  <br></br>
                 {courses &&
                   courses.map((course, i) => (
                     <div key={i}>

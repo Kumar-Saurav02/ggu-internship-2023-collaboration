@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
+  clearMessages,
   studentApprovalRequestAccept,
   studentApprovalRequestReject,
 } from "../../../actions/adminAction";
@@ -13,20 +14,6 @@ import "./StudentApproval.css";
 const StudentApprovalDataMapping = ({ key, data }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { loading, message, error } = useSelector(
-    (state) => state.acceptingRejectingStudentTeacherApproval
-  );
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-    if (message) {
-      toast.success(message);
-      navigate("/studentsApproval");
-    }
-  }, [error, message]);
 
   const acceptStudentApproval = () => {
     dispatch(studentApprovalRequestAccept(data._id));
@@ -42,12 +29,8 @@ const StudentApprovalDataMapping = ({ key, data }) => {
     });
   };
   return (
-    <Fragment>
-      {loading ? (
-        <Loader />
-      ) : (
-        <Fragment>
-          <div className="content">
+    <Fragment>       
+      <div className="content">
             
 
             <div className="col">
@@ -81,8 +64,6 @@ const StudentApprovalDataMapping = ({ key, data }) => {
               </button>
             </div>
           </div>
-        </Fragment>
-      )}
       </Fragment>
 
   );

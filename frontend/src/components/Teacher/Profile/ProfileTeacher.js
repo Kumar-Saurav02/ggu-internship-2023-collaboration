@@ -15,10 +15,6 @@ const ProfileTeacher = () => {
     (state) => state.registerLoginTeachers
   );
 
-  useEffect(() => {
-    dispatch(loadTeacher());
-  }, []);
-
   return (
     <Fragment>
       {loading ? (
@@ -96,7 +92,7 @@ const ProfileTeacher = () => {
                   </a>
                 </div>
               )}
-          </div> 
+              </div> 
           <div className="subsection">
                 <div>
                 <h2>Photograph & Signature</h2>
@@ -114,9 +110,18 @@ const ProfileTeacher = () => {
                   <img src={teacher.signature.url} />
                 </div>
               )}
-            </div>
-            </div>
+              {teacher.resume && (
+                <div className="entry">
+                  <label className="label_name">Resume</label>
+                  <a target="_blank" rel="noreferrer" href={teacher.resume.url}>
+                    View
+                  </a>
+                
+                </div>
+              )}
+                </div>
           </div>
+            </div>
           </div>
         </Fragment>
       )}
