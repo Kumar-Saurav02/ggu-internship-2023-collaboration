@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SidebarTeacher.css";
 import { Link, useNavigate } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
 import { logoutStudent } from "../../../actions/studentAction";
 import { useDispatch } from "react-redux";
 import { logoutTeacher } from "../../../actions/teacherAction"; 
+import MenuIcon from '@mui/icons-material/Menu';
+import {motion} from 'framer-motion';
 
 const SidebarTeacher = ({ role }) => {
   const dispatch = useDispatch();
@@ -15,8 +17,26 @@ const SidebarTeacher = ({ role }) => {
     navigate("/");
   };
 
+  const [expanded, setExpaned] = useState(false)
+    const sidebarVariants = {
+      true: {
+        left : '0'
+      },
+      false:{
+        left : '-65%'
+      }
+    }
+
+
   return (
-    <div className="sidebar">
+    <>
+    <div className="bars" style={expanded?{left: '49%'}:{left: '2%'}} onClick={()=>setExpaned(!expanded)}>
+        <MenuIcon />
+      </div>
+    <motion.div className="sidebarss" 
+    variants={sidebarVariants}
+    animate={window.innerWidth<=768?`${expanded}`:''}
+    >
             <Link to="/teacherProfile">
               <p>
                 <PeopleIcon />
@@ -35,7 +55,6 @@ const SidebarTeacher = ({ role }) => {
                 Marks Entry
               </p>
             </Link>
-
 
             {role === "hod" && (
               <div className="sidebar">
@@ -114,7 +133,8 @@ const SidebarTeacher = ({ role }) => {
         onClick={logout}>Logout</button>
 
 
-    </div>
+    </motion.div>
+    </>
   );
 };
 

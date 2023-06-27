@@ -46,3 +46,28 @@
   height: 20px;
   width: 200px;
 }
+
+@media screen and (max-width : 768px) {
+  .content {
+    width: 80vh;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border : 1px solid rgb(170, 169, 169);
+    border-radius : 5px;
+    box-shadow: 2px 2px 2px rgb(202, 202, 214);
+   }
+   .approvBox {
+    width: 80vh;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    padding-bottom: 2%;
+    background-color: whitesmoke;
+  }
+}

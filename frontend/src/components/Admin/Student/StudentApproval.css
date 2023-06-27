@@ -19,11 +19,20 @@
   display: flex;
   flex-wrap: wrap;
 }
+.btn_acceptReject{
+  display  : flex;
+  margin-left: auto;
+}
+
+.btnApproval{
+  display: flex;
+  justify-content: space-evenly;
+}
 
 .approvBox {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
   margin: auto;
   padding-bottom: 2%;
   background-color: whitesmoke;
@@ -35,6 +44,9 @@
   display: grid;
   grid-template-columns: 1fr 5fr;
   position: absolute;
+}
+.request{
+  padding: 2rem;
 }
 
 @media screen and (max-width : 768px) {

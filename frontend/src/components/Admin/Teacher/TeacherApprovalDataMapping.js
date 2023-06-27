@@ -29,10 +29,9 @@ const TeacherApprovalDataMapping = ({ key, data }) => {
   return (
     <Fragment>
       <div className="content">
-        <div className="half_content">
         <div className="key">{key}</div>
 
-        <div className="label">
+        <div className="col">
           <div className="field">Name </div>
           <div className="field">Employee ID</div>
           <div className="field">Department </div>
@@ -46,7 +45,7 @@ const TeacherApprovalDataMapping = ({ key, data }) => {
           <div className="field">{data.email} </div>
         </div>
 
-        <div className="btn">
+        <div className="btn_acceptReject">
           <button
             onClick={rejectTeacherApproval}
             class="signInbtn border hover">
@@ -63,7 +62,6 @@ const TeacherApprovalDataMapping = ({ key, data }) => {
             Details
           </button>
         </div>
-      </div>
       </div>
     </Fragment>
   );

@@ -5,7 +5,6 @@
   grid-template-columns: 1fr 5fr;
   position: absolute;
 }
-
 .courseSelection {
   display: flex;
   flex-direction: column;
@@ -43,4 +42,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (max-width : 768px) {
+
+
+
+  .courseSelection{
+    padding : 4rem;
+    display : flex;
+    flex-direction: column;
+  }
+  .detailsOfStudent{
+    flex-direction: row;
+    display : flex;
+  }
 }

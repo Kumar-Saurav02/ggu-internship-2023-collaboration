@@ -31,7 +31,6 @@ const StudentApprovalDataMapping = ({ key, data }) => {
   return (
     <Fragment>       
       <div className="content">
-            
 
             <div className="col">
               <div className="field">Name </div>
@@ -50,7 +49,7 @@ const StudentApprovalDataMapping = ({ key, data }) => {
               <div className="field">{data.email} </div>
             </div>
 
-            <div className=" col stdbtn">
+            <div className="btn_acceptReject">
               <button 
               onClick={rejectStudentApproval}
               class="signInbtn border hover">Reject</button>

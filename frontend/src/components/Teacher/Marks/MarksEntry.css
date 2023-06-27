@@ -5,3 +5,14 @@
   grid-template-columns: 1fr 5fr;
   position: absolute;
 }
+
+@media screen and (max-width : 768px) {
+
+  .approvBox{
+    display : flex;
+    align-items: center;
+  }
+  .marksEntry{
+    display : flex;
+  }
+}

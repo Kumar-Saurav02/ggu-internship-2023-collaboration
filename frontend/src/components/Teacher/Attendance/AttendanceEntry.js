@@ -169,7 +169,7 @@ const AttendanceEntry = () => {
       dispatch(getAttendanceDetailBySubject(semester, department, subject));
     }
   }, [subject]);
-
+  
   return (
     <Fragment>
       {studentsListLoading ||
@@ -221,7 +221,7 @@ const AttendanceEntry = () => {
                   </select>
                 </div>
                 <br></br>
-                <div className="btn">
+                <div className="">
                   <button 
                     className="signInbtn border hover"
                     onClick={getStudentListForAttendance}>
@@ -229,7 +229,7 @@ const AttendanceEntry = () => {
                   </button>
                 </div>
               </div>
-
+              
               {loadInput && (
                 <div className="subsection">
                   <div >

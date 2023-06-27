@@ -199,7 +199,7 @@ const StudentApprovalDetails = () => {
               </div>
             </div>
 
-            <div className="btn">
+            <div className="btnApproval">
               <button 
                 onClick={rejectStudentApproval}
                 class="signInbtn border hover">Reject</button>

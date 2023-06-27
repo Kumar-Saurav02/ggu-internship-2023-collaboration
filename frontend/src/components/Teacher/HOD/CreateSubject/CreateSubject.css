@@ -6,3 +6,16 @@
   position: absolute;
   font-size: 20px;
 }
+
+@media screen and (max-width : 768px) {
+
+  .createSubject {
+    width: 100vw;
+    max-width: 100%;
+    display : flex;
+    margin-top: 35px;
+    position: absolute;
+    font-size: 20px;
+  }
+  
+}

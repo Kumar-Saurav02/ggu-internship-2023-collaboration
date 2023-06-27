@@ -6,9 +6,19 @@
   position: absolute;
 }
 
-.discription
-{
+.discription{
   display: flex;
   flex-direction: column;
+}
+
+@media screen and (max-width : 768px) {
+
+  .approvBox{
+    display : flex;
+    align-items: center;
+  }
+  .attendanceEntry{
+    display : flex;
+  }
 }
 

@@ -33,15 +33,20 @@
   margin-top: 50px;
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 85%;
   padding-bottom: 2%;
   background-color: whitesmoke;
 }
 .teacherDetails {
-  margin-bottom: 15px;
+  width: 100vw;
+  max-width: 100%;
   display: grid;
   grid-template-columns: 1fr 5fr;
   position: absolute;
+}
+.btn_acceptReject{
+  display  : flex;
+  margin-left: auto;
 }
 
 .approvalbuttons{
@@ -99,7 +104,7 @@
     margin-top: 50px;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 100vw;
     padding-bottom: 2%;
     background-color: whitesmoke;
   }
@@ -109,7 +114,7 @@
     max-width: 20vw;
     margin-bottom: 5px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     font-size: 14px;

@@ -76,4 +76,11 @@
     align-items: center;
     justify-content: center;
   }
+  .teacherDetails{
+    display: flex;
+    width: 100vw;
+  }
+  .request{
+    width : 85%;
+  }
 }

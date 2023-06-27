@@ -152,7 +152,7 @@ body
     box-shadow: 0 -3px 3px 1px #848ee6;
   }
 
-@media screen and (max-width : 576px) {
+@media screen and (max-width : 700px) {
   .loginBox{
     display: flex;
     flex-direction: column;
