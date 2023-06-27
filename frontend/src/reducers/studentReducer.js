@@ -8,6 +8,9 @@ import {
   LOAD_STUDENT_REQUEST,
   LOAD_STUDENT_SUCCESS,
   LOAD_STUDENT_FAIL,
+  UPDATE_DATA_BY_STUDENT_REQUEST,
+  UPDATE_DATA_BY_STUDENT_SUCCESS,
+  UPDATE_DATA_BY_STUDENT_FAIL,
   COURSE_STUDENT_REQUEST,
   COURSE_STUDENT_SUCCESS,
   COURSE_STUDENT_FAIL,
@@ -117,6 +120,7 @@ export const marksFeesCourseUpdateReducer = (state = {}, action) => {
     case SUBMIT_MARKS_REQUEST:
     case SUBMIT_COURSE_REQUEST:
     case SUBMIT_SCHOLARSHIP_REQUEST:
+    case UPDATE_DATA_BY_STUDENT_REQUEST:
       return {
         loading: true,
       };
@@ -124,6 +128,7 @@ export const marksFeesCourseUpdateReducer = (state = {}, action) => {
     case SUBMIT_MARKS_SUCCESS:
     case SUBMIT_COURSE_SUCCESS:
     case SUBMIT_SCHOLARSHIP_SUCCESS:
+    case UPDATE_DATA_BY_STUDENT_SUCCESS:
       return {
         loading: false,
         message: action.payload,
@@ -132,6 +137,7 @@ export const marksFeesCourseUpdateReducer = (state = {}, action) => {
     case SUBMIT_MARKS_FAIL:
     case SUBMIT_COURSE_FAIL:
     case SUBMIT_SCHOLARSHIP_FAIL:
+    case UPDATE_DATA_BY_STUDENT_FAIL:
       return {
         ...state,
         loading: false,

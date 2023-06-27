@@ -25,6 +25,8 @@ import ScholarshipApproval from "./components/Teacher/ClassIncharge/ScholarshipA
 import AttendanceEntry from "./components/Teacher/Attendance/AttendanceEntry";
 import MarksEntry from "./components/Teacher/Marks/MarksEntry";
 import ProtectedRoute from "./components/Route/ProtectedRoute";
+import EditProfileStudent from "./components/Student/EditProfileStudent/EditProfileStudent";
+import EditProfileTeacher from "./components/Teacher/EditProfileTeacher/EditProfileTeacher";
 
 function App() {
   useEffect(() => {
@@ -121,6 +123,16 @@ function App() {
           }
         />
         <Route
+          path="/editStudentProfile"
+          element={
+            <ProtectedRoute
+              role="student"
+              subRole=""
+              Component={EditProfileStudent}
+            />
+          }
+        />
+        <Route
           path="/studentDocumentUpload"
           element={
             <ProtectedRoute
@@ -159,6 +171,16 @@ function App() {
               role="teacher"
               subRole=""
               Component={ProfileTeacher}
+            />
+          }
+        />
+        <Route
+          path="/editTeacherProfile"
+          element={
+            <ProtectedRoute
+              role="teacher"
+              subRole=""
+              Component={EditProfileTeacher}
             />
           }
         />

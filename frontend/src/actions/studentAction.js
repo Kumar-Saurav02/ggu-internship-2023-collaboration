@@ -7,6 +7,9 @@ import {
   LOAD_STUDENT_REQUEST,
   LOAD_STUDENT_SUCCESS,
   LOAD_STUDENT_FAIL,
+  UPDATE_DATA_BY_STUDENT_REQUEST,
+  UPDATE_DATA_BY_STUDENT_SUCCESS,
+  UPDATE_DATA_BY_STUDENT_FAIL,
   COURSE_STUDENT_REQUEST,
   COURSE_STUDENT_SUCCESS,
   COURSE_STUDENT_FAIL,
@@ -118,6 +121,44 @@ export const registerStudents =
     } catch (error) {
       dispatch({
         type: REGISTER_STUDENT_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+//STUDENT UPDATE DATA
+export const updatingDataByStudent =
+  (
+    mobileNumber,
+    fatherMobileNumber,
+    motherMobileNumber,
+    hosteler,
+    profilePhoto,
+    signaturePhoto
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_DATA_BY_STUDENT_REQUEST });
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/updateStudent`,
+        {
+          mobileNumber,
+          fatherMobileNumber,
+          motherMobileNumber,
+          hosteler,
+          profilePhoto,
+          signaturePhoto,
+        },
+        config
+      );
+
+      dispatch({ type: UPDATE_DATA_BY_STUDENT_SUCCESS, payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_DATA_BY_STUDENT_FAIL,
         payload: error.response.data.message,
       });
     }

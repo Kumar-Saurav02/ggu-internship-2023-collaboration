@@ -248,7 +248,8 @@ exports.loginTeacher = catchAsyncErrors(async (req, res, next) => {
 
 //UPDATE DETAILS TEACHER
 exports.updateDetailsTeacher = catchAsyncErrors(async (req, res, next) => {
-  const { email, gender, mobileNumber, profilePhoto } = req.body;
+  const { email, gender, mobileNumber, profilePhoto, signature, resume } =
+    req.body;
 
   const updatedData = {
     email,
@@ -257,17 +258,47 @@ exports.updateDetailsTeacher = catchAsyncErrors(async (req, res, next) => {
   };
 
   if (profilePhoto !== undefined) {
-    if (req.user.photoUpload.public_id !== undefined) {
-      await cloudinary.uploader.destroy(req.user.photoUpload.public_id);
+    if (req.user.profilePhoto.public_id !== undefined) {
+      await cloudinary.uploader.destroy(req.user.profilePhoto.public_id);
     }
     const profilePhotoUpload = await cloudinary.uploader.upload(profilePhoto, {
       folder: "Profile Photo Student",
       width: 300,
       crop: "scale",
     });
-    updatedData.photoUpload = {
+    updatedData.profilePhoto = {
       public_id: profilePhotoUpload.public_id,
       url: profilePhotoUpload.secure_url,
+    };
+  }
+
+  if (signature !== undefined) {
+    if (req.user.signature.public_id !== undefined) {
+      await cloudinary.uploader.destroy(req.user.signature.public_id);
+    }
+    const signatureUpload = await cloudinary.uploader.upload(signature, {
+      folder: "Profile Photo Student",
+      width: 300,
+      crop: "scale",
+    });
+    updatedData.signature = {
+      public_id: signatureUpload.public_id,
+      url: signatureUpload.secure_url,
+    };
+  }
+
+  if (resume !== undefined) {
+    if (req.user.resume.public_id !== undefined) {
+      await cloudinary.uploader.destroy(req.user.resume.public_id);
+    }
+    const resumeUpload = await cloudinary.uploader.upload(resume, {
+      folder: "Profile Photo Student",
+      width: 300,
+      crop: "scale",
+    });
+    updatedData.resume = {
+      public_id: resumeUpload.public_id,
+      url: resumeUpload.secure_url,
     };
   }
 
@@ -279,6 +310,7 @@ exports.updateDetailsTeacher = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    message: "Details Updated Successfully",
   });
 });
 
@@ -349,26 +381,28 @@ exports.getTeacher = catchAsyncErrors(async (req, res, next) => {
 
 //ACCEPT COURSE DETAILS
 exports.acceptCourseSelection = catchAsyncErrors(async (req, res, next) => {
-  const student = await Student.findOne({ enrollmentNumber });
+  const { enrollmentNumber, courseSubmission, id } = req.body;
+
+  const student = await Student.findOne({ enrollmentNo: enrollmentNumber });
   if (!student) {
     return next(new ErrorHandler(`Some error occurred`));
   }
 
   var subjects = [];
-  for (let i = 0; i < req.body.courseSubmission.course.length; i++) {
+  for (let i = 0; i < courseSubmission.subjects.length; i++) {
     subjects.push({
-      subjectName: req.body.courseSubmission.course[i].subjectName,
-      subjectCode: req.body.courseSubmission.course[i].subjectCode,
-      subjectCredit: req.body.courseSubmission.course[i].subjectCredit,
-      category: req.body.courseSubmission.course[i].category,
-      term: req.user.currentSemester + " " + "Semester",
+      subjectName: courseSubmission.subjects[i].subjectName,
+      subjectCode: courseSubmission.subjects[i].subjectCode,
+      subjectCredit: courseSubmission.subjects[i].subjectCredit,
+      category: courseSubmission.subjects[i].category,
+      term: courseSubmission.semester + " " + "Semester",
     });
   }
 
-  await ApproveCourse.deleteOne({ _id: req.body.id });
+  await ApproveCourse.deleteOne({ _id: id });
 
   student.courseSelected.push({
-    semester: semester,
+    semester: courseSubmission.semester,
     subjects,
   });
 
@@ -403,13 +437,21 @@ exports.getAllCoursesApproval = catchAsyncErrors(async (req, res, next) => {
 //ACCEPT SCHOLARSHIP DETAILS
 exports.acceptScholarshipSelection = catchAsyncErrors(
   async (req, res, next) => {
-    const { session, state, scholarship, scholarshipDocument } = req.body;
-    const student = await Student.findOne({ enrollmentNumber });
+    const {
+      session,
+      state,
+      scholarship,
+      scholarshipDocument,
+      enrollmentNumber,
+      id,
+    } = req.body;
+
+    const student = await Student.findOne({ enrollmentNo: enrollmentNumber });
     if (!student) {
       return next(new ErrorHandler(`Some error occurred`));
     }
 
-    if (scholarshipDocument === "") {
+    if (scholarshipDocument.trim() === "") {
       student.scholarshipDetails.push({
         session,
         state,
@@ -423,6 +465,15 @@ exports.acceptScholarshipSelection = catchAsyncErrors(
         scholarshipDocument,
       });
     }
+
+    await ApproveScholarship.deleteOne({ _id: id });
+
+    await student.save({ validateBeforeSave: false });
+
+    res.status(200).json({
+      success: true,
+      message: "Accepted",
+    });
   }
 );
 

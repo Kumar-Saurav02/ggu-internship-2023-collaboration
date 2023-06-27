@@ -24,7 +24,11 @@ const {
   updateCourse,
   getAllSubjects,
 } = require("../controllers/hodController");
-const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
+const {
+  isAuthenticatedUser,
+  authorizeRolesTeacher,
+  authorizeSubRolesTeacher,
+} = require("../middleware/auth");
 const {
   fillAttendanceDetails,
   getAttendanceDetailsOfParticularSubject,
@@ -36,35 +40,134 @@ const {
 const router = express.Router();
 
 router.route("/registerApprovalTeacher").post(registerApprovalTeacher);
-router.route("/registerTeacherAccept/:id").post(registerTeacherAccept);
-router.route("/rejectApprovalTeacher/:id").delete(rejectApprovalTeacher);
+router
+  .route("/registerTeacherAccept/:id")
+  .post(
+    isAuthenticatedUser,
+    authorizeSubRolesTeacher("admin"),
+    registerTeacherAccept
+  );
+router
+  .route("/rejectApprovalTeacher/:id")
+  .delete(
+    isAuthenticatedUser,
+    authorizeSubRolesTeacher("admin"),
+    rejectApprovalTeacher
+  );
 router.route("/loginTeacher").post(loginTeacher);
 router.route("/logoutTeacher").get(logout);
-router.route("/updateTeacher").put(updateDetailsTeacher);
-router.route("/updateTeacherRole/:id").put(updateRoleOfTeacher);
+router
+  .route("/updateTeacher")
+  .put(
+    isAuthenticatedUser,
+    authorizeRolesTeacher("teacher"),
+    updateDetailsTeacher
+  );
+router
+  .route("/updateTeacherRole/:id")
+  .put(
+    isAuthenticatedUser,
+    authorizeSubRolesTeacher("admin"),
+    updateRoleOfTeacher
+  );
 router
   .route("/getTeacherDetail")
-  .get(isAuthenticatedUser, authorizeRoles("teacher"), getTeacher);
-router.route("/getAllTeachers").get(getAllTeachers);
-router.route("/getAllRequestsTeachers").get(getAllTeachersApproval);
-router.route("/getParticularTeacher").get(getParticularTeacher);
+  .get(isAuthenticatedUser, authorizeRolesTeacher("teacher"), getTeacher);
+router
+  .route("/getAllTeachers")
+  .get(
+    isAuthenticatedUser,
+    authorizeRolesTeacher("teacher"),
+    authorizeSubRolesTeacher("admin"),
+    getAllTeachers
+  );
+router
+  .route("/getAllRequestsTeachers")
+  .get(
+    isAuthenticatedUser,
+    authorizeRolesTeacher("teacher"),
+    authorizeSubRolesTeacher("admin"),
+    getAllTeachersApproval
+  );
+router
+  .route("/getParticularTeacher")
+  .get(
+    isAuthenticatedUser,
+    authorizeRolesTeacher("teacher"),
+    getParticularTeacher
+  );
 
 //HOD
-router.route("/createSubject").post(createSubject);
-router.route("/createCourse").post(createCourse);
-router.route("/updateCourse").put(updateCourse);
-router.route("/getAllSubjects").get(getAllSubjects);
+router.route("/createSubject").post(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("hod"),
+  createSubject
+);
+router.route("/createCourse").post(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("hod"),
+  createCourse
+);
+router.route("/updateCourse").put(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("hod"),
+  updateCourse
+);
+router.route("/getAllSubjects").get(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("hod"),
+  getAllSubjects
+);
 
 //CLASS INCHARGE
-router.route("/acceptCourseSelection").put(acceptCourseSelection);
-router.route("/rejectCourseSelection").delete(rejectCourseSelection);
-router.route("/acceptScholarshipSelection").put(acceptScholarshipSelection);
-router.route("/rejectScholarshipSelection").delete(rejectScholarshipSelection);
-router.route("/getAllCoursesApproval").get(getAllCoursesApproval);
-router.route("/getAllScholarshipsApproval").get(getAllScholarshipsApproval);
+router.route("/acceptCourseSelection").put(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("classIncharge"),
+  acceptCourseSelection
+);
+router.route("/rejectCourseSelection").delete(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("classIncharge"),
+  rejectCourseSelection
+);
+router.route("/acceptScholarshipSelection").put(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("classIncharge"),
+  acceptScholarshipSelection
+);
+router.route("/rejectScholarshipSelection").delete(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("classIncharge"),
+  rejectScholarshipSelection
+);
+router.route("/getAllCoursesApproval").get(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("classIncharge"),
+  getAllCoursesApproval
+);
+router.route("/getAllScholarshipsApproval").get(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("classIncharge"),
+  getAllScholarshipsApproval
+);
 
 //ATTENDANCE
-router.route("/attendanceEntryByTeacher").put(fillAttendanceDetails);
+router.route("/attendanceEntryByTeacher").put(
+  isAuthenticatedUser,
+  authorizeRolesTeacher("teacher"),
+  // authorizeSubRolesTeacher("admin"),
+  fillAttendanceDetails
+);
 router
   .route(
     "/getAttendanceDetailsOfParticularSubject/:semester/:department/:subject"

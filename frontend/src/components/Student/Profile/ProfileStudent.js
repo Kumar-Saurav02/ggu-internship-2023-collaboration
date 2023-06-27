@@ -5,13 +5,13 @@ import SidebarStudent from "../SidebarStudent/SidebarStudent";
 import { loadStudent } from "../../../actions/studentAction";
 import Loader from "../../Loader/Loader";
 import { toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProfileStudent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { student, loading, isAuthenticated } = useSelector(
+  const { student, loading } = useSelector(
     (state) => state.registerLoginStudents
   );
 
@@ -26,6 +26,10 @@ const ProfileStudent = () => {
       }
     }
   }, [student]);
+
+  const openEditWindow = () => {
+    navigate("/editStudentProfile");
+  };
 
   return (
     <Fragment>
@@ -268,6 +272,9 @@ const ProfileStudent = () => {
                         <p>No Attendance Available</p>
                       </div>
                     )}
+                </div>
+                <div>
+                  <button onClick={openEditWindow}>Edit</button>
                 </div>
               </div>
             </div>

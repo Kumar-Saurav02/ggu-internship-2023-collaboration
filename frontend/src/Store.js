@@ -17,6 +17,7 @@ import {
   registerLoginTeachersReducer,
   submitAttendanceEntryBySubjectTeacherReducer,
   submitMarksEntryBySubjectTeacherReducer,
+  updateTeacherDetailsReducer,
 } from "./reducers/teacherReducer";
 import {
   acceptingRejectingStudentTeacherApprovalReducer,
@@ -56,6 +57,7 @@ const reducer = combineReducers({
   submitMarksEntryBySubjectTeacher: submitMarksEntryBySubjectTeacherReducer,
   getAttendanceEntryBySubject: getAttendanceEntryBySubjectReducer,
   getMarksEntryBySubject: getMarksEntryBySubjectReducer,
+  updateTeacherDetails: updateTeacherDetailsReducer,
 });
 
 let initialState = {};

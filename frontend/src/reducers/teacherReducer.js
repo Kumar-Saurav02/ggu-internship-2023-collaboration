@@ -38,6 +38,9 @@ import {
   GET_ATTENDANCE_BY_SUBJECT_REQUEST,
   GET_ATTENDANCE_BY_SUBJECT_SUCCESS,
   GET_ATTENDANCE_BY_SUBJECT_FAIL,
+  UPDATE_TEACHER_DETAILS_REQUEST,
+  UPDATE_TEACHER_DETAILS_SUCCESS,
+  UPDATE_TEACHER_DETAILS_FAIL,
 } from "../constants/teacherConstant";
 
 export const registerLoginTeachersReducer = (
@@ -302,6 +305,35 @@ export const getMarksEntryBySubjectReducer = (
     case CLEAR_MESSAGES:
       return {
         ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const updateTeacherDetailsReducer = (state = {}, action) => {
+  switch (action.type) {
+    case UPDATE_TEACHER_DETAILS_REQUEST:
+      return {
+        loading: true,
+      };
+    case UPDATE_TEACHER_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        message: action.payload,
+      };
+    case UPDATE_TEACHER_DETAILS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        message: null,
+        error: action.payload,
+      };
+    case CLEAR_MESSAGES:
+      return {
+        ...state,
+        message: null,
         error: null,
       };
     default:

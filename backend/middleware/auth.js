@@ -22,10 +22,39 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   next();
 });
 
-//AUTHORIZING
-exports.authorizeRoles = (...roles) => {
+//AUTHORIZING STUDENTS
+exports.authorizeRolesStudent = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
+      return next(
+        new ErrorHandler(
+          `Role: ${req.user.role} is not allowed to access this resource`,
+          403
+        )
+      );
+    }
+    next();
+  };
+};
+
+//AUTHORIZING TEACHERS
+exports.authorizeRolesTeacher = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ErrorHandler(
+          `Role: ${req.user.role} is not allowed to access this resource`,
+          403
+        )
+      );
+    }
+    next();
+  };
+};
+
+exports.authorizeSubRolesTeacher = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.subRole)) {
       return next(
         new ErrorHandler(
           `Role: ${req.user.role} is not allowed to access this resource`,

@@ -364,6 +364,7 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     scholarshipName,
     scholarshipDocument,
   } = req.body;
+
   const updatedData = {
     enrollmentNo,
     name,
@@ -388,6 +389,14 @@ exports.updateDetails = catchAsyncErrors(async (req, res, next) => {
     aadharNumber,
     hosteler,
   };
+
+  // if (mobileNumber !== undefined) {
+  //   updatedData.mobileNumber = mobileNumber;
+  //   updatedData.fatherMobileNumber = fatherMobileNumber;
+  //   updatedData.motherMobileNumber = motherMobileNumber;
+  //   updatedData.hosteler = hosteler;
+  // }
+
   if (profilePhoto !== undefined) {
     if (req.user.photoUpload.public_id !== undefined) {
       await cloudinary.uploader.destroy(req.user.photoUpload.public_id);

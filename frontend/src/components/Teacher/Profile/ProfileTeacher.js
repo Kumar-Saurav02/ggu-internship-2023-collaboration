@@ -15,6 +15,10 @@ const ProfileTeacher = () => {
     (state) => state.registerLoginTeachers
   );
 
+  const editProfile = () => {
+    navigate("/editTeacherProfile");
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -95,6 +99,9 @@ const ProfileTeacher = () => {
                   </a>
                 </div>
               )}
+              <div>
+                <button onClick={editProfile}>Edit</button>
+              </div>
             </div>
           </div>
         </Fragment>
