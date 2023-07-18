@@ -8,9 +8,12 @@ import SidebarTeacher from "../../SidebarTeacher/SidebarTeacher";
 
 const CreateSubject = () => {
   const dispatch = useDispatch();
+
   const { loading, message, error } = useSelector(
     (state) => state.createSubjectByHOD
   );
+
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
 
   const [detailsSubject, setDetailsSubject] = useState({
     subjectName: "",
@@ -62,7 +65,7 @@ const CreateSubject = () => {
       ) : (
         <Fragment>
           <div className="createSubject">
-            <SidebarTeacher />
+            <SidebarTeacher role={teacher.subRole}/>
             <div className="registerBox">
               <div className="Data_entry">
               <h2>Create Subject</h2>

@@ -110,7 +110,7 @@ const ProfileTeacher = () => {
                   <img src={teacher.signature.url} />
                 </div>
               )}
-              {teacher.resume && (
+              {/* {teacher.resume && (
                 <div className="entry">
                   <label className="label_name">Resume</label>
                   <a target="_blank" rel="noreferrer" href={teacher.resume.url}>
@@ -118,7 +118,7 @@ const ProfileTeacher = () => {
                   </a>
                 
                 </div>
-              )}
+              )} */}
                 </div>
           </div>
             </div>

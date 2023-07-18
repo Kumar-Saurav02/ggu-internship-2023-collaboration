@@ -12,6 +12,9 @@ import SidebarTeacher from "../../SidebarTeacher/SidebarTeacher";
 
 const CreateCourse = () => {
   const dispatch = useDispatch();
+
+  const { teacher } = useSelector((state) => state.registerLoginTeachers);
+
   const {
     loading: courseLoading,
     message,
@@ -94,7 +97,7 @@ const CreateCourse = () => {
       ) : (
         <Fragment>
           <div className="createCourse">
-            <SidebarTeacher />
+            <SidebarTeacher role={teacher.subRole}/>
             <div className="registerBox">
               <div className="Data_entry">
               <h2>Create Course</h2>

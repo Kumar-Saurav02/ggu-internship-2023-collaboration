@@ -205,138 +205,145 @@ const DocumentUploadStudent = () => {
             <SidebarStudent />
             <div className="approvBox">
               <div className="subsection">
-              <h2>fee Upload</h2>
-              <hr></hr>
-              <br></br>
-                
-              <div className="entry">
-                    <label
-                      className="label_name"
-                      for="{semesterForFees}">
-                      Semester
-                    </label>
-                    <select
-                      id="label_input"
-                      required
-                      name="semesterForFees"
-                      onChange={registerFeeDataChange}>
-                      <option value={semesterForFees}>Semester</option>
-                      {semesters.map((sem) => (
-                        <option key={sem} value={sem}>
-                          {sem}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-
-                  <div className="entry">
-                    <label className="label_name" for="{bankNameForFees}">
-                      Bank Name
-                    </label>
-                    <input
-                      id="label_input"
-                      type="text"
-                      placeholder="Bank Name"
-                      required
-                      name="bankNameForFees"
-                      value={bankNameForFees}
-                      onChange={registerFeeDataChange}
-                    />
-                  </div>
-
-                  <div className="entry">
-                    <label className="label_name" for="{ifscCodeForFees}">
-                      IFSC Code
-                    </label>
-                    <input
-                      id="label_input"
-                      type="text"
-                      placeholder="IFSC Code"
-                      required
-                      name="ifscCodeForFees"
-                      value={ifscCodeForFees}
-                      onChange={registerFeeDataChange}
-                    />
-                  </div>
-
-                 <div className="entry">
-                    <label className="label_name" for="{amountForFees}">
-                      Amount
-                    </label>
-                    <input
-                      id="label_input"
-                      type="number"
-                      placeholder="Amount"
-                      required
-                      name="amountForFees"
-                      value={amountForFees}
-                      onChange={registerFeeDataChange}
-                    />
-                  </div>
-
-                  {/* <div>
-                    <label>Challan ID</label>
-                    <input
-                      type="text"
-                      placeholder="Challan ID"
-                      required
-                      name="challanIdForFees"
-                      value={challanIdForFees}
-                      onChange={registerFeeDataChange}
-                    />
-                  </div> */}
-
-                  {/* <div>
-                    <label>Account Number</label>
-                    <input
-                      type="number"
-                      placeholder="Account Number"
-                      required
-                      name="accountNumberForFees"
-                      value={accountNumberForFees}
-                      onChange={registerFeeDataChange}
-                    />
-                  </div> */}
+                <h2>fee Upload</h2>
+                <hr></hr>
+                <br></br>
                   
-                  <div className="entry">
-                    <label className="label_name" for="{dateOfBirthStudent}">
-                      Date of Payment
-                    </label>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker
-                        id="label_input"
-                        label="Date Of Payment"
-                        value={dateOfPaymentForFees}
-                        onChange={(newValue) =>
-                          setDateOfPaymentForFees(newValue)
-                        }
-                      />
-                    </LocalizationProvider>
-                  </div>
-                  
-                  <div className="entry">
-                    <label className="label_name" for="{amountForFees}">
-                      Fee Upload
-                    </label>
-                        
-                    <input
-                      id="label_input"
-                      type="file"
-                      required
-                      name="feeUploadDocument"
-                      value={feeUploadDocument}
-                      accept="pdf/*"
-                      onChange={registerFeeDataChange}
-                    />
-                    <br></br>
-                    <p >File:- {previewFeeUpload}</p>
-                  </div>
+                      <div className="entry">
+                              <label
+                                className="label_name"
+                                for="{semesterForFees}">
+                                Semester
+                              </label>
+                              <select
+                                id="label_input"
+                                required
+                                name="semesterForFees"
+                                onChange={registerFeeDataChange}>
+                                <option value={semesterForFees}>Semester</option>
+                                {semesters.map((sem) => (
+                                  <option key={sem} value={sem}>
+                                    {sem}
+                                  </option>
+                                ))}
+                              </select>
+                      </div>
+
+
+                      <div className="entry">
+                        <label className="label_name" for="{bankNameForFees}">
+                          Bank Name
+                        </label>
+                        <input
+                          id="label_input"
+                          type="text"
+                          placeholder="Bank Name"
+                          required
+                          name="bankNameForFees"
+                          value={bankNameForFees}
+                          onChange={registerFeeDataChange}
+                        />
+                      </div>
+
+                      <div className="entry">
+                        <label className="label_name" for="{ifscCodeForFees}">
+                          IFSC Code
+                        </label>
+                        <input
+                          id="label_input"
+                          type="text"
+                          placeholder="IFSC Code"
+                          required
+                          name="ifscCodeForFees"
+                          value={ifscCodeForFees}
+                          onChange={registerFeeDataChange}
+                        />
+                      </div>
+
+                    <div className="entry">
+                        <label className="label_name" for="{amountForFees}">
+                          Amount
+                        </label>
+                        <input
+                          id="label_input"
+                          type="number"
+                          placeholder="Amount"
+                          required
+                          name="amountForFees"
+                          value={amountForFees}
+                          onChange={registerFeeDataChange}
+                        />
+                    </div>
+
+                      {/* <div>
+                        <label>Challan ID</label>
+                        <input
+                          type="text"
+                          placeholder="Challan ID"
+                          required
+                          name="challanIdForFees"
+                          value={challanIdForFees}
+                          onChange={registerFeeDataChange}
+                        />
+                      </div> */}
+
+                      {/* <div>
+                        <label>Account Number</label>
+                        <input
+                          type="number"
+                          placeholder="Account Number"
+                          required
+                          name="accountNumberForFees"
+                          value={accountNumberForFees}
+                          onChange={registerFeeDataChange}
+                        />
+                      </div> */}
+                      
+                      <div className="entry">
+                        <label className="label_name" for="{dateOfPaymentForFees}">
+                          Date of Payment
+                        </label>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            id="label_input"
+                            label="Date Of Payment"
+                            value={dateOfPaymentForFees}
+                            onChange={(newValue) =>
+                              setDateOfPaymentForFees(newValue)
+                            }
+                          />
+                        </LocalizationProvider>
+                      </div>
+                      
+                      <div className="entry">
+                        <label className="label_name" for="{amountForFees}">
+                          Fee Upload
+                        </label>
+                            
+                        <input
+                          id="label_input"
+                          type="file"
+                          required
+                          name="feeUploadDocument"
+                          value={feeUploadDocument}
+                          accept="pdf/*"
+                          onChange={registerFeeDataChange}
+                        />
+                        <br></br>
+                        <p >File:- {previewFeeUpload}</p>
+                      </div>
+                      <br></br>
+                      <div className="btn">
+                        <button 
+                          className="signInbtn border hover"
+                          onClick={submitFeeDataChange}>Submit
+                          </button>
+                      </div>
                 
               </div>
               
               <div className="subsection">
-                  <h2>fee Upload</h2>
+                  <h2>Result Upload</h2>
                   <hr></hr>
                   <br></br>
 
@@ -406,6 +413,13 @@ const DocumentUploadStudent = () => {
                     />
                     <p>File:- {previewResultUpload}</p>
                   </div>
+                  <br></br>
+                  <div className="btn">
+                        <button 
+                          className="signInbtn border hover"
+                          onClick={submitMarksDataChange}>Submit
+                          </button>
+                      </div>
               </div>
               
             </div>

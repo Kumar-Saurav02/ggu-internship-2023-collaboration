@@ -1,145 +1,147 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, Fragment, useEffect } from "react";
 import "./StudentScholarship.css";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { State } from "country-state-city";
 import SidebarStudent from "../SidebarStudent/SidebarStudent";
+import { submitScholarship } from "../../../actions/studentAction";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import Loader from "../../Loader/Loader";
+import { clearMessages } from "../../../actions/adminAction";
 
 const StudentScholarship = () => {
-  const [name, setName] = useState("");
-  const [session, setSession] = useState("");
-  const [state, setState] = useState("");
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const [studentState, setStudentState] = useState();
+  const [session, setSession] = useState();
+  const [name, setName] = useState();
+  const [document, setDocument] = useState("");
 
-  const addData = () => {
-    setData([...data, { state, session, name }]);
-    setName("");
-    setSession("");
-    setState("");
+  const {
+    loading: uploading,
+    message,
+    error,
+  } = useSelector((state) => state.marksFeesCourseUpdate);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch(clearMessages());
+    }
+    if (message) {
+      toast.success(message);
+      dispatch(clearMessages());
+    }
+  }, [error, message]);
+
+  const documentChange = (e) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setDocument(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
 
-  function SubmitButton() {
-    if (state && session && name) {
-      return (
-        <Button onClick={addData} color="success" variant="contained">
-          Submit
-        </Button>
-      );
-    } else {
-      return (
-        <Button
-          onClick={() => alert("Enter full Details !")}
-          color="success"
-          variant="contained">
-          Submit
-        </Button>
-      );
+  const submitScholarshipDetails = () => {
+    if (session.trim() === "") {
+      return toast.error("Fill session properly");
     }
-  }
-
-  const removeItem = (index) => {
-    let arr = data;
-    arr.splice(index, 1);
-    setData([...arr]);
+    if (studentState.trim() === "") {
+      return toast.error("Fill state properly");
+    }
+    if (name.trim() === "") {
+      return toast.error("Fill name of scholarship properly");
+    }
+    dispatch(submitScholarship(session, studentState, name, document));
   };
 
   return (
-    <div className="scholarshipStudent">
-      <SidebarStudent />
-      <div className="full">
-        <div className="first">
-          <span className="heading">
-            {" "}
-            <h2>Scholarship Details</h2>{" "}
-          </span>
-          <Stack dirrection="row" spacing={1}>
-            <h3 id className="titles">
-              Select State
-            </h3>
-            <FormControl fullwidth>
-              <InputLabel id="demo-simple-select-label">State</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={state}
-                label="State"
-                onChange={(event) => setState(event.target.value)}>
-                <MenuItem value={"Bihar"}>Assam</MenuItem>
-                <MenuItem value={2}>Bihar</MenuItem>
-                <MenuItem value={3}>Jharkhand</MenuItem>
-              </Select>
-            </FormControl>
+    <Fragment>
+      {uploading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <div className="scholarshipStudent">
+            <SidebarStudent />
 
-            <h3 id className="titles">
-              Session
-            </h3>
-            <input
-              type="text"
-              placeholder="Session (e.g. 20xx-yy)"
-              required
-              value={session}
-              onChange={(event) => setSession(event.target.value)}
-            />
-            <h3 id className="titles">
-              Name Of Scholarship
-            </h3>
-            <input
-              type="text"
-              placeholder="Name of Scholarship"
-              required
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
+            <div className="approvBox">
+              <h1>Scholarship</h1>
+              <hr></hr>
+              <br></br>
+              <div className="subsection">
 
-            <SubmitButton />
-          </Stack>
-        </div>
-
-        <div className="showdata">
-          <div className="Field_data_val">
-            <span className="data_n_title">
-              <h4>State</h4>
-            </span>
-            <span className="data_n_title">
-              <h4>Session</h4>
-            </span>
-            <span className="data_n_title">
-              <h4>Name of Scholarship</h4>
-            </span>
-            <span className="data_n_title">
-              <h4>Remove</h4>
-            </span>
-          </div>
-          {data.map((element, index) => {
-            return (
-              <div key={index} className="show_data_val">
-                <span className="data_n_title">
-                  <h4> {element.state} </h4>
-                </span>
-                <span className="data_n_title">
-                  <h4> {element.session} </h4>
-                </span>
-                <span className="data_n_title">
-                  <h4> {element.name} </h4>
-                </span>
-
-                <Button
-                  onClick={() => removeItem(index)}
-                  color="error"
-                  variant="contained">
-                  <DeleteIcon />
-                </Button>
+              <div className="entry">
+                    <label className="label_name" for="{studentState}">
+                      State
+                    </label>
+                <select
+                      id="label_input"
+                  required
+                  value={studentState}
+                  onChange={(e) => setStudentState(e.target.value)}>
+                  <option value="">State</option>
+                  {State &&
+                    State.getStatesOfCountry("IN").map((item) => (
+                      <option key={item.isoCode} value={item.name}>
+                        {item.name}
+                      </option>
+                    ))}
+                </select>
               </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+
+              <div className="entry">
+                <label className="label_name" for="{name}">
+                      Scholarship's Name
+                    </label>
+                    <input
+                      id="label_input"
+                  type="text"
+                  placeholder="Name of Scholarship"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+
+              <div className="entry">
+                    <label className="label_name" for="{session}">
+                      Session
+                    </label>
+                    <input
+                      id="label_input"
+                  type="text"
+                  placeholder="eg:- 2010-2011"
+                  required
+                  value={session}
+                  onChange={(e) => setSession(e.target.value)}
+                />
+              </div>
+
+              <div className="entry">
+                      <label className="label_name" for="{photoUploadStudent}">
+                        Upload Related pdf
+                      </label>
+
+                      <div className="address" id="label_input">
+                <input type="file" accept="pdf/*" onChange={documentChange} />
+              
+                      </div>
+              </div>
+              <br></br>
+
+              <div className="btn">
+                <button 
+                className=" signInbtn border hover"
+                onClick={submitScholarshipDetails}>Submit</button>
+              </div>
+              </div>
+            </div>
+          </div>
+        </Fragment>
+      )}
+    </Fragment>
   );
 };
 
