@@ -4,7 +4,7 @@ import "./ProfileTeacher.css";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../Loader/Loader";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { loadTeacher } from "../../../actions/teacherAction";
 
 const ProfileTeacher = () => {
@@ -14,6 +14,10 @@ const ProfileTeacher = () => {
   const { teacher, loading, isAuthenticated } = useSelector(
     (state) => state.registerLoginTeachers
   );
+
+  const editProfile = () => {
+    navigate("/editTeacherProfile");
+  };
 
   return (
     <Fragment>
@@ -119,6 +123,9 @@ const ProfileTeacher = () => {
                 
                 </div>
               )} */}
+              <div>
+                <button onClick={editProfile}>Edit</button>
+              </div>
                 </div>
           </div>
             </div>

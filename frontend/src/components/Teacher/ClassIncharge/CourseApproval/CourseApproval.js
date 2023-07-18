@@ -17,6 +17,12 @@ const CourseApproval = () => {
     error: courseError,
   } = useSelector((state) => state.getCoursesForApproval);
 
+  const {
+    loading,
+    message: ApproveRejectMessage,
+    error: ApproveRejectError,
+  } = useSelector((state) => state.courseScholarshipCheck);
+
   const { teacher } = useSelector((state) => state.registerLoginTeachers);
 
   useEffect(() => {
@@ -30,9 +36,20 @@ const CourseApproval = () => {
     }
   }, [courseError]);
 
+  useEffect(() => {
+    if (ApproveRejectMessage) {
+      toast.success(ApproveRejectMessage);
+      dispatch(clearMessages());
+    }
+    if (ApproveRejectError) {
+      toast.success(ApproveRejectError);
+      dispatch(clearMessages());
+    }
+  }, [dispatch, ApproveRejectMessage, ApproveRejectError]);
+
   return (
     <Fragment>
-      {courseLoading ? (
+      {courseLoading || loading ? (
         <Loader />
       ) : (
         <Fragment>

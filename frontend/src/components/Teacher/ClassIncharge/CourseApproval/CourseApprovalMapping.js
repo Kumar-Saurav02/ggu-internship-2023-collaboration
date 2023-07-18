@@ -1,46 +1,24 @@
-import React, { Fragment, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { clearMessages } from "../../../../actions/adminAction";
+import React, { Fragment } from "react";
+import { useDispatch } from "react-redux";
 import {
   courseAcceptByIncharge,
   courseRejectByIncharge,
 } from "../../../../actions/teacherAction";
-import Loader from "../../../Loader/Loader";
 import "./CourseApproval.css";
 
 const CourseApprovalMapping = ({ data }) => {
   const dispatch = useDispatch();
 
-  const {
-    loading,
-    message: ApproveRejectMessage,
-    error: ApproveRejectError,
-  } = useSelector((state) => state.courseScholarshipCheck);
-
-  useEffect(() => {
-    if (ApproveRejectMessage) {
-      toast.success(ApproveRejectMessage);
-      dispatch(clearMessages());
-    }
-    if (ApproveRejectError) {
-      toast.success(ApproveRejectError);
-      dispatch(clearMessages());
-    }
-  }, [dispatch, ApproveRejectMessage, ApproveRejectError]);
-
   const acceptCourse = () => {
-    dispatch(courseAcceptByIncharge());
+    dispatch(courseAcceptByIncharge(data, data._id, data.enrollmentNumber));
   };
 
   const rejectCourse = () => {
-    dispatch(courseRejectByIncharge());
+    dispatch(courseRejectByIncharge(data._id));
   };
+
   return (
-    <Fragment>
-      {loading ? (
-        <Loader />
-      ) : (
+  
         <Fragment>
           <div className="content">
 
@@ -119,9 +97,9 @@ const CourseApprovalMapping = ({ data }) => {
           </div>
           
         </Fragment>
-      )}
-    </Fragment>
-  );
+      )
+    
+  
 };
 
 export default CourseApprovalMapping;

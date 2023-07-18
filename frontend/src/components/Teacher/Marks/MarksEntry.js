@@ -212,6 +212,25 @@ const MarksEntry = () => {
       setMarksClassTest1Student(ct1);
       setMarksClassTest2Student(ct2);
       setMarksEndSemesterStudent(endSem);
+    } else if (
+      studentDetails !== null &&
+      subjects !== null &&
+      studentDetails !== undefined &&
+      subjects !== undefined &&
+      studentDetails.length > 0 &&
+      subjects.length > 0
+    ) {
+      var ct1 = [],
+        ct2 = [],
+        endSem = [];
+      for (let i = 0; i < studentDetails.length; i++) {
+        ct1[i] = 0;
+        ct2[i] = 0;
+        endSem[i] = 0;
+      }
+      setMarksClassTest1Student(ct1);
+      setMarksClassTest2Student(ct2);
+      setMarksEndSemesterStudent(endSem);
     }
   }, [marksDetails]);
 

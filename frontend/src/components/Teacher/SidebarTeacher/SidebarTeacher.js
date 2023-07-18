@@ -43,18 +43,22 @@ const SidebarTeacher = ({ role }) => {
                 Profile
               </p>
             </Link>
-            <Link to="/attendanceEntry">
-              <p>
-                <PeopleIcon />
-                Attendance Entry
-              </p>
-            </Link>
-            <Link to="/marksEntry">
-              <p>
-                <PeopleIcon />
-                Marks Entry
-              </p>
-            </Link>
+            {role !== "admin" && (
+              <div>
+                <Link to="/attendanceEntry">
+                  <p>
+                    <PeopleIcon />
+                    Attendance Entry
+                  </p>
+                </Link>
+                <Link to="/marksEntry">
+                  <p>
+                    <PeopleIcon />
+                    Marks Entry
+                  </p>
+                </Link>
+            </div>
+            )}
 
             {role === "hod" && (
               <div className="sidebar">

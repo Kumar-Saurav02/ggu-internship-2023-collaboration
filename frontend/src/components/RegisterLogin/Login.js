@@ -176,7 +176,7 @@ const Login = () => {
                     className="signInbtn border hover">
                     New Registration
                   </button>
-                  <Link className="forlin">Forgot Password🤔</Link>
+                  <Link className="forlin">Forgot Password</Link>
                 </div>
               </div>
             </div>

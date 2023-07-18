@@ -37,6 +37,9 @@ import {
   GET_ATTENDANCE_BY_SUBJECT_REQUEST,
   GET_ATTENDANCE_BY_SUBJECT_SUCCESS,
   GET_ATTENDANCE_BY_SUBJECT_FAIL,
+  UPDATE_TEACHER_DETAILS_REQUEST,
+  UPDATE_TEACHER_DETAILS_SUCCESS,
+  UPDATE_TEACHER_DETAILS_FAIL,
 } from "../constants/teacherConstant";
 import {
   REGISTER_TEACHER_REQUEST,
@@ -152,6 +155,34 @@ export const loadTeacher = () => async (dispatch) => {
   }
 };
 
+// UPDATE TEACHER DETAILS
+export const updateTeacherDetails =
+  (mobileNumber, profilePhoto, signature, resume) => async (dispatch) => {
+    try {
+      dispatch({ type: UPDATE_TEACHER_DETAILS_REQUEST });
+
+      const config = { headers: { "Content-Type": "application/json" } };
+
+      const { data } = await axios.put(
+        `/api/updateTeacher`,
+        {
+          mobileNumber,
+          profilePhoto,
+          signature,
+          resume,
+        },
+        config
+      );
+
+      dispatch({ type: UPDATE_TEACHER_DETAILS_SUCCESS, payload: data.message });
+    } catch (error) {
+      dispatch({
+        type: UPDATE_TEACHER_DETAILS_FAIL,
+        payload: error.response.data.message,
+      });
+    }
+  };
+
 //CLASS INCHARGE
 
 // GET COURSE APPROVAL
@@ -242,7 +273,8 @@ export const scholarshipApprovalByIncharge = () => async (dispatch) => {
 
 //SCHOLARSHIP ACCEPT
 export const scholarshipAcceptByIncharge =
-  (session, state, scholarship, scholarshipDocument) => async (dispatch) => {
+  (session, state, scholarship, scholarshipDocument, enrollmentNumber, id) =>
+  async (dispatch) => {
     try {
       dispatch({ type: SCHOLARSHIP_ACCEPT_REQUEST });
 
@@ -255,6 +287,8 @@ export const scholarshipAcceptByIncharge =
           state,
           scholarship,
           scholarshipDocument,
+          enrollmentNumber,
+          id,
         },
         config
       );

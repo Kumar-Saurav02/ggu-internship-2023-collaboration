@@ -19,6 +19,23 @@ const ScholarshipApproval = () => {
 
   const { teacher } = useSelector((state) => state.registerLoginTeachers);
 
+  const {
+    loading,
+    message: ApproveRejectMessage,
+    error: ApproveRejectError,
+  } = useSelector((state) => state.courseScholarshipCheck);
+
+  useEffect(() => {
+    if (ApproveRejectMessage) {
+      toast.success(ApproveRejectMessage);
+      dispatch(clearMessages());
+    }
+    if (ApproveRejectError) {
+      toast.success(ApproveRejectError);
+      dispatch(clearMessages());
+    }
+  }, [dispatch, ApproveRejectMessage, ApproveRejectError]);
+
   console.log(scholarships);
 
   useEffect(() => {
@@ -31,7 +48,7 @@ const ScholarshipApproval = () => {
   }, [dispatch, scholarshipError]);
   return (
     <Fragment>
-      {scholarshipLoading ? (
+      {scholarshipLoading || loading ? (
         <Loader />
       ) : (
         <Fragment>
@@ -39,7 +56,7 @@ const ScholarshipApproval = () => {
             <SidebarTeacher role={teacher.subRole}/>
             <div className="approvBox">
               <div className="request">
-              <h1>Mark's Entry</h1>
+              <h1>Scholarship Approval</h1>
                 <hr></hr>
                 <br></br>
                 {scholarships &&

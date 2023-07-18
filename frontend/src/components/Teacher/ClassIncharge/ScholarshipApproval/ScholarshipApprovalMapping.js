@@ -12,36 +12,39 @@ import { clearMessages } from "../../../../actions/adminAction";
 const ScholarshipApprovalMapping = ({ data }) => {
   const dispatch = useDispatch();
 
-  const {
-    loading,
-    message: ApproveRejectMessage,
-    error: ApproveRejectError,
-  } = useSelector((state) => state.courseScholarshipCheck);
-
-  useEffect(() => {
-    if (ApproveRejectMessage) {
-      toast.success(ApproveRejectMessage);
-      dispatch(clearMessages());
-    }
-    if (ApproveRejectError) {
-      toast.success(ApproveRejectError);
-      dispatch(clearMessages());
-    }
-  }, [dispatch, ApproveRejectMessage, ApproveRejectError]);
-
+  console.log(data.scholarshipDocument);
   const acceptScholarship = () => {
-    dispatch(scholarshipAcceptByIncharge());
+    if (data.scholarshipDocument === undefined) {
+      dispatch(
+        scholarshipAcceptByIncharge(
+          data.session,
+          data.state,
+          data.scholarship,
+          "",
+          data.enrollmentNumber,
+          data._id
+        )
+      );
+    } else {
+      dispatch(
+        scholarshipAcceptByIncharge(
+          data.session,
+          data.state,
+          data.scholarship,
+          data.scholarshipDocument,
+          data.enrollmentNumber,
+          data._id
+        )
+      );
+    }
   };
 
   const rejectScholarship = () => {
-    dispatch(scholarshipRejectByIncharge());
+    dispatch(scholarshipRejectByIncharge(data._id));
   };
 
   return (
-    <Fragment>
-      {loading ? (
-        <Loader />
-      ) : (
+    
         <Fragment>
           <div className="content">
             <div className="approvBox"> 
@@ -100,9 +103,7 @@ const ScholarshipApprovalMapping = ({ data }) => {
            
           </div>
         </Fragment>
-      )}
-    </Fragment>
-  );
+      )
 };
 
 export default ScholarshipApprovalMapping;
