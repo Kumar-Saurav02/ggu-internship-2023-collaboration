@@ -19,12 +19,14 @@ const Login = () => {
 
   const {
     student,
+    error: studentError,
     loading: studentLoading,
     isAuthenticated: studentAuthenticated,
   } = useSelector((state) => state.registerLoginStudents);
 
   const {
     teacher,
+    error: teacherError,
     loading: teacherLoading,
     isAuthenticated: teacherAuthenticated,
   } = useSelector((state) => state.registerLoginTeachers);

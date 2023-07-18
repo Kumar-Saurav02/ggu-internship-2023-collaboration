@@ -646,6 +646,62 @@ exports.getAllStudents = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+//DELETE PARTICULAR STUDENT
+exports.deleteParticularStudent = catchAsyncErrors(async (req, res, next) => {
+  const { enrollmentNo } = req.body;
+
+  const student = await Student.find({ enrollmentNo });
+
+  if (!student) {
+    return next(
+      new ErrorHandler(
+        `Student does not exist with Enrollment Number: ${enrollmentNo}`
+      )
+    );
+  }
+
+  const imageId = student.photoUpload.public_id;
+  const signatureId = student.signatureUpload.public_id;
+
+  await cloudinary.uploader.destroy(imageId);
+  await cloudinary.uploader.destroy(signatureId);
+
+  if (student.feeDetails !== undefined) {
+    for (let i = 0; i < student.feeDetails.length; i++) {
+      if (student.feeDetails[i].fee !== undefined) {
+        await cloudinary.uploader.destroy(student.feeDetails[i].fee.public_id);
+      }
+    }
+  }
+
+  if (student.marksDetails !== undefined) {
+    for (let i = 0; i < student.marksDetails.length; i++) {
+      if (student.marksDetails[i].result !== undefined) {
+        await cloudinary.uploader.destroy(
+          student.marksDetails[i].result.public_id
+        );
+      }
+    }
+  }
+
+  if (student.scholarshipDetails !== undefined) {
+    for (let i = 0; i < student.scholarshipDetails.length; i++) {
+      if (student.scholarshipDetails[i].scholarshipDocument !== undefined) {
+        await cloudinary.uploader.destroy(
+          student.scholarshipDetails[i].scholarshipDocument.public_id
+        );
+      }
+    }
+  }
+
+  await student.remove();
+
+  res.status(200).json({
+    success: true,
+    message: "User Deleted Successfully",
+  });
+});
+
 //GET ALL APPROVAL
 exports.getAllStudentsApproval = catchAsyncErrors(async (req, res, next) => {
   const requests = await ApproveStudent.find();

@@ -4,10 +4,6 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const sendToken = require("../utils/jwtToken");
 const cloudinary = require("cloudinary").v2;
 
-//GET ALL STUDENTS LIST
-
-//GET ALL TEACHERS LIST
-
 //ADMIN REGISTER
 exports.registerAdmin = catchAsyncErrors(async (req, res, next) => {
   const { email, name, password, confirmPassword } = req.body;
